@@ -73,6 +73,7 @@
 #include "RE/B/BGSColorForm.h"
 #include "RE/B/BGSConstructibleObject.h"
 #include "RE/B/BGSDebris.h"
+#include "RE/B/BGSDecalEmitter.h"
 #include "RE/B/BGSDecalGroup.h"
 #include "RE/B/BGSDecalManager.h"
 #include "RE/B/BGSDecalNode.h"
