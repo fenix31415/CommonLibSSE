@@ -133,7 +133,7 @@ namespace RE
 	{
 		bool result = false;
 
-	    BSVisit::TraverseScenegraphGeometries(this, [&](BSGeometry* a_geometry) -> BSVisit::BSVisitControl {
+		BSVisit::TraverseScenegraphGeometries(this, [&](BSGeometry* a_geometry) -> BSVisit::BSVisitControl {
 			using Flag = BSShaderProperty::EShaderPropertyFlag;
 			using Flag8 = BSShaderProperty::EShaderPropertyFlag8;
 			using Feature = BSShaderMaterial::Feature;
