@@ -144,7 +144,7 @@ namespace RE
 		}
 
 		for (std::uint16_t i = 0; i < extraDataSize; i++) {
-			if (auto extraData = extra[i]; extraData && !extraData->name.empty() && stl::string::iequals(extraData->name, a_key)) {
+			if (const auto extraData = extra[i]; extraData && !extraData->name.empty() && stl::string::iequals(extraData->name, a_key)) {
 				return true;
 			}
 		}
