@@ -12,12 +12,12 @@ namespace RE
 		return (alphaFlags >> 9) & 1;
 	}
 
-    NiAlphaProperty::AlphaFunction NiAlphaProperty::GetDestBlendMode() const
-    {
+	NiAlphaProperty::AlphaFunction NiAlphaProperty::GetDestBlendMode() const
+	{
 		return static_cast<AlphaFunction>((alphaFlags >> 5) & 15);
 	}
 
-    NiAlphaProperty::AlphaFunction NiAlphaProperty::GetSrcBlendMode() const
+	NiAlphaProperty::AlphaFunction NiAlphaProperty::GetSrcBlendMode() const
 	{
 		return static_cast<AlphaFunction>((alphaFlags >> 1) & 15);
 	}
@@ -40,13 +40,13 @@ namespace RE
 		}
 	}
 
-    void NiAlphaProperty::SetDestBlendMode(AlphaFunction a_mode)
+	void NiAlphaProperty::SetDestBlendMode(AlphaFunction a_mode)
 	{
 		alphaFlags &= ~480;
 		alphaFlags |= 32 * stl::to_underlying(a_mode);
 	}
 
-    void NiAlphaProperty::SetSrcBlendMode(AlphaFunction a_mode)
+	void NiAlphaProperty::SetSrcBlendMode(AlphaFunction a_mode)
 	{
 		alphaFlags &= ~30;
 		alphaFlags |= 2 * stl::to_underlying(a_mode);
