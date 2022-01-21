@@ -25,7 +25,7 @@ namespace RE
 		static NiFloatExtraData* Create(const BSFixedString& a_name, float a_value);
 
 		// members
-		float data;  // 18
+		float value;  // 18
 	};
 	static_assert(sizeof(NiFloatExtraData) == 0x20);
 }

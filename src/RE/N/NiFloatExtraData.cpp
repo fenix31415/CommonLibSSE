@@ -7,7 +7,7 @@ namespace RE
 		auto data = NiExtraData::Create<NiFloatExtraData>();
 		if (data) {
 			data->name = a_name;
-			data->data = a_value;
+			data->value = a_value;
 		}
 
 		return data;

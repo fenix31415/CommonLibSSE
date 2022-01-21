@@ -992,6 +992,7 @@ set(SOURCES
 	include/RE/N/NiFloatExtraData.h
 	include/RE/N/NiFloatInterpolator.h
 	include/RE/N/NiFloatKey.h
+	include/RE/N/NiFloatsExtraData.h
 	include/RE/N/NiFrustum.h
 	include/RE/N/NiFrustumPlanes.h
 	include/RE/N/NiGeometryData.h
@@ -1510,6 +1511,7 @@ set(SOURCES
 	src/RE/M/Misc.cpp
 	src/RE/N/NativeFunctionBase.cpp
 	src/RE/N/NiAVObject.cpp
+	src/RE/N/NiAlphaProperty.cpp
 	src/RE/N/NiAnimationKey.cpp
 	src/RE/N/NiBinaryStream.cpp
 	src/RE/N/NiBooleanExtraData.cpp
@@ -1522,6 +1524,7 @@ set(SOURCES
 	src/RE/N/NiFloatData.cpp
 	src/RE/N/NiFloatExtraData.cpp
 	src/RE/N/NiFloatKey.cpp
+	src/RE/N/NiFloatsExtraData.cpp
 	src/RE/N/NiIntegerExtraData.cpp
 	src/RE/N/NiIntegersExtraData.cpp
 	src/RE/N/NiInterpolator.cpp

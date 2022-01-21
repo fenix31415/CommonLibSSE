@@ -4,14 +4,14 @@
 
 namespace RE
 {
-	class NiIntegersExtraData : public NiExtraData
+	class NiFloatsExtraData : public NiExtraData
 	{
 	public:
-		inline static constexpr auto RTTI = RTTI_NiIntegersExtraData;
-		inline static constexpr auto Ni_RTTI = NiRTTI_NiIntegersExtraData;
-		inline static constexpr auto VTABLE = VTABLE_NiIntegersExtraData;
+		inline static constexpr auto RTTI = RTTI_NiFloatsExtraData;
+		inline static constexpr auto Ni_RTTI = NiRTTI_NiFloatsExtraData;
+		inline static constexpr auto VTABLE = VTABLE_NiFloatsExtraData;
 
-		~NiIntegersExtraData() override;  // 00
+		~NiFloatsExtraData() override;  // 00
 
 		// override (NiExtraData)
 		const NiRTTI* GetRTTI() const override;                           // 02
@@ -22,16 +22,16 @@ namespace RE
 		void          SaveBinary(NiStream& a_stream) override;            // 1B
 		bool          IsEqual(NiObject* a_object) override;               // 1C
 
-		static NiIntegersExtraData* Create(const BSFixedString& a_name, const std::vector<std::int32_t>& a_integers);
+		static NiFloatsExtraData* Create(const BSFixedString& a_name, const std::vector<float>& a_Floats);
 
-		[[nodiscard]] std::optional<std::uint32_t> GetIndex(std::int32_t a_element) const;
-		bool                                       Insert(std::int32_t a_element);
-		bool                                       Remove(std::int32_t a_element);
+		[[nodiscard]] std::optional<std::uint32_t> GetIndex(float a_element) const;
+		bool                                       Insert(float a_element);
+		bool                                       Remove(float a_element);
 
 		// members
 		std::uint32_t size;   // 18
 		std::uint32_t pad;    // 1C
-		std::int32_t* value;  // 20
+		float*        value;  // 20
 	};
-	static_assert(sizeof(NiIntegersExtraData) == 0x28);
+	static_assert(sizeof(NiFloatsExtraData) == 0x28);
 }

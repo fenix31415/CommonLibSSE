@@ -994,6 +994,7 @@
 #include "RE/N/NiFloatExtraData.h"
 #include "RE/N/NiFloatInterpolator.h"
 #include "RE/N/NiFloatKey.h"
+#include "RE/N/NiFloatsExtraData.h"
 #include "RE/N/NiFrustum.h"
 #include "RE/N/NiFrustumPlanes.h"
 #include "RE/N/NiGeometryData.h"

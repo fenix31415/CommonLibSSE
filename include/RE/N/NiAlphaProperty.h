@@ -37,8 +37,17 @@ namespace RE
 		bool               IsEqual(NiObject* a_object) override;               // 1C
 		[[nodiscard]] Type GetType() const override;                           // 25 - { return Type::kAlpha; }
 
+		[[nodiscard]] bool          GetAlphaBlending() const;
+		[[nodiscard]] bool          GetAlphaTesting() const;
+		[[nodiscard]] AlphaFunction GetDestBlendMode() const;
+		[[nodiscard]] AlphaFunction GetSrcBlendMode() const;
+		void                        SetAlphaBlending(bool a_enable);
+		void                        SetAlphaTesting(bool a_enable);
+		void                        SetDestBlendMode(AlphaFunction a_mode);
+		void                        SetSrcBlendMode(AlphaFunction a_mode);
+
 		// members
-		std::uint16_t alphaFlags;      // 30
+		std::uint16_t alphaFlags;      // 30`
 		std::uint8_t  alphaThreshold;  // 32
 		std::uint8_t  pad33;           // 33
 		std::uint32_t pad34;           // 34

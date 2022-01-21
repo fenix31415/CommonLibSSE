@@ -22,11 +22,11 @@ namespace RE
 		void          SaveBinary(NiStream& a_stream) override;            // 1B
 		bool          IsEqual(NiObject* a_object) override;               // 1C
 
-		static NiStringsExtraData*   Create(const BSFixedString& a_name, const std::vector<BSFixedString>& a_strings);
-		std::optional<std::uint32_t> GetIndex(const BSFixedString& a_element) const;
-		bool                         Insert(const BSFixedString& a_element);
-		bool                         Remove(const BSFixedString& a_element);
-		bool                         Replace(const BSFixedString& a_from, const BSFixedString& a_to);
+		static NiStringsExtraData*                 Create(const BSFixedString& a_name, const std::vector<BSFixedString>& a_strings);
+		[[nodiscard]] std::optional<std::uint32_t> GetIndex(const BSFixedString& a_element) const;
+		bool                                       Insert(const BSFixedString& a_element);
+		bool                                       Remove(const BSFixedString& a_element);
+		bool                                       Replace(const BSFixedString& a_from, const BSFixedString& a_to);
 
 		// members
 		std::uint32_t size;   // 18
