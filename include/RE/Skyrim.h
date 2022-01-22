@@ -1097,6 +1097,7 @@
 #include "RE/S/SafeZoneMenu.h"
 #include "RE/S/SavePatcher.h"
 #include "RE/S/ScrapHeap.h"
+#include "RE/S/ScreenSplatter.h"
 #include "RE/S/Script.h"
 #include "RE/S/ScriptEventSourceHolder.h"
 #include "RE/S/ScriptFunction.h"
