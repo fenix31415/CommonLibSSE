@@ -94,6 +94,13 @@ namespace RE
 			return func(this, a_pos, a_cell);
 		}
 
+		void PurgeBufferedCells()
+		{
+			using func_t = decltype(&TES::PurgeBufferedCells);
+			REL::Relocation<func_t> func{ REL::ID(13159) };
+			return func(this);
+		}
+
 		// members
 		std::uint64_t                                       unk070;                     // 070
 		GridCellArray*                                      gridCells;                  // 078
