@@ -97,7 +97,7 @@ namespace RE
 		void PurgeBufferedCells()
 		{
 			using func_t = decltype(&TES::PurgeBufferedCells);
-			REL::Relocation<func_t> func{ REL::ID(13159) };
+			REL::Relocation<func_t> func{ REL::ID(13299) };
 			return func(this);
 		}
 
