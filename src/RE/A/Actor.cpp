@@ -17,6 +17,7 @@
 #include "RE/M/MiddleHighProcessData.h"
 #include "RE/M/Misc.h"
 #include "RE/N/NiColor.h"
+#include "RE/N/NiMath.h"
 #include "RE/N/NiNode.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/P/ProcessLists.h"
@@ -534,7 +535,22 @@ namespace RE
 		return boolBits.all(BOOL_BITS::kPlayerTeammate);
 	}
 
-	bool Actor::IsRunning() const
+    float Actor::IsPointDeepUnderWater(float a_zPos, TESObjectCELL* a_cell)
+	{
+		auto waterHeight = !a_cell || a_cell == parentCell ? GetWaterHeight() : a_cell->GetExteriorWaterHeight();
+
+		if (waterHeight == -NI_INFINITY && a_cell) {
+			waterHeight = a_cell->GetExteriorWaterHeight();
+		}
+
+		if (waterHeight <= a_zPos) {
+			return 0.0f;
+		}
+
+		return std::fminf((waterHeight - a_zPos) / GetHeight(), 1.0f);
+	}
+
+    bool Actor::IsRunning() const
 	{
 		using func_t = decltype(&Actor::IsRunning);
 		REL::Relocation<func_t> func{ Offset::Actor::IsRunning };
@@ -558,7 +574,12 @@ namespace RE
 		return true;
 	}
 
-	bool Actor::IsSummoned() const noexcept
+    bool Actor::IsPointSubmergedMoreThan(const NiPoint3& a_pos, TESObjectCELL* a_cell, const float a_waterLevel)
+	{
+		return IsPointDeepUnderWater(a_pos.z, a_cell) >= a_waterLevel;
+	}
+
+    bool Actor::IsSummoned() const noexcept
 	{
 		return currentProcess && currentProcess->GetIsSummonedCreature();
 	}

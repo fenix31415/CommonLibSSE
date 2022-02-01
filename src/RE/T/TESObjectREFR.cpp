@@ -312,7 +312,7 @@ namespace RE
 				const auto it = results.find(a_object);
 				const auto entryData =
 					it != results.end() ?
-                        it->second.second.get() :
+						it->second.second.get() :
                         nullptr;
 				return entryData ? entryData->IsLeveled() : false;
 			};
@@ -439,22 +439,6 @@ namespace RE
 		return func(this, a_entryData, a_numItems, a_useMult);
 	}
 
-	float TESObjectREFR::GetSubmergedWaterLevel(float a_zPos, TESObjectCELL* a_cell) const
-	{
-		auto waterHeight = a_cell && a_cell != parentCell ? a_cell->GetWaterHeight() : GetWaterHeight();
-
-		if (waterHeight == -NI_INFINITY && a_cell) {
-			waterHeight = a_cell->GetWaterHeight();
-		}
-
-		if (waterHeight <= a_zPos) {
-			return 0.0f;
-		}
-
-		auto level = (waterHeight - a_zPos) / GetHeight();
-		return level <= 1.0f ? level : 1.0f;
-	}
-
 	void TESObjectREFR::GetTransform(NiTransform& a_transform) const
 	{
 		using func_t = decltype(&TESObjectREFR::GetTransform);
@@ -464,17 +448,16 @@ namespace RE
 
 	float TESObjectREFR::GetWaterHeight() const
 	{
-		float           waterHeight = -NI_INFINITY;
-		constexpr float flt_max = -NI_INFINITY;
+		float waterHeight = -NI_INFINITY;
 
 		if (loadedData) {
 			waterHeight = loadedData->relevantWaterHeight;
-			if (waterHeight != flt_max) {
+			if (waterHeight != -NI_INFINITY) {
 				return waterHeight;
 			}
 		}
 
-		return parentCell ? parentCell->GetWaterHeight() : waterHeight;
+		return parentCell ? parentCell->GetExteriorWaterHeight() : waterHeight;
 	}
 
 	float TESObjectREFR::GetWeight() const
@@ -616,6 +599,11 @@ namespace RE
 	bool TESObjectREFR::IsInitiallyDisabled() const
 	{
 		return (formFlags & RecordFlags::kInitiallyDisabled) != 0;
+	}
+
+	bool TESObjectREFR::IsInWater() const
+	{
+		return GetWaterHeight() > GetPositionZ();
 	}
 
 	bool TESObjectREFR::IsLocked() const

@@ -401,7 +401,6 @@ namespace RE
 		[[nodiscard]] constexpr float           GetPositionZ() const noexcept { return data.location.z; }
 		NiControllerSequence*                   GetSequence(stl::zstring a_name) const;
 		std::uint32_t                           GetStealValue(const InventoryEntryData* a_entryData, std::uint32_t a_numItems, bool a_useMult) const;
-		float                                   GetSubmergedWaterLevel(float a_zPos, TESObjectCELL* a_cell) const;
 		void                                    GetTransform(NiTransform& a_transform) const;
 		float                                   GetWaterHeight() const;
 		float                                   GetWeight() const;
@@ -423,6 +422,7 @@ namespace RE
 		bool                                    IsEnchanted() const;
 		bool                                    IsHorse() const;
 		bool                                    IsInitiallyDisabled() const;
+		bool                                    IsInWater() const;
 		bool                                    IsLocked() const;
 		bool                                    IsMarkedForDeletion() const;
 		bool                                    IsOffLimits();

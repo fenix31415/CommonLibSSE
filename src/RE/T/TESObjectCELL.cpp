@@ -81,22 +81,27 @@ namespace RE
 		return zone ? zone->data.zoneOwner : nullptr;
 	}
 
-	float TESObjectCELL::GetWaterHeight() const
+	float TESObjectCELL::GetExteriorWaterHeight() const
 	{
-		constexpr auto height = -NI_INFINITY;
-
 		if (cellFlags.none(Flag::kHasWater) || cellFlags.any(Flag::kIsInteriorCell)) {
-			return height;
+			return -NI_INFINITY;
 		}
 
 		if (waterHeight < 2147483600.0f) {
 			return waterHeight;
 		}
 
-		return worldSpace ? worldSpace->GetWaterHeight() : height;
+		return worldSpace ? worldSpace->GetDefaultWaterHeight() : -NI_INFINITY;
 	}
 
-	bool TESObjectCELL::IsAttached() const
+    bool TESObjectCELL::GetWaterHeight(const NiPoint3& a_pos, float& a_waterHeight)
+	{
+		using func_t = decltype(&TESObjectCELL::GetWaterHeight);
+		REL::Relocation<func_t> func{ REL::ID(18543) };
+		return func(this, a_pos, a_waterHeight);
+	}
+
+    bool TESObjectCELL::IsAttached() const
 	{
 		return cellState == CellState::kAttached;
 	}

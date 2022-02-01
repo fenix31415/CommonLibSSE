@@ -14,7 +14,7 @@ namespace RE
 		return func(this);
 	}
 
-	float TESWorldSpace::GetWaterHeight() const
+	float TESWorldSpace::GetDefaultWaterHeight() const
 	{
 		auto world = this;
 		while (world->parentWorld && world->parentUseFlags.any(ParentUseFlag::kUseLandData)) {

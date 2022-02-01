@@ -181,7 +181,7 @@ namespace RE
 
 		[[nodiscard]] bool           HasMaxHeightData() const;
 		[[nodiscard]] TESObjectCELL* GetSkyCell();
-		[[nodiscard]] float          GetWaterHeight() const;
+		[[nodiscard]] float          GetDefaultWaterHeight() const;
 
 		// members
 		BSTHashMap<CellID, TESObjectCELL*>                            cellMap;                  // 058
