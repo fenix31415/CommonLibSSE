@@ -38,6 +38,7 @@ namespace RE
 			{
 				kNeverFades = 1 << 2,
 				kDeleted = 1 << 5,
+				kIsSkyObject = kDeleted,
 				kHasTreeLOD = 1 << 6,
 				kAddOnLODObject = 1 << 7,
 				kHiddenFromLocalMap = 1 << 9,
@@ -63,6 +64,7 @@ namespace RE
 		[[nodiscard]] bool IsHeadingMarker() const override;  // 1A - { return (flags >> 2) & 1; }
 
 		[[nodiscard]] bool HasTreeLOD() const;
+		[[nodiscard]] bool IsSkyObject() const;
 
 		// members
 		TESObjectSTATData data;  // 68 - DNAM
