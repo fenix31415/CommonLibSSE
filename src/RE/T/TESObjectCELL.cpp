@@ -97,7 +97,7 @@ namespace RE
     bool TESObjectCELL::GetWaterHeight(const NiPoint3& a_pos, float& a_waterHeight)
 	{
 		using func_t = decltype(&TESObjectCELL::GetWaterHeight);
-		REL::Relocation<func_t> func{ REL::ID(18543) };
+		REL::Relocation<func_t> func{ REL::ID(19002) };
 		return func(this, a_pos, a_waterHeight);
 	}
 
