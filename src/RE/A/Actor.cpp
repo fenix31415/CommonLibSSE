@@ -535,7 +535,7 @@ namespace RE
 		return boolBits.all(BOOL_BITS::kPlayerTeammate);
 	}
 
-    float Actor::IsPointDeepUnderWater(float a_zPos, TESObjectCELL* a_cell)
+	float Actor::IsPointDeepUnderWater(float a_zPos, TESObjectCELL* a_cell)
 	{
 		auto waterHeight = !a_cell || a_cell == parentCell ? GetWaterHeight() : a_cell->GetExteriorWaterHeight();
 
@@ -550,7 +550,7 @@ namespace RE
 		return std::fminf((waterHeight - a_zPos) / GetHeight(), 1.0f);
 	}
 
-    bool Actor::IsRunning() const
+	bool Actor::IsRunning() const
 	{
 		using func_t = decltype(&Actor::IsRunning);
 		REL::Relocation<func_t> func{ Offset::Actor::IsRunning };
@@ -574,12 +574,12 @@ namespace RE
 		return true;
 	}
 
-    bool Actor::IsPointSubmergedMoreThan(const NiPoint3& a_pos, TESObjectCELL* a_cell, const float a_waterLevel)
+	bool Actor::IsPointSubmergedMoreThan(const NiPoint3& a_pos, TESObjectCELL* a_cell, const float a_waterLevel)
 	{
 		return IsPointDeepUnderWater(a_pos.z, a_cell) >= a_waterLevel;
 	}
 
-    bool Actor::IsSummoned() const noexcept
+	bool Actor::IsSummoned() const noexcept
 	{
 		return currentProcess && currentProcess->GetIsSummonedCreature();
 	}
