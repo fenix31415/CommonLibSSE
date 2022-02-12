@@ -94,6 +94,7 @@ set(SOURCES
 	include/RE/B/BGSFootstepEvent.h
 	include/RE/B/BGSFootstepManager.h
 	include/RE/B/BGSFootstepSet.h
+	include/RE/B/BGSGrassManager.h
 	include/RE/B/BGSHazard.h
 	include/RE/B/BGSHeadPart.h
 	include/RE/B/BGSIdleCollection.h
