@@ -223,6 +223,7 @@ set(SOURCES
 	include/RE/B/BSImagespaceShaderBlur3.h
 	include/RE/B/BSInputDevice.h
 	include/RE/B/BSInputDeviceManager.h
+	include/RE/B/BSInstanceTriShape.h
 	include/RE/B/BSIntrusiveRefCounted.h
 	include/RE/B/BSKeyboardDevice.h
 	include/RE/B/BSLensFlareRenderData.h
@@ -250,6 +251,7 @@ set(SOURCES
 	include/RE/B/BSMultiBoundOBB.h
 	include/RE/B/BSMultiBoundShape.h
 	include/RE/B/BSMultiIndexTriShape.h
+	include/RE/B/BSMultiStreamInstanceTriShape.h
 	include/RE/B/BSMusicEvent.h
 	include/RE/B/BSMusicManager.h
 	include/RE/B/BSNavmesh.h
