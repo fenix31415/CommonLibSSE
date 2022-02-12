@@ -25,6 +25,14 @@ namespace RE
 		void          RemoveGroup(std::uint32_t a_numInstance) override;                                                                   // 3D
 
 		// members
+		BSTArray<void*> unk160;  // 160
+		std::uint32_t   unk178;  // 178
+		std::uint32_t   unk17C;  // 17C
+		std::uint64_t   unk180;  // 180
+		std::uint64_t   unk188;  // 188
+		std::uint32_t   unk190;  // 190
+		std::uint32_t   unk194;  // 194
+		std::uint32_t   unk198;  // 198
 	};
-	static_assert(sizeof(BSMultiStreamInstanceTriShape) == 0x160);
+	static_assert(sizeof(BSMultiStreamInstanceTriShape) == 0x1A0);
 }
