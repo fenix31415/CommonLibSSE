@@ -14,7 +14,7 @@ namespace RE
 	public:
 		static BGSGrassManager* GetSingleton()
 		{
-			REL::Relocation<BGSGrassManager**> singleton{ REL::ID(514292) };
+			REL::Relocation<BGSGrassManager**> singleton{ REL::ID(400452) };
 			return *singleton;
 		}
 
