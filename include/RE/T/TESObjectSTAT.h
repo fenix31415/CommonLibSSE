@@ -11,7 +11,8 @@ namespace RE
 	public:
 		enum class Flag
 		{
-			kNone = 0
+			kNone = 0,
+			kConsideredSnow = 1 << 0
 		};
 
 		// members
@@ -65,6 +66,7 @@ namespace RE
 
 		[[nodiscard]] bool HasTreeLOD() const;
 		[[nodiscard]] bool IsSkyObject() const;
+		[[nodiscard]] bool IsSnowObject() const;
 
 		// members
 		TESObjectSTATData data;  // 68 - DNAM

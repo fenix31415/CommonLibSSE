@@ -115,7 +115,7 @@ namespace RE
 		[[nodiscard]] bool           GetAppCulled() const;
 		[[nodiscard]] BSGeometry*    GetFirstGeometryOfShaderType(BSShaderMaterial::Feature a_type);
 		[[nodiscard]] TESObjectREFR* GetUserData() const;
-		[[nodiscard]] bool           HasAnimation();
+		[[nodiscard]] bool           HasAnimation() const;
 		[[nodiscard]] bool           HasShaderType(BSShaderMaterial::Feature a_type);
 		void                         RemoveDecals();
 		void                         SetAppCulled(bool a_cull);
