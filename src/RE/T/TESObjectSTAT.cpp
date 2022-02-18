@@ -12,7 +12,7 @@ namespace RE
 		return (formFlags & RecordFlags::kIsSkyObject) != 0;
 	}
 
-    bool TESObjectSTAT::IsSnowObject() const
+	bool TESObjectSTAT::IsSnowObject() const
 	{
 		return data.flags.all(TESObjectSTATData::Flag::kConsideredSnow);
 	}
