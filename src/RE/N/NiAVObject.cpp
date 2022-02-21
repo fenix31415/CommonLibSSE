@@ -129,7 +129,7 @@ namespace RE
 		return func(this, a_motionType, a_arg2, a_arg3, a_allowActivate);
 	}
 
-	bool NiAVObject::SetProjectedUVData(const NiColorA& a_projectedUVParams, const NiColor& a_projectedUVColor, const bool a_isSnow)
+	bool NiAVObject::SetProjectedUVData(const NiColorA& a_projectedUVParams, const NiColor& a_projectedUVColor, bool a_isSnow)
 	{
 		bool result = false;
 
