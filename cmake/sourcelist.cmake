@@ -1315,6 +1315,7 @@ set(SOURCES
 	include/RE/V/VDescTable.h
 	include/RE/V/ValueModifierEffect.h
 	include/RE/V/Variable.h
+	include/RE/V/VertexDesc.h
 	include/RE/V/VirtualMachine.h
 	include/RE/W/WeatherType.h
 	include/RE/Z/ZeroFunctionArguments.h
