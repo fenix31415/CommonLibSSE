@@ -66,40 +66,11 @@ namespace RE
 		void ForEachReference(std::function<bool(TESObjectREFR& a_ref)> a_callback);
 		void ForEachReferenceInRange(TESObjectREFR* a_origin, float a_radius, std::function<bool(TESObjectREFR& a_ref)> a_callback);
 
-		TESObjectCELL* GetCell(const NiPoint3& a_position) const
-		{
-			using func_t = decltype(&TES::GetCell);
-			REL::Relocation<func_t> func{ REL::ID(13322) };
-			return func(this, a_position);
-		}
-
-		TESLandTexture* GetLandTexture(const NiPoint3& a_position) const
-		{
-			using func_t = decltype(&TES::GetLandTexture);
-			REL::Relocation<func_t> func{ REL::ID(13348) };
-			return func(this, a_position);
-		}
-
-		MATERIAL_ID GetLandMaterialType(const NiPoint3& a_position) const
-		{
-			using func_t = decltype(&TES::GetLandMaterialType);
-			REL::Relocation<func_t> func{ REL::ID(13349) };
-			return func(this, a_position);
-		}
-
-		float GetWaterHeight(const NiPoint3& a_pos, TESObjectCELL* a_cell) const
-		{
-			using func_t = decltype(&TES::GetWaterHeight);
-			REL::Relocation<func_t> func{ REL::ID(13358) };
-			return func(this, a_pos, a_cell);
-		}
-
-		void PurgeBufferedCells()
-		{
-			using func_t = decltype(&TES::PurgeBufferedCells);
-			REL::Relocation<func_t> func{ REL::ID(13299) };
-			return func(this);
-		}
+		TESObjectCELL*  GetCell(const NiPoint3& a_position) const;
+		TESLandTexture* GetLandTexture(const NiPoint3& a_position) const;
+		MATERIAL_ID     GetLandMaterialType(const NiPoint3& a_position) const;
+		float           GetWaterHeight(const NiPoint3& a_pos, TESObjectCELL* a_cell) const;
+		void            PurgeBufferedCells();
 
 		// members
 		std::uint64_t                                       unk070;                     // 070
