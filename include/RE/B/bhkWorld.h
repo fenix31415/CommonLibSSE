@@ -2,13 +2,11 @@
 
 #include "RE/B/BSAtomic.h"
 #include "RE/B/bhkSerializable.h"
-#include "RE/H/hkpWorldRayCastInput.h"
-#include "RE/H/hkpWorldRayCastOutput.h"
 
 namespace RE
 {
+	class bhkPickData;
 	class BGSAcousticSpaceListener;
-	class hkpClosestRayHitCollector;
 	class hkpSuspendInactiveAgentsUtil;
 	class NiAVObject;
 
@@ -19,26 +17,6 @@ namespace RE
 		inline static constexpr auto Ni_RTTI = NiRTTI_bhkWorld;
 
 		class bhkConstraintProjector;
-		class hkpClosestRayHitCollector;
-
-		struct RAYCAST_DATA
-		{
-		public:
-			// members
-			hkpWorldRayCastInput       rayInput;                      // 00
-			hkpWorldRayCastOutput      rayOutput;                     // 30
-			hkVector4                  ray;                           // 90
-			hkpClosestRayHitCollector* rayHitCollectorA0{ nullptr };  // A0
-			hkpClosestRayHitCollector* rayHitCollectorA8{ nullptr };  // A8
-			hkpClosestRayHitCollector* rayHitCollectorB0{ nullptr };  // B0
-			hkpClosestRayHitCollector* rayHitCollectorB8{ nullptr };  // B8
-			bool                       unkC0{ false };                // C0
-			std::uint8_t               padC1;                         // C1
-			std::uint16_t              padC2;                         // C2
-			std::uint32_t              padC4;                         // C4
-			std::uint32_t              padC8;                         // C8
-		};
-		static_assert(sizeof(RAYCAST_DATA) == 0xD0);
 
 		~bhkWorld() override;  // 00
 
@@ -55,7 +33,7 @@ namespace RE
 
 		// add
 		virtual void Unk_32(void);                                              // 32
-		virtual bool CastRay(RAYCAST_DATA& a_worldRayCast);                     // 33
+		virtual bool PickObject(bhkPickData& a_pickData);                       // 33
 		virtual void Unk_34(void);                                              // 34
 		virtual void Unk_35(void);                                              // 35
 		virtual void InitHavok(NiAVObject* a_sceneObject, NiAVObject* a_root);  // 36

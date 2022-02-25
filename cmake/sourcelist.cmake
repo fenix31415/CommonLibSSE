@@ -363,6 +363,7 @@ set(SOURCES
 	include/RE/B/bhkMeshMaterial.h
 	include/RE/B/bhkNiCollisionObject.h
 	include/RE/B/bhkPhantom.h
+	include/RE/B/bhkPickData.h
 	include/RE/B/bhkRefObject.h
 	include/RE/B/bhkRigidBody.h
 	include/RE/B/bhkSerializable.h
