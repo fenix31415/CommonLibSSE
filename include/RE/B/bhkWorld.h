@@ -5,7 +5,7 @@
 
 namespace RE
 {
-	class bhkPickData;
+	struct bhkPickData;
 	class BGSAcousticSpaceListener;
 	class hkpSuspendInactiveAgentsUtil;
 	class NiAVObject;

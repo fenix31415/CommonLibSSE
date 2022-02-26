@@ -1,6 +1,8 @@
 #include "RE/T/TES.h"
 
+#include "RE/B/bhkPickData.h"
 #include "RE/G/GridCellArray.h"
+#include "RE/N/NiAVObject.h"
 #include "RE/T/TESObjectCELL.h"
 #include "RE/T/TESObjectREFR.h"
 #include "RE/T/TESWorldspace.h"
@@ -122,6 +124,13 @@ namespace RE
 		using func_t = decltype(&TES::GetWaterHeight);
 		REL::Relocation<func_t> func{ REL::ID(13358) };
 		return func(this, a_pos, a_cell);
+	}
+
+	NiAVObject* TES::Pick(bhkPickData& a_pickData)
+	{
+		using func_t = decltype(&TES::Pick);
+		REL::Relocation<func_t> func{ REL::ID(13221) };
+		return func(this, a_pickData);
 	}
 
 	void TES::PurgeBufferedCells()

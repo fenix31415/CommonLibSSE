@@ -1,6 +1,7 @@
 #pragma once
 
-#include "hkSseMathTypes.h"
+#include "RE/H/hkSseMathTypes.h"
+#include "RE/N/NiPoint3.h"
 
 namespace RE
 {
@@ -25,6 +26,10 @@ namespace RE
 
 		hkVector4(const hkQuadReal& a_rhs) :
 			quad(a_rhs)
+		{}
+
+		hkVector4(const NiPoint3& a_point) :
+			quad(_mm_setr_ps(a_point.x, a_point.y, a_point.z, 0.0f))
 		{}
 
 		hkVector4& operator=(const hkVector4& a_rhs);

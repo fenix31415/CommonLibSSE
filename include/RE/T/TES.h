@@ -20,6 +20,7 @@ namespace RE
 	class GridCellArray;
 	class ImageSpaceModifierInstance;
 	class NavMeshInfoMap;
+	class NiAVObject;
 	class NiNode;
 	class Sky;
 	class TESLandTexture;
@@ -28,7 +29,8 @@ namespace RE
 	class TESObjectREFR;
 	class TESWorldSpace;
 
-	struct PositionPlayerEvent;
+	struct bhkPickData;
+    struct PositionPlayerEvent;
 
 	class TES :
 		public ICellAttachDetachEventSource,                        // 000
@@ -70,6 +72,7 @@ namespace RE
 		TESLandTexture* GetLandTexture(const NiPoint3& a_position) const;
 		MATERIAL_ID     GetLandMaterialType(const NiPoint3& a_position) const;
 		float           GetWaterHeight(const NiPoint3& a_pos, TESObjectCELL* a_cell) const;
+		NiAVObject*     Pick(bhkPickData& a_pickData);
 		void            PurgeBufferedCells();
 
 		// members

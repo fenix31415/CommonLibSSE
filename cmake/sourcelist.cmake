@@ -355,6 +355,7 @@ set(SOURCES
 	include/RE/B/bhkCharacterStateJumping.h
 	include/RE/B/bhkCharacterStateOnGround.h
 	include/RE/B/bhkCharacterStateSwimming.h
+	include/RE/B/bhkCollisionFilter.h
 	include/RE/B/bhkCollisionObject.h
 	include/RE/B/bhkCompressedMeshShape.h
 	include/RE/B/bhkCompressedMeshShapeData.h
@@ -779,11 +780,15 @@ set(SOURCES
 	include/RE/H/hkpCharacterProxyListener.h
 	include/RE/H/hkpCharacterState.h
 	include/RE/H/hkpCharacterStateManager.h
+	include/RE/H/hkpClosestRayHitCollector.h
 	include/RE/H/hkpCollidable.h
+	include/RE/H/hkpCollidableCollidableFilter.h
+	include/RE/H/hkpCollisionFilter.h
 	include/RE/H/hkpCollisionInput.h
 	include/RE/H/hkpCompressedMeshShape.h
 	include/RE/H/hkpConstraintInfo.h
 	include/RE/H/hkpConstraintOwner.h
+	include/RE/H/hkpConvexListFilter.h
 	include/RE/H/hkpConvexShape.h
 	include/RE/H/hkpEntity.h
 	include/RE/H/hkpEntityListener.h
@@ -803,11 +808,15 @@ set(SOURCES
 	include/RE/H/hkpPhantomListener.h
 	include/RE/H/hkpPhantomType.h
 	include/RE/H/hkpProperty.h
+	include/RE/H/hkpRayCollidableFilter.h
+	include/RE/H/hkpRayHitCollector.h
+	include/RE/H/hkpRayShapeCollectionFilter.h
 	include/RE/H/hkpRigidBody.h
 	include/RE/H/hkpRootCdPoint.h
 	include/RE/H/hkpShape.h
 	include/RE/H/hkpShapeBuffer.h
 	include/RE/H/hkpShapeCollection.h
+	include/RE/H/hkpShapeCollectionFilter.h
 	include/RE/H/hkpShapeContainer.h
 	include/RE/H/hkpShapePhantom.h
 	include/RE/H/hkpShapeRayCastCollectorOutput.h
