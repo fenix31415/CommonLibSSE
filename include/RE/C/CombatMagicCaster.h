@@ -1,10 +1,12 @@
 #pragma once
 
+#include "RE/C/CombatInventoryItem.h"
 #include "RE/C/CombatObject.h"
 
 namespace RE
 {
-	class CombatInventoryItem;
+	class CombatController;
+	class CombatProjectileAimController;
 	class MagicItem;
 
 	class CombatMagicCaster : public CombatObject
@@ -19,15 +21,15 @@ namespace RE
 		void LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
 
 		// add
-		virtual void Unk_05() = 0;  // 05
-		virtual void Unk_06();      // 06
-		virtual void Unk_07();      // 07
-		virtual void Unk_08();      // 08
-		virtual void Unk_09();      // 09
-		virtual void Unk_0A();      // 0A
-		virtual void Unk_0B();      // 0B
-		virtual void Unk_0C();      // 0C
-		virtual void Unk_0D();      // 0D
+		virtual CombatInventoryItem::CATEGORY GetCategory() = 0;                                                   // 05
+		virtual bool                          CheckStartCast(CombatController* a_combatController);                // 06
+		virtual bool                          CheckStopCast(CombatController* a_combatController);                 // 07
+		virtual float                         CalcCastMagicChance(CombatController* a_combatController) const;     // 08
+		virtual float                         CalcMagicHoldTime(CombatController* a_combatController) const;       // 09
+		virtual void*                         GetMagicTarget(CombatController* a_combatController) const;          // 0A
+		virtual void                          NotifyStartCast(CombatController* a_combatController);               // 0B
+		virtual void                          NotifyStopCast(CombatController* a_combatController);                // 0C
+		virtual void                          SetupAimController(CombatProjectileAimController* a_aimController);  // 0D
 
 		// members
 		CombatInventoryItemMagic* inventoryItem;  // 10

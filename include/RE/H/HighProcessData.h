@@ -307,7 +307,10 @@ namespace RE
 		bool                                                  inCommandState;                 // 459
 		std::uint8_t                                          unk45A;                         // 45A
 		std::uint8_t                                          unk45B;                         // 45B
-		std::uint32_t                                         unk45C;                         // 45C
+		std::uint8_t                                          unk45C;                         // 45C
+		std::uint8_t                                          unk45D;                         // 45D
+		std::uint8_t                                          unk45E;                         // 45E
+		bool                                                  isDualCasting;                  // 45F
 		std::uint16_t                                         unk460;                         // 460
 		bool                                                  arrested;                       // 462
 		bool                                                  unk463;                         // 463

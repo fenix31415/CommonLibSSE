@@ -15,7 +15,7 @@ namespace RE
 		~CombatObject() override;  // 00
 
 		// add
-		virtual std::uint32_t Unk_02() = 0;                        // 02
+		virtual std::uint32_t GetObjectType() = 0;                 // 02
 		virtual void          SaveGame(BGSSaveGameBuffer* a_buf);  // 03 - { return }
 		virtual void          LoadGame(BGSLoadGameBuffer* a_buf);  // 04 - { return }
 	};

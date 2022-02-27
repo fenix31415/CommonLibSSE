@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/A/ActorValues.h"
 #include "RE/C/CombatObject.h"
 
 namespace RE
@@ -10,25 +11,37 @@ namespace RE
 	class TESBoundObject;
 	class BGSEquipSlot;
 
-	enum class COMBAT_INVENTORY_ITEM
+	struct CombatInventoryResource
 	{
-		kNone = 0,
-		kMelee = 1,
-		kRanged = 2,
-		kShield = 3,
-		kOneHandedBlock = kShield,
-		kMagic = 4,
-		kShout = 5,
-		kStaff = 6,
-		kPotion = 7,
-		kScroll = 8,
-		kTorch = 9
+		ActorValue actorValue;
+		float      value;
 	};
+	static_assert(sizeof(CombatInventoryResource) == 0x8);
 
 	class CombatInventoryItem : public CombatObject
 	{
 	public:
 		inline static constexpr auto RTTI = RTTI_CombatInventoryItem;
+
+		enum class TYPE
+		{
+			kNone = 0,
+			kMelee,
+			kRanged,
+			kShield,
+			kOneHandedBlock = kShield,
+			kMagic,
+			kShout,
+			kStaff,
+			kPotion,
+			kScroll,
+			kTorch
+		};
+
+		enum class CATEGORY
+		{
+			kNone = 0
+		};
 
 		~CombatInventoryItem() override;  // 00
 
@@ -37,22 +50,22 @@ namespace RE
 		void LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
 
 		// add
-		virtual float                 Unk_05();                                              // 05 - { return 0.0; }
-		virtual float                 Unk_06();                                              // 06 - { return 0.0; }
-		virtual float                 Unk_07();                                              // 07 - { return 0.0; }
-		virtual float                 Unk_08();                                              // 08 - { return FLT_MAX; }
-		virtual COMBAT_INVENTORY_ITEM GetType();                                             // 09
-		virtual std::uint32_t         Unk_0A(BGSEquipSlot a_slot);                           // 0A - { return Unk_09(); }
-		virtual void                  Unk_0B() = 0;                                          // 0B
-		virtual float                 GetItemScoreMult(CombatController* a_controller) = 0;  // 0C
-		virtual CombatInventoryItem*  CreateClone() = 0;                                     // 0D
-		virtual bool                  Unk_0E(CombatController* a_controller);                // 0E
-		virtual bool                  CheckShouldEquip(CombatController* a_controller);      // 0F - { return !data08->combatFleeing; }
-		virtual void                  Unk_10();                                              // 10
-		virtual void                  Unk_11();                                              // 11
-		virtual void                  Unk_12();                                              // 12
-		virtual bool                  HasItem();                                             // 13 - { return unk10 != nullptr; }
-		virtual void                  Unk_14();                                              // 14
+		virtual float                GetMinRange();                                             // 05 - { return 0.0; }
+		virtual float                GetMaxRange();                                             // 06 - { return 0.0; }
+		virtual float                GetOptimalRange();                                         // 07 - { return 0.0; }
+		virtual float                GetEquipRange();                                           // 08 - { return FLT_MAX; }
+		virtual TYPE                 GetType();                                                 // 09
+		virtual TYPE                 GetEquipType(BGSEquipSlot a_slot);                         // 0A - { return GetType(); }
+		virtual CATEGORY             GetCategory() = 0;                                         // 0B
+		virtual float                CalculateScore(CombatController* a_controller) = 0;        // 0C
+		virtual CombatInventoryItem* Clone() = 0;                                               // 0D
+		virtual bool                 CheckBusy(CombatController* a_controller);                 // 0E
+		virtual bool                 CheckShouldEquip(CombatController* a_controller);          // 0F - { return !a_controller->state->isFleeing; }
+		virtual bool                 GetResource(CombatInventoryResource& a_resource);          // 10
+		virtual void                 Equip(CombatController* a_controller);                     // 11
+		virtual void                 Unequip(CombatController* a_controller);                   // 12
+		virtual bool                 IsValid();                                                 // 13 - { return item != nullptr; }
+		virtual void                 GetDescription(const char* a_dest, std::uint32_t a_size);  // 14
 
 		// members
 		TESBoundObject* item;            // 10

@@ -12,14 +12,14 @@ namespace RE
 		~CombatMagicCasterTargetEffect() override;  // 00
 
 		// override (CombatMagicCaster)
-		void SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
-		void LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
-		void Unk_05() override;                            // 05
-		void Unk_06() override;                            // 06
-		void Unk_07() override;                            // 07
-		void Unk_08() override;                            // 08
-		void Unk_09() override;                            // 09
-		void Unk_0A() override;                            // 0A
+		void                          SaveGame(BGSSaveGameBuffer* a_buf) override;                               // 03
+		void                          LoadGame(BGSLoadGameBuffer* a_buf) override;                               // 04
+		CombatInventoryItem::CATEGORY GetCategory() override;                                                    // 05
+		bool                          CheckStartCast(CombatController* a_combatController) override;             // 06
+		bool                          CheckStopCast(CombatController* a_combatController) override;              // 07
+		float                         CalcCastMagicChance(CombatController* a_combatController) const override;  // 08
+		float                         CalcMagicHoldTime(CombatController* a_combatController) const override;    // 09
+		void*                         GetMagicTarget(CombatController* a_combatController) const override;       // 0A
 	};
 	static_assert(sizeof(CombatMagicCasterTargetEffect) == 0x20);
 }

@@ -14,14 +14,14 @@ namespace RE
 		~CombatMagicCasterRestore() override;  // 00
 
 		// override (CombatMagicCaster)
-		std::uint32_t Unk_02() override;                            // 02
-		void          SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
-		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
-		void          Unk_05() override;                            // 05
-		void          Unk_06() override;                            // 06
-		void          Unk_07() override;                            // 07
-		void          Unk_0B() override;                            // 0B
-		void          Unk_0C() override;                            // 0C
+		std::uint32_t                 GetObjectType() override;                                        // 02
+		void                          SaveGame(BGSSaveGameBuffer* a_buf) override;                     // 03
+		void                          LoadGame(BGSLoadGameBuffer* a_buf) override;                     // 04
+		CombatInventoryItem::CATEGORY GetCategory() override;                                          // 05
+		bool                          CheckStartCast(CombatController* a_combatController) override;   // 06
+		bool                          CheckStopCast(CombatController* a_combatController) override;    // 07
+		void                          NotifyStartCast(CombatController* a_combatController) override;  // 0B
+		void                          NotifyStopCast(CombatController* a_combatController) override;   // 0C
 
 		// members
 		AITimeStamp   concentrationCastTimeStamp;  // 20

@@ -7,11 +7,14 @@ namespace RE
 	class CombatInventoryItemPotion : public CombatInventoryItemMagic
 	{
 	public:
+		inline static constexpr auto RTTI = RTTI_CombatInventoryItemPotion;
+		inline static constexpr auto VTABLE = VTABLE_CombatInventoryItemPotion;
+
 		~CombatInventoryItemPotion() override;  // 00
 
 		// override (CombatInventoryItemMagic)
-		COMBAT_INVENTORY_ITEM GetType() override;                               // 09 - { return 7; }
-		bool                  Unk_0E(CombatController* a_controller) override;  // 0E
+		TYPE GetType() override;                                  // 09 - { return 7; }
+		bool CheckBusy(CombatController* a_controller) override;  // 0E
 	};
 	static_assert(sizeof(CombatInventoryItemPotion) == 0x50);
 }
