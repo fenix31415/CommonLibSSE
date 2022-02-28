@@ -303,7 +303,7 @@ namespace RE
 		Crime*                                                crimeToReactTo;                 // 440
 		std::uint64_t                                         unk448;                         // 448
 		std::uint64_t                                         unk450;                         // 450
-		std::uint8_t                                          unk458;                         // 458
+		bool                                                  talkingToPC;                    // 458
 		bool                                                  inCommandState;                 // 459
 		std::uint8_t                                          unk45A;                         // 45A
 		std::uint8_t                                          unk45B;                         // 45B

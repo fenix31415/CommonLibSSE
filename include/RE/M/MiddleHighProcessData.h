@@ -258,7 +258,7 @@ namespace RE
 		float                                          unk2A8;                      // 2A8
 		float                                          unk2AC;                      // 2AC
 		float                                          unk2B0;                      // 2B0
-		float                                          unk2B4;                      // 2B4
+		float                                          bleedoutRate;                // 2B4
 		float                                          unk2B8;                      // 2B8
 		float                                          unk2BC;                      // 2BC
 		float                                          unk2C0;                      // 2C0
