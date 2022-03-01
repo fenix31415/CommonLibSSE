@@ -389,7 +389,7 @@ namespace RE
 		virtual void                 Unk_D9(void);                                                                                                                                                                    // 0D9
 		virtual void                 EndDialogue();                                                                                                                                                                   // 0DA
 		virtual Actor*               SetUpTalkingActivatorActor(Actor* a_target, Actor*& a_activator);                                                                                                                // 0DB
-		virtual void                 Unk_DC(void);                                                                                                                                                                    // 0DC - { return; }
+		virtual void                 InitiateSpectator(Actor* a_target);                                                                                                                                              // 0DC - { return; }
 		virtual void                 InitiateFlee(TESObjectREFR* a_fleeRef, bool a_runOnce, bool a_knows, bool a_combatMode, TESObjectCELL* a_cell, TESObjectREFR* a_ref, float a_fleeFromDist, float a_fleeToDist);  // 0DD
 		virtual void                 InitiateGetUpPackage();                                                                                                                                                          // 0DE
 		virtual void                 PutCreatedPackage(TESPackage* a_package, bool a_tempPackage, bool a_createdPackage, bool a_allowFromFurniture);                                                                  // 0DF
