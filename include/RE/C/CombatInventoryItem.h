@@ -11,12 +11,23 @@ namespace RE
 	class TESBoundObject;
 	class BGSEquipSlot;
 
-	struct CombatInventoryResource
+	struct CombatInventoryItemResource
 	{
-		ActorValue actorValue;
-		float      value;
+	public:
+		// members
+		ActorValue actorValue;  // 00
+		float      value;       // 04
 	};
-	static_assert(sizeof(CombatInventoryResource) == 0x8);
+	static_assert(sizeof(CombatInventoryItemResource) == 0x8);
+
+	class CombatInventoryItemSlot
+	{
+	public:
+		// members
+		BGSEquipSlot* equipSlot;  // 08
+		std::uint32_t slot;       // 0C
+	};
+	static_assert(sizeof(CombatInventoryItemSlot) == 0x10);
 
 	class CombatInventoryItem : public CombatObject
 	{
@@ -40,7 +51,7 @@ namespace RE
 
 		enum class CATEGORY
 		{
-		    kTotal = 7
+			kTotal = 7
 		};
 
 		~CombatInventoryItem() override;  // 00
@@ -61,19 +72,17 @@ namespace RE
 		virtual CombatInventoryItem* Clone() = 0;                                               // 0D
 		virtual bool                 CheckBusy(CombatController* a_controller);                 // 0E
 		virtual bool                 CheckShouldEquip(CombatController* a_controller);          // 0F - { return !a_controller->state->isFleeing; }
-		virtual bool                 GetResource(CombatInventoryResource& a_resource);          // 10
+		virtual bool                 GetResource(CombatInventoryItemResource& a_resource);      // 10
 		virtual void                 Equip(CombatController* a_controller);                     // 11
 		virtual void                 Unequip(CombatController* a_controller);                   // 12
 		virtual bool                 IsValid();                                                 // 13 - { return item != nullptr; }
 		virtual void                 GetDescription(const char* a_dest, std::uint32_t a_size);  // 14
 
 		// members
-		TESBoundObject* item;            // 10
-		float           equipmentScore;  // 18
-		std::uint32_t   unk1C;           // 1C
-		BGSEquipSlot*   equipSlot;       // 20
-		std::uint32_t   unk28;           // 28
-		std::uint32_t   unk2C;           // 2C
+		TESBoundObject*         item;       // 10
+		float                   itemScore;  // 18
+		std::uint32_t           unk1C;      // 1C
+		CombatInventoryItemSlot itemSlot;   // 20
 	};
 	static_assert(sizeof(CombatInventoryItem) == 0x30);
 }
