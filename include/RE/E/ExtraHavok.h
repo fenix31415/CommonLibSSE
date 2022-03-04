@@ -7,7 +7,7 @@
 namespace RE
 {
 	class bhkWorld;
-	class NiRefObject;
+	class CellMopp;
 
 	class ExtraHavok : public BSExtraData
 	{
@@ -21,8 +21,8 @@ namespace RE
 		[[nodiscard]] ExtraDataType GetType() const override;  // 01 - { return kHavok; }
 
 		// members
-		NiPointer<bhkWorld>    world;  // 10
-		NiPointer<NiRefObject> unk18;  // 18
+		NiPointer<bhkWorld> world;     // 10
+		NiPointer<CellMopp> cellMopp;  // 18
 	};
 	static_assert(sizeof(ExtraHavok) == 0x20);
 }

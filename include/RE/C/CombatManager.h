@@ -1,13 +1,12 @@
 #pragma once
 
 #include "RE/B/BSAtomic.h"
-#include "RE/B/BSTSingleton.h"
 #include "RE/C/CombatGroup.h"
 #include "RE/N/NiTArray.h"
 
 namespace RE
 {
-	class CombatManager : public BSTSingletonSDM<CombatManager>
+	class CombatManager
 	{
 	public:
 		[[nodiscard]] static CombatManager* GetSingleton()
