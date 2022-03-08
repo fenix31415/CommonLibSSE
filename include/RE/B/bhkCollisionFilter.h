@@ -27,7 +27,7 @@ namespace RE
 			}
 			nextSystemGroup = systemGroup;
 
-		    return systemGroup;
+			return systemGroup;
 		}
 
 		// members

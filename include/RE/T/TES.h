@@ -30,7 +30,7 @@ namespace RE
 	class TESWorldSpace;
 
 	struct bhkPickData;
-    struct PositionPlayerEvent;
+	struct PositionPlayerEvent;
 
 	class TES :
 		public ICellAttachDetachEventSource,                        // 000

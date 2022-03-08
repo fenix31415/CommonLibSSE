@@ -1316,10 +1316,10 @@ set(SOURCES
 	include/RE/T/TypeInfo.h
 	include/RE/T/TypeTraits.h
 	include/RE/U/UI.h
+	include/RE/U/UI3DSceneManager.h
 	include/RE/U/UIBlurManager.h
 	include/RE/U/UIMessage.h
 	include/RE/U/UIMessageQueue.h
-	include/RE/U/UIRenderManager.h
 	include/RE/U/UISaveLoadManager.h
 	include/RE/U/UserEventEnabled.h
 	include/RE/U/UserEvents.h
