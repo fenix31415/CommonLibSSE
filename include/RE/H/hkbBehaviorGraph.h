@@ -8,6 +8,26 @@ namespace RE
 {
 	class hkbBehaviorGraphData;
 
+	struct hkbNodeInfo
+	{
+		void*    unk00;         //00
+		int64_t  unk08;         //08
+		int64_t  unk10;         //10
+		void*    unk18;         //18
+		char     unk20[48];     //20
+		hkbNode* nodeTemplate;  //50
+		hkbNode* nodeClone;     //58
+		hkbNode* behavior;      //60
+		int64_t  unk68;         //68
+		int64_t  unk70;         //70
+		int64_t  unk78;         //78
+		int64_t  unk80;         //80
+		bool     unk88;         //88
+	};
+	static_assert(sizeof(hkbNodeInfo) == 0x90);
+
+	using NodeList = hkArray<hkbNodeInfo>;
+
 	class hkbBehaviorGraph : public hkbGenerator
 	{
 	public:
@@ -48,7 +68,7 @@ namespace RE
 		hkRefPtr<hkbGenerator>                       rootGenerator;                    // 080
 		hkRefPtr<hkbBehaviorGraphData>               data;                             // 088
 		hkRefVariant                                 rootGeneratorClone;               // 090
-		hkRefVariant                                 activeNodes;                      // 098
+		NodeList*                                    activeNodes;                      // 098
 		hkRefVariant                                 activeNodeTemplateToIndexMap;     // 0A0
 		hkRefVariant                                 activeNodesChildrenIndices;       // 0A8
 		hkRefVariant                                 globalTransitionData;             // 0B0
