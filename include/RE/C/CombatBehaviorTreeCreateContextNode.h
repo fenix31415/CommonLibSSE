@@ -316,7 +316,7 @@ namespace RE
 	};
 
 	class CombatBehaviorContextBlock;
-	template<>
+	template <>
 	class CombatBehaviorTreeCreateContextNode2<CombatBehaviorContextBlock, decltype(&CombatBehaviorEquipContext::GetCombatItem), CombatBehaviorContextMelee::ATTACK_TYPE> : public CombatBehaviorTreeCreateContextNode2Inlined<CombatBehaviorContextBlock, decltype(&CombatBehaviorEquipContext::GetCombatItem), CombatBehaviorContextMelee::ATTACK_TYPE, VTABLE_CombatBehaviorTreeCreateContextNode2_CombatBehaviorContextBlock_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____CombatBehaviorContextMelee__ATTACK_TYPE_>
 	{
 	public:

@@ -16,7 +16,7 @@ namespace RE
 		void     SetSelected(uint32_t ind) { selected_ind = ind; }
 
 		// members
-		uint32_t selected_ind; // 0
+		uint32_t selected_ind;  // 0
 	};
 	static_assert(sizeof(NextChildSelector) == 0x4);
 }

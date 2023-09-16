@@ -12,8 +12,8 @@
 #include "RE/C/CombatBehaviorRepeat.h"
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTreeCreateContextNode.h"
-#include "RE/C/CombatBehaviorTreeNodeObject.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
+#include "RE/C/CombatBehaviorTreeNodeObject.h"
 
 namespace RE
 {

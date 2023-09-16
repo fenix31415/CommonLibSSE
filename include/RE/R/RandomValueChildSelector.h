@@ -14,7 +14,7 @@ namespace RE
 		uint32_t SelectChild(CombatBehaviorTreeNode* node, uint32_t selected_ind);
 
 		// members
-		uint32_t tried_mask; // 00
+		uint32_t tried_mask;  // 00
 	};
 	static_assert(sizeof(RandomValueChildSelector) == 0x4);
 }

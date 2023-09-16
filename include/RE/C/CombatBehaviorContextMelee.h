@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RE/A/AITimer.h"
 #include "RE/A/AITimeStamp.h"
+#include "RE/A/AITimer.h"
 #include "RE/B/BSTArray.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/S/SetEventData.h"

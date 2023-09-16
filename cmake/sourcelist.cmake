@@ -463,7 +463,6 @@ set(SOURCES
 	include/RE/C/CombatBehaviorTreeNodeObject.h
 	include/RE/C/CombatBlackboard.h
 	include/RE/C/CombatBlackboardFlag.h
-	include/RE/C/CombatBlackboardFlag.h
 	include/RE/C/CombatBlackboardKey.h
 	include/RE/C/CombatBlackboardKeyBase.h
 	include/RE/C/CombatBlackboardManager.h
@@ -1624,10 +1623,10 @@ set(SOURCES
 	include/RE/U/UnlinkedTypes.h
 	include/RE/U/UserEventEnabled.h
 	include/RE/U/UserEvents.h
-	include/RE/V/ValueChildSelector.h
 	include/RE/V/VATS.h
 	include/RE/V/VDescTable.h
 	include/RE/V/ValueAndConditionsEffect.h
+	include/RE/V/ValueChildSelector.h
 	include/RE/V/ValueModifierEffect.h
 	include/RE/V/VampireLordEffect.h
 	include/RE/V/Variable.h
