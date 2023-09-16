@@ -2,11 +2,11 @@
 
 namespace RE
 {
-	CombatBehaviorTreeNode* CombatBehaviorTreeNode::Ctor()
+	CombatBehaviorTreeNode::CombatBehaviorTreeNode()
 	{
-		using func_t = decltype(&CombatBehaviorTreeNode::Ctor);
+		using func_t = CombatBehaviorTreeNode*(CombatBehaviorTreeNode*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46301, 0) };  // I do not know for AE
-		return func(this);
+		func(this);
 	}
 
 	CombatBehaviorTreeNode* CombatBehaviorTreeNode::GetRoot()
@@ -26,6 +26,13 @@ namespace RE
 	{
 		using func_t = decltype(&CombatBehaviorBranch::Validate);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46093, 0) };  // I do not know for AE
+		return func(node);
+	}
+
+	bool CombatBehaviorNode::Validate(CombatBehaviorTreeNode* node)
+	{
+		using func_t = decltype(&CombatBehaviorNode::Validate);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46092, 0) };  // I do not know for AE
 		return func(node);
 	}
 }

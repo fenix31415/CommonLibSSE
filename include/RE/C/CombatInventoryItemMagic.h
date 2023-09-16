@@ -29,7 +29,7 @@ namespace RE
 		bool  CheckBusy(CombatController* a_controller) override;             // 0E
 		bool  CheckShouldEquip(CombatController* a_controller) override;      // 0F - { return true; }
 		bool  GetResource(CombatInventoryItemResource& a_resource) override;  // 10
-		bool  IsValid() override;                                             // 12 - { return item && effect; }
+		bool  IsValid() override;                                             // 13 - { return item && effect; }
 
 		//add
 		virtual void*      CreateCaster() = 0;  // 15

@@ -44,6 +44,7 @@ namespace RE
 		void     Descend(CombatBehaviorTreeNode* ind);
 		uint32_t GetChildIndex() const;
 		void     Pause();
+		void     SetFailed(bool failed);
 		void     Suspend();
 		void     Unpause();
 		void     Unsuspend();

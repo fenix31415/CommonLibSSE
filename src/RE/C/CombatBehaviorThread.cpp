@@ -35,6 +35,12 @@ namespace RE
 		flags.set(Flags::kPaused);
 	}
 
+	void CombatBehaviorThread::SetFailed(bool failed)
+	{
+		if (fail_state != FailState::kAborted)
+			fail_state = failed ? FailState::kFailed : FailState::kOk;
+	}
+
 	void CombatBehaviorThread::Unpause()
 	{
 		flags.reset(Flags::kPaused);

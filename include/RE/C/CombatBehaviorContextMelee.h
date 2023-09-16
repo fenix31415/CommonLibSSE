@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RE/A/AITimer.h"
+#include "RE/A/AITimeStamp.h"
 #include "RE/B/BSTArray.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/S/SetEventData.h"
@@ -35,7 +36,7 @@ namespace RE
 		// members
 		float                      reach;                 // 00
 		ATTACK_TYPE                attack_type;           // 04
-		float                      last_updated;          // 08
+		AITimeStamp                finishedAttackTime;    // 08
 		uint32_t                   equipment_set;         // 0C
 		BSTArray<SetEventData>*    attackAnimationArray;  // 10
 		BSTArray<CombatAttackData> combatattackdatas;     // 18

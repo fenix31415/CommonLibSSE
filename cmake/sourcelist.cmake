@@ -433,22 +433,40 @@ set(SOURCES
 	include/RE/C/CharEvent.h
 	include/RE/C/Character.h
 	include/RE/C/ChestsLooted.h
+	include/RE/C/ChildSelectorBase.h
 	include/RE/C/CloakEffect.h
 	include/RE/C/Clouds.h
 	include/RE/C/CodeTasklet.h
 	include/RE/C/CollisionLayers.h
 	include/RE/C/Color.h
 	include/RE/C/ColorUtil.h
+	include/RE/C/CombatAcquireItem.h
+	include/RE/C/CombatBehavior.h
+	include/RE/C/CombatBehaviorAcquireResource.h
+	include/RE/C/CombatBehaviorChildSelector.h
+	include/RE/C/CombatBehaviorContextAcquireWeapon.h
 	include/RE/C/CombatBehaviorContextCloseMovement.h
 	include/RE/C/CombatBehaviorContextMagic.h
 	include/RE/C/CombatBehaviorContextMelee.h
 	include/RE/C/CombatBehaviorController.h
+	include/RE/C/CombatBehaviorDynamicSelector.h
 	include/RE/C/CombatBehaviorEquipContext.h
+	include/RE/C/CombatBehaviorFallbackSelector.h
+	include/RE/C/CombatBehaviorParallel.h
+	include/RE/C/CombatBehaviorRepeat.h
+	include/RE/C/CombatBehaviorResource.h
 	include/RE/C/CombatBehaviorStack.h
 	include/RE/C/CombatBehaviorThread.h
 	include/RE/C/CombatBehaviorTree.h
 	include/RE/C/CombatBehaviorTreeCreateContextNode.h
 	include/RE/C/CombatBehaviorTreeNode.h
+	include/RE/C/CombatBehaviorTreeNodeObject.h
+	include/RE/C/CombatBlackboard.h
+	include/RE/C/CombatBlackboardFlag.h
+	include/RE/C/CombatBlackboardFlag.h
+	include/RE/C/CombatBlackboardKey.h
+	include/RE/C/CombatBlackboardKeyBase.h
+	include/RE/C/CombatBlackboardManager.h
 	include/RE/C/CombatController.h
 	include/RE/C/CombatGroup.h
 	include/RE/C/CombatGroupDetectionListener.h
@@ -489,6 +507,7 @@ set(SOURCES
 	include/RE/C/ConcreteFormFactory.h
 	include/RE/C/ConcreteObjectFormFactory.h
 	include/RE/C/ConcussionEffect.h
+	include/RE/C/ConditionalChildSelector.h
 	include/RE/C/ConeProjectile.h
 	include/RE/C/Console.h
 	include/RE/C/ConsoleData.h
@@ -1215,6 +1234,7 @@ set(SOURCES
 	include/RE/N/NativeLatentFunction.h
 	include/RE/N/NavMesh.h
 	include/RE/N/NavMeshInfoMap.h
+	include/RE/N/NextChildSelector.h
 	include/RE/N/NiAVObject.h
 	include/RE/N/NiAllocator.h
 	include/RE/N/NiAlphaProperty.h
@@ -1343,6 +1363,7 @@ set(SOURCES
 	include/RE/R/RaceSexMenu.h
 	include/RE/R/RaceSexMenuEvent.h
 	include/RE/R/RallyEffect.h
+	include/RE/R/RandomValueChildSelector.h
 	include/RE/R/RawFuncCallQuery.h
 	include/RE/R/ReadyWeaponHandler.h
 	include/RE/R/ReanimateEffect.h
@@ -1603,6 +1624,7 @@ set(SOURCES
 	include/RE/U/UnlinkedTypes.h
 	include/RE/U/UserEventEnabled.h
 	include/RE/U/UserEvents.h
+	include/RE/V/ValueChildSelector.h
 	include/RE/V/VATS.h
 	include/RE/V/VDescTable.h
 	include/RE/V/ValueAndConditionsEffect.h
@@ -1614,6 +1636,7 @@ set(SOURCES
 	include/RE/V/VoiceSpellFireHandler.h
 	include/RE/W/WeaponAnimationGraphManagerHolder.h
 	include/RE/W/WeatherType.h
+	include/RE/W/WeightedRandomChildSelector.h
 	include/RE/W/WerewolfEffect.h
 	include/RE/W/WerewolfFeedEffect.h
 	include/RE/Z/ZeroFunctionArguments.h
@@ -1725,14 +1748,30 @@ set(SOURCES
 	src/RE/B/bhkRigidBody.cpp
 	src/RE/C/Calendar.cpp
 	src/RE/C/ChestsLooted.cpp
+	src/RE/C/ChildSelectorBase.cpp
 	src/RE/C/Color.cpp
 	src/RE/C/ColorUtil.cpp
+	src/RE/C/CombatBehavior.cpp
+	src/RE/C/CombatBehaviorAcquireResource.cpp
+	src/RE/C/CombatBehaviorChildSelector.cpp
+	src/RE/C/CombatBehaviorContextAcquireWeapon.cpp
+	src/RE/C/CombatBehaviorContextMagic.cpp
+	src/RE/C/CombatBehaviorController.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
+	src/RE/C/CombatBehaviorFallbackSelector.cpp
+	src/RE/C/CombatBehaviorParallel.cpp
+	src/RE/C/CombatBehaviorRepeat.cpp
+	src/RE/C/CombatBehaviorResource.cpp
 	src/RE/C/CombatBehaviorStack.cpp
 	src/RE/C/CombatBehaviorThread.cpp
 	src/RE/C/CombatBehaviorTree.cpp
 	src/RE/C/CombatBehaviorTreeNode.cpp
+	src/RE/C/CombatBehaviorTreeNodeObject.cpp
+	src/RE/C/CombatBlackboard.cpp
+	src/RE/C/CombatBlackboardFlag.cpp
+	src/RE/C/CombatBlackboardManager.cpp
 	src/RE/C/CommandTable.cpp
+	src/RE/C/ConditionalChildSelector.cpp
 	src/RE/C/Console.cpp
 	src/RE/C/ConsoleLog.cpp
 	src/RE/C/ContainerItemExtra.cpp
@@ -1856,6 +1895,7 @@ set(SOURCES
 	src/RE/M/MenuEventHandler.cpp
 	src/RE/M/Misc.cpp
 	src/RE/N/NativeFunctionBase.cpp
+	src/RE/N/NextChildSelector.cpp
 	src/RE/N/NiAVObject.cpp
 	src/RE/N/NiAlphaProperty.cpp
 	src/RE/N/NiAnimationKey.cpp
@@ -1904,6 +1944,7 @@ set(SOURCES
 	src/RE/P/Projectile.cpp
 	src/RE/Q/QuestStatus.cpp
 	src/RE/R/RaceSexMenu.cpp
+	src/RE/R/RandomValueChildSelector.cpp
 	src/RE/R/ReferenceEffectController.cpp
 	src/RE/R/RemoveCallbackVisitor.cpp
 	src/RE/R/Renderer.cpp
@@ -1962,8 +2003,10 @@ set(SOURCES
 	src/RE/U/UIMessageQueue.cpp
 	src/RE/U/UnlinkedTypes.cpp
 	src/RE/U/UserEvents.cpp
+	src/RE/V/ValueChildSelector.cpp
 	src/RE/V/Variable.cpp
 	src/RE/V/VirtualMachine.cpp
+	src/RE/W/WeightedRandomChildSelector.cpp
 	src/RE/Z/ZeroFunctionArguments.cpp
 	src/REL/Relocation.cpp
 	src/SKSE/API.cpp
