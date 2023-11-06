@@ -12,7 +12,7 @@ namespace RE
 	{
 	public:
 		virtual ~CombatBehaviorTreeNode() = default;
-		virtual const BSFixedString& GetName() const { return name; }
+		virtual const char*          GetName() const { return name.c_str(); }
 		virtual void                 Enter(CombatBehaviorThread*) {}
 		virtual void                 Exit(CombatBehaviorThread*) {}
 		virtual void                 Update(CombatBehaviorThread* thread) { thread->Ascend(); }
@@ -25,6 +25,7 @@ namespace RE
 		CombatBehaviorTreeNode();
 		CombatBehaviorTreeNode(const CombatBehaviorTreeNode&) = delete;
 		CombatBehaviorTreeNode& operator=(CombatBehaviorTreeNode&) = delete;
+		void                    AddChild(class CombatBehaviorTreeNode*);
 		CombatBehaviorTreeNode* GetRoot();
 		void                    SetVftable(REL::ID id);
 

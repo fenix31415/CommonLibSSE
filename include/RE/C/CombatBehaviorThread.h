@@ -39,8 +39,14 @@ namespace RE
 			return stack.Access<T>(stack_for_cur_node);
 		}
 
+		template <typename T>
+		T* GetCurrentContext()
+		{
+			return cur_context_sptr.stack ? &cur_context_sptr.stack->Access<T>(cur_context_sptr.frame) : nullptr;
+		}
+
 		void     Ascend();
-		void     Descend(uint32_t ind);
+		void     Descend(uint32_t ind = 0);
 		void     Descend(CombatBehaviorTreeNode* ind);
 		uint32_t GetChildIndex() const;
 		void     Pause();

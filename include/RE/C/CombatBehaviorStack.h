@@ -1,9 +1,13 @@
 #pragma once
 
 #include "RE/B/BSTArray.h"
+#include "RE/C/CombatBehaviorExpression.h"
 
 namespace RE
 {
+	class CombatBehaviorContextAcquireWeapon;
+	class CombatAcquireItem;
+
 	class CombatBehaviorStack
 	{
 	public:
@@ -29,6 +33,8 @@ namespace RE
 			new (&data[old_size]) T(std::forward<Args>(args)...);
 			return ans;
 		}
+
+		ObjectPtr Allocate(const CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextAcquireWeapon, CombatAcquireItem const& (CombatBehaviorContextAcquireWeapon::*)(void) const>>& arg1);
 
 		template <typename T>
 		void Deallocate()

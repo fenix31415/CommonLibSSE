@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-option(SKSE_SUPPORT_XBYAK "Enables trampoline support for Xbyak." OFF)
+option(SKSE_SUPPORT_XBYAK "Enables trampoline support for Xbyak." ON)
 option(SKYRIM_SUPPORT_AE "Enables support for Skyrim AE" OFF)
 
 project(

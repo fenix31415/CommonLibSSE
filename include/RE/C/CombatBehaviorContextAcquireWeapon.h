@@ -7,8 +7,10 @@ namespace RE
 	class CombatBehaviorContextAcquireWeapon
 	{
 	public:
+		void                     EnterContext();
 		const CombatAcquireItem& getAcquireAmmo() const;
 		const CombatAcquireItem& getAcquireWeapon() const;
+		bool                     HasAmmoTarget() const;
 
 		// members
 		CombatAcquireItem weapon;    // 00

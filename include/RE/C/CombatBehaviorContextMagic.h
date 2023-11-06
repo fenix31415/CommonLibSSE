@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RE/M/MagicSystem.h"
+
 namespace RE
 {
 	class ActorMagicCaster;
@@ -12,6 +14,8 @@ namespace RE
 	{
 	public:
 		CombatBehaviorContextMagic(CombatInventoryItemMagic* citem);
+
+		MagicSystem::CastingType GetCastingType();
 
 		// members
 		ActorMagicCaster*              magicCaster;     // 00

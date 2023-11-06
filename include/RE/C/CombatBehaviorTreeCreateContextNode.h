@@ -45,7 +45,8 @@ namespace RE
 		{
 			a_thread->cur_context_sptr = a_thread->stack.Allocate<Context>();
 			a_thread->stack.StoreData(a_thread->cur_context_sptr);
-			a_thread->Descend(0u);
+			a_thread->stack.Access<Context>(a_thread->cur_context_sptr.frame).EnterContext();
+			a_thread->Descend();
 		}
 
 		void Exit(CombatBehaviorThread* thread) override
@@ -77,92 +78,25 @@ namespace RE
 		}
 	};
 
-	namespace MappingOffsetsContext
-	{
-		template <typename T, uint64_t SE, uint64_t AE>
-		struct Entry
-		{
-			using type = T;
-			static constexpr uint64_t SE_ID = SE;
-			static constexpr uint64_t AE_ID = AE;
-		};
-
-		template <typename T, bool isSE, typename Map, std::size_t... I>
-		constexpr uint64_t mapper_impl(std::index_sequence<I...>)
-		{
-			return ((std::is_same_v<T, typename std::tuple_element_t<I, Map>::type> * (isSE ? std::tuple_element_t<I, Map>::SE_ID : std::tuple_element_t<I, Map>::AE_ID)) + ...);
-		}
-
-		template <typename T, bool isSE, typename Map>
-		constexpr uint64_t mapper()
-		{
-			return mapper_impl<T, isSE, Map>(std::make_index_sequence<std::tuple_size_v<Map>>{});
-		}
-
-		template <typename T, typename Map>
-		constexpr uint64_t MapperSE()
-		{
-			return mapper<T, true, Map>();
-		}
-
-		template <typename T, typename Map>
-		constexpr uint64_t MapperAE()
-		{
-			return mapper<T, false, Map>();
-		}
-	}
-
-	namespace NodeCreateContextHelper
-	{
-		using namespace MappingOffsetsContext;
-
-		using Map = std::tuple<
-			Entry<CombatBehaviorContextAcquireWeapon, 46373, 0>,
-			Entry<CombatBehaviorContextCloseMovement, 46753, 0>,
-			Entry<CombatBehaviorContextCover, 48865, 0>,
-			Entry<CombatBehaviorContextDodgeThreat, 46599, 0>,
-			Entry<CombatBehaviorContextFindAttackLocation, 46985, 0>,
-			Entry<CombatBehaviorContextFlankingMovement, 47164, 0>,
-			Entry<CombatBehaviorContextFlee, 47449, 0>,
-			Entry<CombatBehaviorContextHide, 47450, 0>,
-			Entry<CombatBehaviorContextRangedMovement, 48484, 0>,
-			Entry<CombatBehaviorContextSearch, 48572, 0>>;
-
-		template <typename T>
-		class Helper : public CombatBehaviorTreeCreateContextNodeWithCtor<T, MapperSE<T, Map>(), MapperAE<T, Map>()>
-		{
-			static constexpr uint64_t SE_ID = MapperSE<T, Map>();
-			static constexpr uint64_t AE_ID = MapperAE<T, Map>();
-
-			static_assert(SE_ID > 0);
-
-		public:
-			using CombatBehaviorTreeCreateContextNodeWithCtor<T, SE_ID, AE_ID>::CombatBehaviorTreeCreateContextNodeWithCtor;
-			using Helper_t = Helper<T>;
-		};
-		static_assert(sizeof(CombatBehaviorTreeCreateContextNodeWithCtor<void*, 0, 0>) == 0x28);
-	}
-
-	// Sory, I minimized this macro code as much as I can
-	// I have them in my txt file so I can generate any code with them, if necessary
-#define DECLARE_SPECIALIZATION(T)                                                            \
-	template <>                                                                              \
-	class CombatBehaviorTreeCreateContextNode<T> : public NodeCreateContextHelper::Helper<T> \
-	{                                                                                        \
-	public:                                                                                  \
-		using Helper_t::Helper_t;                                                            \
-	}
-
-	DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextCloseMovement);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextCover);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextDodgeThreat);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextFindAttackLocation);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextFlankingMovement);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextFlee);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextHide);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextRangedMovement);
-	DECLARE_SPECIALIZATION(CombatBehaviorContextSearch);
+#define DECLARE_SPECIALIZATION(T, SE, AE, size)                                                                    \
+	template <>                                                                                                    \
+	class CombatBehaviorTreeCreateContextNode<T> : public CombatBehaviorTreeCreateContextNodeWithCtor<T, SE, AE>   \
+	{                                                                                                              \
+	public:                                                                                                        \
+		using CombatBehaviorTreeCreateContextNodeWithCtor<T, SE, AE>::CombatBehaviorTreeCreateContextNodeWithCtor; \
+	};                                                                                                             \
+	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<T>) == size)
+	
+	DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0, 0x28);       // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextCloseMovement, 46753, 0, 0x28);       // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextCover, 48865, 0, 0x28);               // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextDodgeThreat, 46599, 0, 0x28);         // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextFindAttackLocation, 46985, 0, 0x28);  // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextFlankingMovement, 47164, 0, 0x28);    // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextFlee, 47449, 0, 0x28);                // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextHide, 47450, 0, 0x28);                // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextRangedMovement, 48484, 0, 0x28);      // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextSearch, 48572, 0, 0x28);              // I do not know for AE
 
 #undef DECLARE_SPECIALIZATION
 
@@ -185,16 +119,15 @@ namespace RE
 		CombatBehaviorTreeCreateContextNode1Inlined(T arg1) :
 			CombatBehaviorTreeCreateContextNode1Base<Context, T>(std::forward<T>(arg1))
 		{
-			reinterpret_cast<std::uintptr_t*>(this)[0] = (RELOCATION_ID(SE_ID, AE_ID)).address();
+			this->SetVftable(RELOCATION_ID(SE_ID, AE_ID));
 		}
-
-		using Base_t = CombatBehaviorTreeCreateContextNode1Inlined<Context, T, SE_ID, AE_ID>;
 	};
 
 	template <typename Object, typename T>
 	class CombatBehaviorTreeCreateContextNode1
 	{
-		CombatBehaviorTreeCreateContextNode1() = delete;  // Inherit from ContextNode and add fields, override functions
+		// Inherit from ContextNode and add fields, override functions
+		CombatBehaviorTreeCreateContextNode1() = delete;
 	};
 
 	namespace MappingOffsetsContext1
@@ -243,11 +176,12 @@ namespace RE
 		}
 
 		using Map = std::tuple<
-			Entry<CombatBehaviorContextMagic, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextMagic_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), 0>,
-			Entry<CombatBehaviorContextRanged, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextRanged_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), 0>,
-			Entry<CombatBehaviorContextShout, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextShout_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), 0>,
-			Entry<CombatBehaviorContextUsePotion, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextUsePotion_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), 0>,
-			Entry<CombatBehaviorEquipContext, decltype(&CombatBehaviorThread::GetChildIndex), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorEquipContext_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorThread_unsignedint_CombatBehaviorThread____void____), 0>>;
+			Entry<CombatBehaviorContextMagic, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextMagic_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), read(VTABLE_CombatBehaviorTreeNode)>,          // I do now know for AE
+			Entry<CombatBehaviorContextRanged, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextRanged_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), read(VTABLE_CombatBehaviorTreeNode)>,        // I do now know for AE
+			Entry<CombatBehaviorContextShout, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextShout_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), read(VTABLE_CombatBehaviorTreeNode)>,          // I do now know for AE
+			Entry<CombatBehaviorContextUsePotion, decltype(&CombatBehaviorEquipContext::GetCombatItem), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextUsePotion_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____), read(VTABLE_CombatBehaviorTreeNode)>,  // I do now know for AE
+			Entry<CombatBehaviorEquipContext, decltype(&CombatBehaviorThread::GetChildIndex), read(VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorEquipContext_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorThread_unsignedint_CombatBehaviorThread____void____), read(VTABLE_CombatBehaviorTreeNode)>                                                     // I do now know for AE
+			>;
 
 		template <typename Context, typename T>
 		class Helper : public CombatBehaviorTreeCreateContextNode1Inlined<Context, T, MapperSE<Context, T, Map>(), MapperAE<Context, T, Map>()>
@@ -265,21 +199,20 @@ namespace RE
 		static_assert(sizeof(CombatBehaviorTreeCreateContextNode1Inlined<void*, void*, 0, 0>) == 0x30);
 	}
 
-	// Sory, I minimized this macro code as much as I can
-	// I have them in my txt file so I can generate any code with them, if necessary
-#define DECLARE_SPECIALIZATION(C, T)                                                           \
-	template <>                                                                                \
-	class CombatBehaviorTreeCreateContextNode1<C, T> : public ContextNode1Helper::Helper<C, T> \
-	{                                                                                          \
-	public:                                                                                    \
-		using Helper_t::Helper_t;                                                              \
-	}
+#define DECLARE_SPECIALIZATION(C, T, SE, AE, size)                                                                      \
+	template <>                                                                                                         \
+	class CombatBehaviorTreeCreateContextNode1<C, T> : public CombatBehaviorTreeCreateContextNode1Inlined<C, T, SE, AE> \
+	{                                                                                                                   \
+	public:                                                                                                             \
+		using CombatBehaviorTreeCreateContextNode1Inlined<C, T, SE, AE>::CombatBehaviorTreeCreateContextNode1Inlined;   \
+	};                                                                                                                  \
+	static_assert(sizeof(CombatBehaviorTreeCreateContextNode1<C, T>) == size)
 
-	DECLARE_SPECIALIZATION(CombatBehaviorContextMagic, decltype(&CombatBehaviorEquipContext::GetCombatItem));
-	DECLARE_SPECIALIZATION(CombatBehaviorContextRanged, decltype(&CombatBehaviorEquipContext::GetCombatItem));
-	DECLARE_SPECIALIZATION(CombatBehaviorContextShout, decltype(&CombatBehaviorEquipContext::GetCombatItem));
-	DECLARE_SPECIALIZATION(CombatBehaviorContextUsePotion, decltype(&CombatBehaviorEquipContext::GetCombatItem));
-	DECLARE_SPECIALIZATION(CombatBehaviorEquipContext, decltype(&CombatBehaviorThread::GetChildIndex));
+	DECLARE_SPECIALIZATION(CombatBehaviorContextMagic, decltype(&CombatBehaviorEquipContext::GetCombatItem), VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextMagic_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____[0].id(), VTABLE_CombatBehaviorTreeNode[0].id(), 0x30);          // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextRanged, decltype(&CombatBehaviorEquipContext::GetCombatItem), VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextRanged_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____[0].id(), VTABLE_CombatBehaviorTreeNode[0].id(), 0x30);        // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextShout, decltype(&CombatBehaviorEquipContext::GetCombatItem), VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextShout_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____[0].id(), VTABLE_CombatBehaviorTreeNode[0].id(), 0x30);          // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextUsePotion, decltype(&CombatBehaviorEquipContext::GetCombatItem), VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorContextUsePotion_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorEquipContext_NiPointer_CombatInventoryItem_const_CombatBehaviorEquipContext____void____[0].id(), VTABLE_CombatBehaviorTreeNode[0].id(), 0x30);  // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorEquipContext, decltype(&CombatBehaviorThread::GetChildIndex), VTABLE_CombatBehaviorTreeCreateContextNode1_CombatBehaviorEquipContext_CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorThread_unsignedint_CombatBehaviorThread____void____[0].id(), VTABLE_CombatBehaviorTreeNode[0].id(), 0x30);                                                    // I do not know for AE
 
 	template <typename Object, typename T, typename U>
 	class CombatBehaviorTreeCreateContextNode2Base : public CombatBehaviorTreeNode
@@ -306,6 +239,7 @@ namespace RE
 			stl::emplace_vtable<CombatBehaviorTreeCreateContextNode2Inlined>(this);
 		}
 
+	protected:
 		using Base_t = CombatBehaviorTreeCreateContextNode2Inlined<Object, T, U, vftableID>;
 	};
 

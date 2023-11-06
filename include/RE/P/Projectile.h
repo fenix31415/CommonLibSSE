@@ -129,7 +129,7 @@ namespace RE
 		};
 		static_assert(sizeof(ImpactData) == 0x50);
 
-		enum class Flags
+		enum class Flags : uint32_t
 		{
 			kNone = 0,
 			kUnk0 = 1 << 0,
@@ -163,7 +163,7 @@ namespace RE
 			kIsDual = 1 << 28,
 			kUseOrigin = 1 << 29,
 			kUnk30 = 1 << 30,
-			kMoved = 1 << 31
+			kMoved = 1u << 31
 		};
 
 		~Projectile() override;  // 00

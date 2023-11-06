@@ -30,7 +30,7 @@ namespace RE
 		return func(this, other);
 	}
 
-	CombatBehaviorTree::TreeBuilder CombatBehaviorTree::AddNode(char* name, CombatBehaviorTreeNode* node)
+	CombatBehaviorTree::TreeBuilder CombatBehaviorTree::AddNode(const char* name, CombatBehaviorTreeNode* node)
 	{
 		using func_t = decltype(&CombatBehaviorTree::AddNode);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46261, 0) };  // I do not know for AE
@@ -42,5 +42,19 @@ namespace RE
 		using func_t = decltype(&CombatBehaviorTree::CreateTree);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46263, 0) };  // I do not know for AE
 		return func(this, node);
+	}
+
+	CombatBehaviorTree::CombatBehaviorAttacker::operator Actor*()
+	{
+		using func_t = decltype(&CombatBehaviorTree::CombatBehaviorAttacker::operator Actor*);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46264, 0) };  // I do not know for AE
+		return func(this);
+	}
+
+	CombatBehaviorTree::CombatBehaviorTarget::operator Actor*()
+	{
+		using func_t = decltype(&CombatBehaviorTree::CombatBehaviorTarget::operator Actor*);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46265, 0) };  // I do not know for AE
+		return func(this);
 	}
 }

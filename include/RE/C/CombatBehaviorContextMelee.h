@@ -3,6 +3,7 @@
 #include "RE/A/AITimer.h"
 #include "RE/A/AITimeStamp.h"
 #include "RE/B/BSTArray.h"
+#include "RE/C/CombatBehaviorContext.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/S/SetEventData.h"
 
@@ -11,7 +12,7 @@ namespace RE
 	class BGSAttackData;
 	class CombatMeleeAimController;
 
-	class CombatBehaviorContextMelee
+	class CombatBehaviorContextMelee : public CombatBehaviorContext<CombatBehaviorContextMelee>
 	{
 	public:
 		enum class ATTACK_TYPE : uint32_t
@@ -32,6 +33,14 @@ namespace RE
 			AITimer        cooldown_timer;  // 28
 		};
 		static_assert(sizeof(CombatAttackData) == 0x30);
+
+		void CalculateAnimationData();
+		bool CheckAttack(CombatAttackData* attack);
+		bool CheckAttackRange();
+		void EnterContext();
+		void FinishedAttack();
+		void GatherAttackData();
+		bool StartAttack();
 
 		// members
 		float                      reach;                 // 00

@@ -2,6 +2,13 @@
 
 namespace RE
 {
+	void CombatBehaviorContextAcquireWeapon::EnterContext()
+	{
+		using func_t = decltype(&CombatBehaviorContextAcquireWeapon::EnterContext);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46341, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	const CombatAcquireItem& CombatBehaviorContextAcquireWeapon::getAcquireAmmo() const
 	{
 		return ammo;
@@ -10,5 +17,12 @@ namespace RE
 	const CombatAcquireItem& CombatBehaviorContextAcquireWeapon::getAcquireWeapon() const
 	{
 		return weapon;
+	}
+
+	bool CombatBehaviorContextAcquireWeapon::HasAmmoTarget() const
+	{
+		using func_t = decltype(&CombatBehaviorContextAcquireWeapon::HasAmmoTarget);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46442, 0) };  // I do not know for AE
+		return func(this);
 	}
 }

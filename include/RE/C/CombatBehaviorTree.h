@@ -1,115 +1,30 @@
 #pragma once
 
+#include <stdio.h>  // sprintf_s
+
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSTArray.h"
 #include "RE/C/CombatBehaviorAcquireResource.h"
 #include "RE/C/CombatBehaviorChildSelector.h"
 #include "RE/C/CombatBehaviorContextAcquireWeapon.h"
+#include "RE/C/CombatBehaviorContextCloseMovement.h"
+#include "RE/C/CombatBehaviorContextDodgeThreat.h"
+#include "RE/C/CombatBehaviorContextFlankingMovement.h"
 #include "RE/C/CombatBehaviorContextMelee.h"
+#include "RE/C/CombatBehaviorContextFlee.h"
 #include "RE/C/CombatBehaviorEquipContext.h"
 #include "RE/C/CombatBehaviorFallbackSelector.h"
 #include "RE/C/CombatBehaviorParallel.h"
 #include "RE/C/CombatBehaviorRepeat.h"
 #include "RE/C/CombatBehaviorThread.h"
+#include "RE/C/CombatBehaviorTreeConditionalNode.h"
 #include "RE/C/CombatBehaviorTreeCreateContextNode.h"
+#include "RE/C/CombatBehaviorTreeValueNodeT.h"
 #include "RE/C/CombatBehaviorTreeNodeObject.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
 
 namespace RE
 {
-	class CombatBehaviorAcquireItem;
-	class CombatBehaviorAcquireResource;
-	class CombatBehaviorAdvance;
-	class CombatBehaviorAttack;
-	class CombatBehaviorAttackFromCover;
-	class CombatBehaviorAttackLow;
-	class CombatBehaviorBackoff;
-	class CombatBehaviorBash;
-	class CombatBehaviorBlock;
-	class CombatBehaviorBlockAttack;
-	class CombatBehaviorCastConcentrationSpell;
-	class CombatBehaviorCastImmediateSpell;
-	class CombatBehaviorCastShout;
-	class CombatBehaviorChase;
-	class CombatBehaviorCheckUnreachableTarget;
-	class CombatBehaviorCircle;
-	class CombatBehaviorCircleDistant;
-	class CombatBehaviorContextAcquireWeapon;
-	class CombatBehaviorContextBlock;
-	class CombatBehaviorContextCloseMovement;
-	class CombatBehaviorContextCover;
-	class CombatBehaviorContextDodgeThreat;
-	class CombatBehaviorContextFindAttackLocation;
-	class CombatBehaviorContextFlankingMovement;
-	class CombatBehaviorContextFlee;
-	class CombatBehaviorContextHide;
-	class CombatBehaviorContextMagic;
-	class CombatBehaviorContextRanged;
-	class CombatBehaviorContextRangedMovement;
-	class CombatBehaviorContextSearch;
-	class CombatBehaviorContextShout;
-	class CombatBehaviorContextUsePotion;
-	class CombatBehaviorDisableAim;
-	class CombatBehaviorDiveBomb;
-	class CombatBehaviorDodgeThreat;
-	class CombatBehaviorDrinkPotion;
-	class CombatBehaviorDynamicConditionalNode;
-	class CombatBehaviorEquipObject;
-	class CombatBehaviorEquipRangedWeapon;
-	class CombatBehaviorEquipShout;
-	class CombatBehaviorEquipSpell;
-	class CombatBehaviorExitWater;
-	class CombatBehaviorFallback;
-	class CombatBehaviorFallbackToRanged;
-	class CombatBehaviorFaceAngle;
-	class CombatBehaviorFindAllyAttackLocation;
-	class CombatBehaviorFindAttackLocation;
-	class CombatBehaviorFindCover;
-	class CombatBehaviorFindLateralAttackLocation;
-	class CombatBehaviorFindWeapon;
-	class CombatBehaviorFlank;
-	class CombatBehaviorFlankDistant;
-	class CombatBehaviorFlee;
-	class CombatBehaviorFleeThroughDoor;
-	class CombatBehaviorFleeToAlly;
-	class CombatBehaviorFleeToCover;
-	class CombatBehaviorFlyingAttack;
-	class CombatBehaviorForceFail;
-	class CombatBehaviorForceSuccess;
-	class CombatBehaviorGroundAttack;
-	class CombatBehaviorHide;
-	class CombatBehaviorHover;
-	class CombatBehaviorIdle;
-	class CombatBehaviorLand;
-	class CombatBehaviorLandNearby;
-	class CombatBehaviorMaintainOptimalRange;
-	class CombatBehaviorOrbit;
-	class CombatBehaviorOrbitDistant;
-	class CombatBehaviorParallel;
-	class CombatBehaviorPause;
-	class CombatBehaviorPerchAttack;
-	class CombatBehaviorPrepareDualCast;
-	class CombatBehaviorPursueTarget;
-	class CombatBehaviorRangedAttack;
-	class CombatBehaviorRepeat;
-	class CombatBehaviorReposition;
-	class CombatBehaviorReturnToCombatArea;
-	class CombatBehaviorSearch;
-	class CombatBehaviorSearchCenter;
-	class CombatBehaviorSearchInvestigateDoor;
-	class CombatBehaviorSearchLocation;
-	class CombatBehaviorSearchWander;
-	class CombatBehaviorSequence;
-	class CombatBehaviorSpawnParallel;
-	class CombatBehaviorSpecialAttack;
-	class CombatBehaviorStalk;
-	class CombatBehaviorStrafe;
-	class CombatBehaviorSurround;
-	class CombatBehaviorTakeoff;
-	class CombatBehaviorTrackTarget;
-	class CombatBehaviorWaitBehindCover;
-	class CombatBehaviorWatchTarget;
-
 	class CombatBehaviorTree
 	{
 	public:
@@ -126,7 +41,19 @@ namespace RE
 		};
 		static_assert(sizeof(TreeBuilder) == 0x18);
 
-		static TreeBuilder AddNode(char* name, CombatBehaviorTreeNode* node);
+		class CombatBehaviorAttacker
+		{
+		public:
+			operator Actor*();
+		};
+
+		class CombatBehaviorTarget
+		{
+		public:
+			operator Actor*();
+		};
+
+		static TreeBuilder AddNode(const char* name, CombatBehaviorTreeNode* node);
 		void               CreateTree(CombatBehaviorTreeNode* node);
 
 		template <typename T>
@@ -192,8 +119,75 @@ namespace RE
 			return new CombatBehaviorTreeNodeObject3<Object, T, U, P>(std::move(arg1), std::move(arg2), std::move(arg3));
 		}
 
-		// TODO Blackboard 1407E24AF 1407F5492 140827AC5
-		//      Settings 14081CE3E 14081C8F0 14081C971
+		template <typename T>
+		struct IsGameNode1
+		{
+		public:
+			static constexpr bool value = false;
+		};
+
+		template <typename T>
+		struct IsGameNode1<CombatBehaviorTreeConditionalNode<T>>
+		{
+		private:
+			static int detect(...);
+
+			template <typename U>
+			static decltype(std::declval<U>().Create(std::declval<T>(), false)) detect(const U&);
+
+		public:
+			static constexpr bool value = std::is_same<CombatBehaviorTreeNode*, decltype(detect(std::declval<CombatBehaviorTreeConditionalNode<T>>()))>::value;
+		};
+
+		template <typename Expr>
+		[[nodiscard]] static CombatBehaviorTreeNode* CreateConditionalNode(Expr expr, bool fail)
+		{
+			using Node = CombatBehaviorTreeConditionalNode<Expr>;
+			if constexpr (IsGameNode1<Node>::value)
+				return Node::Create(std::move(expr), fail);
+			else
+				return new CombatBehaviorTreeConditionalNode<Expr>(std::move(expr), fail);
+		}
+
+		template <typename Expr, bool fail>
+		[[nodiscard]] static TreeBuilder AddConditionalNode(const char* name, Expr expr, CombatBehaviorTreeNode* node)
+		{
+			auto cond_node = CreateConditionalNode(std::move(expr), fail);
+			char DstBuf[260];
+			sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+			cond_node->name = RE::BSFixedString(DstBuf);
+			cond_node->AddChild(node);
+			return AddNode(name, node);
+		}
+
+#define DECLARE_OVERLOAD(SE_ID, AE_ID, Expr)                                                                       \
+	[[nodiscard]] static TreeBuilder AddConditionalNode(const char* name, Expr expr, CombatBehaviorTreeNode* node) \
+	{                                                                                                              \
+		using func_t = TreeBuilder(const char* name, Expr, CombatBehaviorTreeNode* node);                          \
+		REL::Relocation<func_t> func{ RELOCATION_ID(SE_ID, AE_ID) };                                               \
+		return func(name, expr, node);                                                                             \
+	}
+
+		DECLARE_OVERLOAD(46357, 0, decltype(&CombatBehaviorContextAcquireWeapon::HasAmmoTarget));
+		DECLARE_OVERLOAD(47152, 0, decltype(&CombatBehaviorContextFlankingMovement::CheckShouldStalk));
+		DECLARE_OVERLOAD(47430, 0, decltype(&CombatBehaviorContextFlee::CheckShouldFlee));
+		DECLARE_OVERLOAD(46732, 0, decltype(&CombatBehaviorContextCloseMovement::CheckShouldFallbackToRanged));
+		DECLARE_OVERLOAD(46596, 0, decltype(&CombatBehaviorContextDodgeThreat::CheckShouldDodge));
+		
+		// TODO (Expr)
+		//DECLARE_OVERLOAD(48554, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
+		//DECLARE_OVERLOAD(47760, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
+		//DECLARE_OVERLOAD(47761, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
+		//DECLARE_OVERLOAD(47762, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
+
+		#undef DECLARE_OVERLOAD
+
+		// TODO: AddValue, also inlined
+		template <typename T, typename Expr>
+		[[nodiscard]] static CombatBehaviorTreeNode* CreateValueNodeT(Expr expr)
+		{
+			return new CombatBehaviorTreeValueNodeT<T, Expr>(std::move(expr));
+		}
 
 		virtual void Initialize();  // 00
 

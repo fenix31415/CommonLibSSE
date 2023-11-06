@@ -28,7 +28,7 @@ namespace RE
 
 	void RE::CombatBehaviorRepeat::Enter()
 	{
-		GetStaticTLSData()->combatAIThread->Descend(0u);
+		GetStaticTLSData()->combatAIThread->Descend();
 	}
 
 	void CombatBehaviorRepeat::Update()

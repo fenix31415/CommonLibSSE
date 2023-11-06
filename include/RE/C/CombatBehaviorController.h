@@ -8,13 +8,24 @@
 
 namespace RE
 {
+	class Actor;
 	class CombatBehaviorThread;
 	class CombatController;
+	class CombatGroup;
+	class CombatInventory;
+	class CombatState;
 
 	class CombatBehaviorController
 	{
 	public:
+		static Actor*            GetCurrentAttacker();
+		static CombatController* GetCurrentCombatController();
+		static CombatGroup*      GetCurrentCombatGroup();
+		static CombatInventory*  GetCurrentCombatInventory();
+		static CombatState*      GetCurrentCombatState();
+
 		bool GetResource(const BSFixedString& name, NiPointer<CombatBehaviorResource>& resource);
+		CombatBehaviorThread* GetThread(uint32_t ind) const;
 
 		// members
 		CombatBehaviorThread*                                        mb_root_thread;  // 00 -- TODO unique_ptr?

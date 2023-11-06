@@ -4,6 +4,9 @@
 
 namespace RE
 {
+	class BGSLoadGameBuffer;
+	class BGSSaveGameBuffer;
+
 	class CombatBlackboardKeyBase
 	{
 	public:

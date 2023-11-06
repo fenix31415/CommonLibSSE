@@ -1,7 +1,25 @@
 #include "RE/C/CombatBehaviorEquipContext.h"
 
+#include "RE/C/CombatBehaviorController.h"
+#include "RE/C/CombatBehaviorThread.h"
+#include "RE/C/CombatController.h"
+#include "RE/C/CombatInventory.h"
+#include "RE/T/TLSData.h"
+
 namespace RE
 {
+	class CombatInventory;
+
+	bool CombatBehaviorEquipContext::CanEquipItem() const
+	{
+		// not in addresslib
+
+		// CombatInventory::CanEquip
+		using func_t = bool (*)(CombatInventory* self, uint32_t slot, CombatInventoryItem* citem);
+		REL::Relocation<func_t> func{ RELOCATION_ID(43628, 0) };  // I do not know for AE
+		return func(GetStaticTLSData()->combatAIThread->control->combat_control->inventory, slot, combat_item);
+	}
+
 	bool CombatBehaviorEquipContext::CheckEquipmentChanged()
 	{
 		using func_t = decltype(&CombatBehaviorEquipContext::CheckEquipmentChanged);
@@ -21,5 +39,18 @@ namespace RE
 		using func_t = decltype(&CombatBehaviorEquipContext::GetCombatItem);
 		REL::Relocation<func_t> func{ RELOCATION_ID(32458, 0) };  // I do not know for AE
 		return func(this);
+	}
+
+	CombatInventoryItem::TYPE CombatBehaviorEquipContext::GetEquipmentType() const
+	{
+		// not in addresslib
+		if (combat_item) {
+			auto raceEquipSlots = GetStaticTLSData()->combatAIThread->control->combat_control->inventory->raceEquipSlots;
+			if (slot < raceEquipSlots->size())
+				if (auto eq_slot = (*raceEquipSlots)[slot])
+					return combat_item->GetEquipType(eq_slot);
+		}
+
+		return CombatInventoryItem::TYPE::kNone;
 	}
 }

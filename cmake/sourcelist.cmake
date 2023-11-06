@@ -443,24 +443,37 @@ set(SOURCES
 	include/RE/C/CombatAcquireItem.h
 	include/RE/C/CombatBehavior.h
 	include/RE/C/CombatBehaviorAcquireResource.h
+	include/RE/C/CombatBehaviorBlock.h
+	include/RE/C/CombatBehaviorBlockAttack.h
 	include/RE/C/CombatBehaviorChildSelector.h
+	include/RE/C/CombatBehaviorContext.h
 	include/RE/C/CombatBehaviorContextAcquireWeapon.h
+	include/RE/C/CombatBehaviorContextBlock.h
 	include/RE/C/CombatBehaviorContextCloseMovement.h
+	include/RE/C/CombatBehaviorContextDodgeThreat.h
+	include/RE/C/CombatBehaviorContextFlankingMovement.h
+	include/RE/C/CombatBehaviorContextFlee.h
 	include/RE/C/CombatBehaviorContextMagic.h
 	include/RE/C/CombatBehaviorContextMelee.h
 	include/RE/C/CombatBehaviorController.h
 	include/RE/C/CombatBehaviorDynamicSelector.h
 	include/RE/C/CombatBehaviorEquipContext.h
+	include/RE/C/CombatBehaviorExpression.h
 	include/RE/C/CombatBehaviorFallbackSelector.h
 	include/RE/C/CombatBehaviorParallel.h
 	include/RE/C/CombatBehaviorRepeat.h
 	include/RE/C/CombatBehaviorResource.h
+	include/RE/C/CombatBehaviorSequence.h
 	include/RE/C/CombatBehaviorStack.h
 	include/RE/C/CombatBehaviorThread.h
 	include/RE/C/CombatBehaviorTree.h
+	include/RE/C/CombatBehaviorTreeConditionalNode.h
 	include/RE/C/CombatBehaviorTreeCreateContextNode.h
 	include/RE/C/CombatBehaviorTreeNode.h
 	include/RE/C/CombatBehaviorTreeNodeObject.h
+	include/RE/C/CombatBehaviorTreeValueNode.h
+	include/RE/C/CombatBehaviorTreeValueNodeT.h
+	include/RE/C/CombatBehaviorTreeWrapperNode.h
 	include/RE/C/CombatBlackboard.h
 	include/RE/C/CombatBlackboardFlag.h
 	include/RE/C/CombatBlackboardFlag.h
@@ -1753,15 +1766,24 @@ set(SOURCES
 	src/RE/C/ColorUtil.cpp
 	src/RE/C/CombatBehavior.cpp
 	src/RE/C/CombatBehaviorAcquireResource.cpp
+	src/RE/C/CombatBehaviorBlock.cpp
+	src/RE/C/CombatBehaviorBlockAttack.cpp
 	src/RE/C/CombatBehaviorChildSelector.cpp
 	src/RE/C/CombatBehaviorContextAcquireWeapon.cpp
+	src/RE/C/CombatBehaviorContextBlock.cpp
+	src/RE/C/CombatBehaviorContextCloseMovement.cpp
+	src/RE/C/CombatBehaviorContextDodgeThreat.cpp
+	src/RE/C/CombatBehaviorContextFlankingMovement.cpp
+	src/RE/C/CombatBehaviorContextFlee.cpp
 	src/RE/C/CombatBehaviorContextMagic.cpp
+	src/RE/C/CombatBehaviorContextMelee.cpp
 	src/RE/C/CombatBehaviorController.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
 	src/RE/C/CombatBehaviorFallbackSelector.cpp
 	src/RE/C/CombatBehaviorParallel.cpp
 	src/RE/C/CombatBehaviorRepeat.cpp
 	src/RE/C/CombatBehaviorResource.cpp
+	src/RE/C/CombatBehaviorSequence.cpp
 	src/RE/C/CombatBehaviorStack.cpp
 	src/RE/C/CombatBehaviorThread.cpp
 	src/RE/C/CombatBehaviorTree.cpp

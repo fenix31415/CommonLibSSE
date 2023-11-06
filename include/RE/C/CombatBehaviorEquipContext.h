@@ -1,16 +1,19 @@
 #pragma once
 
+#include "RE/C/CombatBehaviorContext.h"
 #include "RE/C/CombatInventoryItem.h"
 #include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {
-	class CombatBehaviorEquipContext
+	class CombatBehaviorEquipContext : public CombatBehaviorContext<CombatBehaviorEquipContext>
 	{
 	public:
+		bool                                  CanEquipItem() const;
 		bool                                  CheckEquipmentChanged();
 		bool                                  EquipItem();
 		NiPointer<CombatInventoryItem> const& GetCombatItem() const;
+		CombatInventoryItem::TYPE             GetEquipmentType() const;
 
 		// members
 		uint32_t             slot;         // 00

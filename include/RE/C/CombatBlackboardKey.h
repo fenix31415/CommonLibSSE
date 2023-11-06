@@ -19,6 +19,8 @@ namespace RE
     141DF32B8 CombatKey_TargetUnreachableDistance
 	*/
 
+	struct AITimeStamp;
+
 	template <typename T, const std::array<REL::ID, 1>& vftableID = VTABLE_CombatBlackboardKeyBase>
 	class CombatBlackboardKey : public CombatBlackboardKeyBase
 	{

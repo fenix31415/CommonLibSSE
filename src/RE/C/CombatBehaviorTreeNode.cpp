@@ -9,6 +9,13 @@ namespace RE
 		func(this);
 	}
 
+	void CombatBehaviorTreeNode::AddChild(CombatBehaviorTreeNode* node)
+	{
+		using func_t = decltype(&CombatBehaviorTreeNode::AddChild);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46304, 0) };  // I do not know for AE
+		return func(this, node);
+	}
+
 	CombatBehaviorTreeNode* CombatBehaviorTreeNode::GetRoot()
 	{
 		CombatBehaviorTreeNode* cur = this;
