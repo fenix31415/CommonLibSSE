@@ -8,17 +8,10 @@
 
 namespace RE
 {
-	template <typename Derived>
 	class alignas(4) CombatBehaviorContext
 	{
 	public:
-		static Derived* GetContext()
-		{
-			const auto& sptr = RE::GetStaticTLSData()->combatAIThread->cur_context_sptr;
-			return sptr.stack ? sptr->stack.Access<Derived>(sptr.frame) : nullptr;
-		}
-
-		void EnterContext() {}
+		void Enter() {}
 	};
 }
 

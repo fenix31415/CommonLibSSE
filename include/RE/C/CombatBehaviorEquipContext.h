@@ -6,7 +6,7 @@
 
 namespace RE
 {
-	class CombatBehaviorEquipContext : public CombatBehaviorContext<CombatBehaviorEquipContext>
+	class CombatBehaviorEquipContext : public CombatBehaviorContext
 	{
 	public:
 		bool                                  CanEquipItem() const;

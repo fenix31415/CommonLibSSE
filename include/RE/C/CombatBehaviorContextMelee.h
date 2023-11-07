@@ -12,7 +12,7 @@ namespace RE
 	class BGSAttackData;
 	class CombatMeleeAimController;
 
-	class CombatBehaviorContextMelee : public CombatBehaviorContext<CombatBehaviorContextMelee>
+	class CombatBehaviorContextMelee : public CombatBehaviorContext
 	{
 	public:
 		enum class ATTACK_TYPE : uint32_t
@@ -37,7 +37,7 @@ namespace RE
 		void CalculateAnimationData();
 		bool CheckAttack(CombatAttackData* attack);
 		bool CheckAttackRange();
-		void EnterContext();
+		void Enter();
 		void FinishedAttack();
 		void GatherAttackData();
 		bool StartAttack();

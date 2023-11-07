@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/C/CombatBehaviorContext.h"
 #include "RE/M/MagicSystem.h"
 
 namespace RE
@@ -10,7 +11,7 @@ namespace RE
 	class CombatProjectileAimController;
 	class MagicItem;
 
-	class CombatBehaviorContextMagic
+	class CombatBehaviorContextMagic : public CombatBehaviorContext
 	{
 	public:
 		CombatBehaviorContextMagic(CombatInventoryItemMagic* citem);

@@ -4,7 +4,7 @@
 
 namespace RE
 {
-	class CombatBehaviorContextDodgeThreat : public CombatBehaviorContext<CombatBehaviorContextDodgeThreat>
+	class CombatBehaviorContextDodgeThreat : public CombatBehaviorContext
 	{
 	public:
 		bool CheckShouldDodge() const;

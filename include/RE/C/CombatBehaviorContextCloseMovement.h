@@ -8,7 +8,7 @@ class CombatTargetLocation;
 
 namespace RE
 {
-	class CombatBehaviorContextCloseMovement : public CombatBehaviorContext<CombatBehaviorContextCloseMovement>
+	class CombatBehaviorContextCloseMovement : public CombatBehaviorContext
 	{
 	public:
 		bool CheckOutOfPosition() const;

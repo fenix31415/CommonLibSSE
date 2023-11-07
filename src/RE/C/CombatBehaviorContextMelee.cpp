@@ -23,7 +23,7 @@ namespace RE
 		return func(this);
 	}
 
-	void CombatBehaviorContextMelee::EnterContext()
+	void CombatBehaviorContextMelee::Enter()
 	{
 		return GatherAttackData();
 	}

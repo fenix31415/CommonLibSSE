@@ -4,7 +4,7 @@
 
 namespace RE
 {
-	class CombatBehaviorContextFlankingMovement : public CombatBehaviorContext<CombatBehaviorContextFlankingMovement>
+	class CombatBehaviorContextFlankingMovement : public CombatBehaviorContext
 	{
 	public:
 		bool CheckShouldStalk();

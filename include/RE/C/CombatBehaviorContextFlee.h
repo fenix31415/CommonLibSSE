@@ -4,7 +4,7 @@
 
 namespace RE
 {
-	class CombatBehaviorContextFlee : public CombatBehaviorContext<CombatBehaviorContextFlee>
+	class CombatBehaviorContextFlee : public CombatBehaviorContext
 	{
 	public:
 		bool CheckShouldFlee() const;

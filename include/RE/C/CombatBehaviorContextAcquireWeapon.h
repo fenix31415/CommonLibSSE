@@ -1,13 +1,14 @@
 #pragma once
 
 #include "RE/C/CombatAcquireItem.h"
+#include "RE/C/CombatBehaviorContext.h"
 
 namespace RE
 {
-	class CombatBehaviorContextAcquireWeapon
+	class CombatBehaviorContextAcquireWeapon : public CombatBehaviorContext
 	{
 	public:
-		void                     EnterContext();
+		void                     Enter();
 		const CombatAcquireItem& getAcquireAmmo() const;
 		const CombatAcquireItem& getAcquireWeapon() const;
 		bool                     HasAmmoTarget() const;

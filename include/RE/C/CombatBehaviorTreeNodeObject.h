@@ -18,109 +18,6 @@
 
 namespace RE
 {
-	class CombatBehaviorAdvance;
-	class CombatBehaviorAttack;
-	class CombatBehaviorAttackFromCover;
-	class CombatBehaviorAttackLow;
-	class CombatBehaviorBackoff;
-	class CombatBehaviorBash;
-	class CombatBehaviorBlock;
-	class CombatBehaviorBlockAttack;
-	class CombatBehaviorCastConcentrationSpell;
-	class CombatBehaviorCastImmediateSpell;
-	class CombatBehaviorCastShout;
-	class CombatBehaviorChase;
-	class CombatBehaviorCheckUnreachableTarget;
-	class CombatBehaviorCircle;
-	class CombatBehaviorCircleDistant;
-	class CombatBehaviorDiveBomb;
-	class CombatBehaviorDodgeThreat;
-	class CombatBehaviorDrinkPotion;
-	class CombatBehaviorDynamicConditionalNode;
-	class CombatBehaviorEquipObject;
-	class CombatBehaviorEquipRangedWeapon;
-	class CombatBehaviorEquipShout;
-	class CombatBehaviorEquipSpell;
-	class CombatBehaviorExitWater;
-	class CombatBehaviorFallback;
-	class CombatBehaviorFallbackToRanged;
-	class CombatBehaviorFindAllyAttackLocation;
-	class CombatBehaviorFindAttackLocation;
-	class CombatBehaviorFindCover;
-	class CombatBehaviorFindLateralAttackLocation;
-	class CombatBehaviorFindWeapon;
-	class CombatBehaviorFlank;
-	class CombatBehaviorFlankDistant;
-	class CombatBehaviorFlee;
-	class CombatBehaviorFleeThroughDoor;
-	class CombatBehaviorFleeToAlly;
-	class CombatBehaviorFleeToCover;
-	class CombatBehaviorFlyingAttack;
-	class CombatBehaviorForceFail;
-	class CombatBehaviorForceSuccess;
-	class CombatBehaviorGroundAttack;
-	class CombatBehaviorHide;
-	class CombatBehaviorHover;
-	class CombatBehaviorLand;
-	class CombatBehaviorMaintainOptimalRange;
-	class CombatBehaviorOrbit;
-	class CombatBehaviorOrbitDistant;
-	class CombatBehaviorParallel;
-	class CombatBehaviorPause;
-	class CombatBehaviorPerchAttack;
-	class CombatBehaviorPrepareDualCast;
-	class CombatBehaviorPursueTarget;
-	class CombatBehaviorRangedAttack;
-	class CombatBehaviorRepeat;
-	class CombatBehaviorReposition;
-	class CombatBehaviorReturnToCombatArea;
-	class CombatBehaviorSearchInvestigateDoor;
-	class CombatBehaviorSequence;
-	class CombatBehaviorSpecialAttack;
-	class CombatBehaviorStalk;
-	class CombatBehaviorStrafe;
-	class CombatBehaviorSurround;
-	class CombatBehaviorTakeoff;
-	class CombatBehaviorTrackTarget;
-	class CombatBehaviorWaitBehindCover;
-
-	class ConditionalChildSelector;
-	class NextChildSelector;
-	class RandomValueChildSelector;
-	class ValueChildSelector;
-	class WeightedRandomChildSelector;
-
-	class CombatBehaviorAcquireItem;
-	class CombatBehaviorCastConcentrationSpell;
-	class CombatBehaviorCastImmediateSpell;
-	class CombatBehaviorEnableBlackboardFlag;
-	class CombatBehaviorFlee;
-	class CombatBehaviorIdle;
-	class CombatBehaviorLand;
-	class CombatBehaviorLandNearby;
-	class CombatBehaviorRepeat;
-	class CombatBehaviorRepeat;
-	class CombatBehaviorWatchTarget;
-
-	class CombatBlackboardFlag;
-
-	class CombatBehaviorAcquireResource;
-	class CombatBehaviorFaceAngle;
-	class CombatBehaviorRepeat;
-	class CombatBehaviorSetBlackboardData;
-	class CombatBehaviorSpawnParallel;
-
-	namespace Impl
-	{
-		template <typename T, typename = void>
-		struct has_member : std::false_type
-		{};
-
-		template <typename T>
-		struct has_member<T, std::void_t<decltype(T::VTABLE)>> : std::true_type
-		{};
-	}
-
 	template <typename Object>
 	class CombatBehaviorTreeNodeObjectImplBase : public CombatBehaviorTreeNode
 	{
@@ -198,7 +95,6 @@ namespace RE
 		void Enter(CombatBehaviorThread* a_thread) override
 		{
 			a_thread->stack.Allocate<Object>();
-			// todo: pass fields
 			a_thread->GetCurrentStackObject<Object>().Enter();
 		}
 	};
@@ -221,7 +117,7 @@ namespace RE
                                                                                                  \
 		static CombatBehaviorTreeNode* Create()                                                  \
 		{                                                                                        \
-			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID(SE_ID, AE_ID) };      \
+			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID((SE_ID), (AE_ID)) };  \
 			return func();                                                                       \
 		}                                                                                        \
 	};                                                                                           \
@@ -242,17 +138,24 @@ namespace RE
 
 	// inlined specs
 
-	template <>
-	class CombatBehaviorTreeNodeObject<CombatBehaviorRepeat, float> : public CombatBehaviorTreeNodeObjectImpl<CombatBehaviorRepeat, float>
-	{
-	public:
-		template <typename... Params>
-		CombatBehaviorTreeNodeObject(Params&&... params) :
-			CombatBehaviorTreeNodeObjectImpl<CombatBehaviorRepeat, float>(std::forward<Params>(params)...)
-		{
-			this->SetVftable(RELOCATION_ID(265835, 0));
-		}
-	};
-	static_assert(sizeof(CombatBehaviorTreeNodeObject<CombatBehaviorRepeat, float>) == 0x30);
+#define DECLARE_SPECIALIZATION(List, size, SE_ID, AE_ID)                                     \
+	template <>                                                                              \
+	class CombatBehaviorTreeNodeObject<List> : public CombatBehaviorTreeNodeObjectImpl<List> \
+	{                                                                                        \
+	public:                                                                                  \
+		template <typename... Params>                                                        \
+		CombatBehaviorTreeNodeObject(Params&&... params) :                                   \
+			CombatBehaviorTreeNodeObjectImpl<List>(std::forward<Params>(params)...)          \
+		{                                                                                    \
+			this->SetVftable(RELOCATION_ID((SE_ID), (AE_ID)));                               \
+		}                                                                                    \
+	};                                                                                       \
+	static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))						 \
 
+	#define COMMA ,
+	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float, 0x30, 265835, 0);  // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float COMMA CombatBehaviorRepeat::Flags, 0x30, 267191, 0);  // I do not know for AE
+	#undef COMMA
+
+#undef DECLARE_SPECIALIZATION
 }

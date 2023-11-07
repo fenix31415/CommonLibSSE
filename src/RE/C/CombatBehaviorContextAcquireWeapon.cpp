@@ -2,9 +2,9 @@
 
 namespace RE
 {
-	void CombatBehaviorContextAcquireWeapon::EnterContext()
+	void CombatBehaviorContextAcquireWeapon::Enter()
 	{
-		using func_t = decltype(&CombatBehaviorContextAcquireWeapon::EnterContext);
+		using func_t = decltype(&CombatBehaviorContextAcquireWeapon::Enter);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46341, 0) };  // I do not know for AE
 		return func(this);
 	}

@@ -43,10 +43,7 @@ namespace RE
 
 		void Enter(CombatBehaviorThread* a_thread) override
 		{
-			a_thread->cur_context_sptr = a_thread->stack.Allocate<Context>();
-			a_thread->stack.StoreData(a_thread->cur_context_sptr);
-			a_thread->stack.Access<Context>(a_thread->cur_context_sptr.frame).EnterContext();
-			a_thread->Descend();
+			EnterContext(a_thread, a_thread->stack.Allocate<Context>());
 		}
 
 		void Exit(CombatBehaviorThread* thread) override
@@ -75,6 +72,16 @@ namespace RE
 		{
 			static BSFixedString ans("CombatBehaviorTreeCreateContextNode");
 			return ans;
+		}
+
+		void EnterContext(CombatBehaviorThread* thread, CombatBehaviorStack::ObjectPtr new_context_sptr)
+		{
+			thread->stack.StoreData(thread->cur_context_sptr);
+			thread->cur_context_sptr = new_context_sptr;
+			auto active_node = thread->active_node;
+			thread->GetCurrentContext<Context>()->Enter();
+			if (active_node == thread->active_node)
+				thread->Descend();
 		}
 	};
 
