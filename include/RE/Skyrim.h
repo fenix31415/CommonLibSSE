@@ -464,6 +464,7 @@
 #include "RE/C/CombatBehaviorParallel.h"
 #include "RE/C/CombatBehaviorRepeat.h"
 #include "RE/C/CombatBehaviorResource.h"
+#include "RE/C/CombatBehaviorSequence.h"
 #include "RE/C/CombatBehaviorStack.h"
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTree.h"

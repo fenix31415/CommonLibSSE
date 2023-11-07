@@ -91,33 +91,21 @@ namespace RE
 			return new CombatBehaviorTreeCreateContextNode2<Context, T, U>(std::move(arg1), std::move(arg2));
 		}
 
-		template <typename Object>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateObject()
+		template <typename Object, typename... Fields>
+		class CreateObjectImpl
 		{
-			using Node = CombatBehaviorTreeNodeObject<Object>;
-			if constexpr (IsGameNode<Node>::value)
-				return Node::Create();
-			else
-				return new Node();
-		}
+			using Node = CombatBehaviorTreeNodeObject<Object, Fields...>;
 
-		template <typename Object, typename T>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateObject(T arg1)
-		{
-			return new CombatBehaviorTreeNodeObject1<Object, T>(std::move(arg1));
-		}
-
-		template <typename Object, typename T, typename U>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateObject(T arg1, U arg2)
-		{
-			return new CombatBehaviorTreeNodeObject2<Object, T, U>(std::move(arg1), std::move(arg2));
-		}
-
-		template <typename Object, typename T, typename U, typename P>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateObject(T arg1, U arg2, P arg3)
-		{
-			return new CombatBehaviorTreeNodeObject3<Object, T, U, P>(std::move(arg1), std::move(arg2), std::move(arg3));
-		}
+		public:
+			template <typename... Args>
+			[[nodiscard]] static Node* eval(Args&&... params)
+			{
+				if constexpr (IsGameNode<Node>::value)
+					return static_cast<Node*>(Node::Create(std::forward<Args>(params)...));
+				else
+					return new Node(std::forward<Args>(params)...);
+			}
+		};
 
 		template <typename T>
 		struct IsGameNode1

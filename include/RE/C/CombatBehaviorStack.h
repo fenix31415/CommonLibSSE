@@ -21,6 +21,7 @@ namespace RE
 		};
 		static_assert(sizeof(ObjectPtr) == 0x10);
 
+		// TODO: add overloads for in-game functions
 		template <typename T, typename... Args>
 		ObjectPtr Allocate(Args&&... args)
 		{
