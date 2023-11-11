@@ -12,6 +12,8 @@ namespace RE
 		void Exit();
 		void Update();
 
+		static bool Validate(CombatBehaviorTreeNode* node);
+
 		// members
 		AITimer timer_block;           // 00
 		AITimer child_retry_timer;     // 08

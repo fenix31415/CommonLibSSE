@@ -1,6 +1,6 @@
 #include "RE/C/CombatBehaviorParallel.h"
 
-#include "RE/C/CombatBehaviorTreeNode.h"
+#include "RE/C/CombatBehaviorNode.h"
 
 namespace RE
 {

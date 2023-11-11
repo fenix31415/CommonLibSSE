@@ -18,13 +18,13 @@ namespace RE
 	class CombatBehaviorController
 	{
 	public:
-		static Actor*            GetCurrentAttacker();
-		static CombatController* GetCurrentCombatController();
-		static CombatGroup*      GetCurrentCombatGroup();
-		static CombatInventory*  GetCurrentCombatInventory();
-		static CombatState*      GetCurrentCombatState();
+		static Actor*                GetCurrentAttacker();
+		static CombatController*     GetCurrentCombatController();
+		static CombatGroup*          GetCurrentCombatGroup();
+		static CombatInventory*      GetCurrentCombatInventory();
+		static CombatState*          GetCurrentCombatState();
 
-		bool GetResource(const BSFixedString& name, NiPointer<CombatBehaviorResource>& resource);
+		bool                  GetResource(const BSFixedString& name, NiPointer<CombatBehaviorResource>& resource);
 		CombatBehaviorThread* GetThread(uint32_t ind) const;
 
 		// members

@@ -35,11 +35,4 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(46093, 0) };  // I do not know for AE
 		return func(node);
 	}
-
-	bool CombatBehaviorNode::Validate(CombatBehaviorTreeNode* node)
-	{
-		using func_t = decltype(&CombatBehaviorNode::Validate);
-		REL::Relocation<func_t> func{ RELOCATION_ID(46092, 0) };  // I do not know for AE
-		return func(node);
-	}
 }

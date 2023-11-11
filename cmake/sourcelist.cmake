@@ -460,6 +460,7 @@ set(SOURCES
 	include/RE/C/CombatBehaviorEquipContext.h
 	include/RE/C/CombatBehaviorExpression.h
 	include/RE/C/CombatBehaviorFallbackSelector.h
+	include/RE/C/CombatBehaviorNode.h
 	include/RE/C/CombatBehaviorParallel.h
 	include/RE/C/CombatBehaviorRepeat.h
 	include/RE/C/CombatBehaviorResource.h
@@ -1769,6 +1770,7 @@ set(SOURCES
 	src/RE/C/CombatBehaviorBlock.cpp
 	src/RE/C/CombatBehaviorBlockAttack.cpp
 	src/RE/C/CombatBehaviorChildSelector.cpp
+	src/RE/C/CombatBehaviorContext.cpp
 	src/RE/C/CombatBehaviorContextAcquireWeapon.cpp
 	src/RE/C/CombatBehaviorContextBlock.cpp
 	src/RE/C/CombatBehaviorContextCloseMovement.cpp
@@ -1780,6 +1782,7 @@ set(SOURCES
 	src/RE/C/CombatBehaviorController.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
 	src/RE/C/CombatBehaviorFallbackSelector.cpp
+	src/RE/C/CombatBehaviorNode.cpp
 	src/RE/C/CombatBehaviorParallel.cpp
 	src/RE/C/CombatBehaviorRepeat.cpp
 	src/RE/C/CombatBehaviorResource.cpp

@@ -12,10 +12,18 @@ namespace RE
 		return CombatBehaviorBranch::Validate(node);
 	}
 
-	CombatBehaviorAcquireResource::CombatBehaviorAcquireResource(const BSFixedString& name, uint32_t priority, FLAG flags) :
-		resource(nullptr), priority(priority), flags(flags), child_thread(child_thread)
+	CombatBehaviorAcquireResource::CombatBehaviorAcquireResource()
 	{
-		GetStaticTLSData()->combatAIThread->control->GetResource(name, resource);
+		using func_t = CombatBehaviorAcquireResource*(CombatBehaviorAcquireResource*);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46206, 0) };  // I do not know for AE
+		func(this);
+	}
+
+	CombatBehaviorAcquireResource::CombatBehaviorAcquireResource(const BSFixedString& name, uint32_t priority, FLAG flags)
+	{
+		using func_t = CombatBehaviorAcquireResource*(CombatBehaviorAcquireResource*, const BSFixedString& name, uint32_t priority, FLAG flags);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46207, 0) };  // I do not know for AE
+		func(this, name, priority, flags);
 	}
 
 	void CombatBehaviorAcquireResource::Abort()

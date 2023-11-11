@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RE/C/CombatBehavior.h"
+#include "RE/C/CombatBehaviorNode.h"
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
 #include "RE/C/ConditionalChildSelector.h"
@@ -10,13 +11,13 @@
 #include "RE/V/ValueChildSelector.h"
 #include "RE/W/WeightedRandomChildSelector.h"
 
-#pragma warning(push)
-#pragma warning(disable: 4324)  // padded
-
 namespace RE
 {
+#pragma warning(push)
+#pragma warning(disable: 4324)  // structure was padded due to alignment specifier
+
 	template <typename Selector>
-	class alignas(std::max(alignof(Selector), size_t(4))) CombatBehaviorChildSelector : public CombatBehavior
+	class alignas(4) CombatBehaviorChildSelector : public CombatBehaviorNode, public Selector
 	{
 	public:
 		static bool Validate(CombatBehaviorTreeNode* node)
@@ -27,8 +28,7 @@ namespace RE
 		void Enter()
 		{
 			auto cur_thread = GetStaticTLSData()->combatAIThread;
-			auto ind = selector.SelectChild(cur_thread->active_node, selector.GetSelected());
-			selector.SetSelected(ind);
+			auto ind = Selector::SelectChild(cur_thread->active_node, 0xFFFFFFFF);
 			if (ind == -1) {
 				cur_thread->SetFailed(true);
 				cur_thread->Ascend();
@@ -36,11 +36,8 @@ namespace RE
 				cur_thread->Descend(ind);
 			}
 		}
-
-		// members
-		char     unk00;     // 00
-		Selector selector;  // 04
 	};
-}
 
-#pragma warning(pop)  // padded
+#pragma warning(pop)
+
+}

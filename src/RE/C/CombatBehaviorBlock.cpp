@@ -1,5 +1,7 @@
 #include "RE/C/CombatBehaviorBlock.h"
 
+#include "RE/C/CombatBehaviorTreeNode.h"
+
 namespace RE
 {
 	void CombatBehaviorBlock::Enter()
@@ -21,5 +23,10 @@ namespace RE
 		using func_t = decltype(&CombatBehaviorBlock::Update);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46634, 0) };  // I do not know for AE
 		return func(this);
+	}
+
+	bool CombatBehaviorBlock::Validate(CombatBehaviorTreeNode* node)
+	{
+		return CombatBehaviorBranch::Validate(node);
 	}
 }

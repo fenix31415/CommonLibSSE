@@ -10,40 +10,18 @@ namespace RE
 	{
 	public:
 		~CombatBehaviorTreeConditionalNodeBase() = default;
-		CombatBehaviorTreeConditionalNodeBase(Expr expr, bool fail) :
-			expr(std::move(expr)), fail(fail) {}
 
-		// members
-		Expr expr;
-		bool fail;
-	};
-
-	template <typename Expr, uint64_t SE, uint64_t AE>
-	class CombatBehaviorTreeConditionalNodeWithCtor : public CombatBehaviorTreeConditionalNodeBase<Expr>
-	{
-	public:
-		CombatBehaviorTreeConditionalNodeWithCtor() = delete;
-
-		static CombatBehaviorTreeNode* Create(const Expr& a_expr, bool a_fail)
-		{
-			REL::Relocation<CombatBehaviorTreeNode*(const Expr&, bool)> func{ RELOCATION_ID(SE, AE) };
-			return func(a_expr, a_fail);
-		}
-	};
-
-	template <typename Expr>
-	class CombatBehaviorTreeConditionalNode : public CombatBehaviorTreeConditionalNodeBase<Expr>
-	{
-	public:
-		~CombatBehaviorTreeConditionalNode() = default;
-		using CombatBehaviorTreeConditionalNodeBase<Expr>::CombatBehaviorTreeConditionalNodeBase;
+		template <typename T>
+		CombatBehaviorTreeConditionalNodeBase(T&& expr, bool isSelector) :
+			expr(std::forward<T>(expr)), isSelector(isSelector)
+		{}
 
 		void Enter(CombatBehaviorThread* thread) override
 		{
-			if (this->expr()) {
+			if (this->expr) {
 				thread->Descend();
 			} else {
-				if (this->fail)
+				if (this->isSelector)
 					thread->fail_state = CombatBehaviorThread::FailState::kFailed;
 				thread->Ascend();
 			}
@@ -59,20 +37,37 @@ namespace RE
 			static BSFixedString ans("CombatBehaviorTreeConditionalNode");
 			return ans;
 		}
+
+		// members
+		Expr expr;
+		bool isSelector;
 	};
 
-#define DECLARE_SPECIALIZATION(T, SE, AE, size)                                                                \
-	template <>                                                                                                \
-	class CombatBehaviorTreeConditionalNode<T> : public CombatBehaviorTreeConditionalNodeWithCtor<T, SE, AE>   \
-	{                                                                                                          \
-	public:                                                                                                    \
-		using CombatBehaviorTreeConditionalNodeWithCtor<T, SE, AE>::CombatBehaviorTreeConditionalNodeWithCtor; \
-	};                                                                                                         \
-	static_assert(sizeof(CombatBehaviorTreeConditionalNode<T>) == size)
-	
-	// TODO rest
+	template <typename Expr>
+	class CombatBehaviorTreeConditionalNode : public CombatBehaviorTreeConditionalNodeBase<Expr>
+	{
+	public:
+		using CombatBehaviorTreeConditionalNodeBase<Expr>::CombatBehaviorTreeConditionalNodeBase;
+	};
 
-	DECLARE_SPECIALIZATION(decltype(&CombatBehaviorEquipContext::CanEquipItem), 46372, 0, 0x38);  // I do not know for AE
+	// Specs for nodes with Create
+
+#define DECLARE_SPECIALIZATION(Expr, size, SE_ID, AE_ID)                                               \
+	template <>                                                                                        \
+	class CombatBehaviorTreeConditionalNode<Expr> : public CombatBehaviorTreeConditionalNodeBase<Expr> \
+	{                                                                                                  \
+	public:                                                                                            \
+		CombatBehaviorTreeConditionalNode() = delete;                                                  \
+                                                                                                       \
+		static CombatBehaviorTreeNode* Create()                                                        \
+		{                                                                                              \
+			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID((SE_ID), (AE_ID)) };        \
+			return func();                                                                             \
+		}                                                                                              \
+	};                                                                                                 \
+	static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
+
+	//DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0);  // I do not know for AE
 
 #undef DECLARE_SPECIALIZATION
 }

@@ -1,5 +1,8 @@
 #include "RE/C/CombatBehaviorController.h"
 
+#include "RE/C/CombatBehaviorThread.h"
+#include "RE/T/TLSData.h"
+
 namespace RE
 {
 	Actor* CombatBehaviorController::GetCurrentAttacker()

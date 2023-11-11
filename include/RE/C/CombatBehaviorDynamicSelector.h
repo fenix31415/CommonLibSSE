@@ -6,6 +6,11 @@ namespace RE
 	class CombatBehaviorDynamicSelector
 	{
 	public:
+		static bool Validate(CombatBehaviorTreeNode* node)
+		{
+			return CombatBehaviorNode::Validate(node) && Selector::Validate(node);
+		}
+
 		// TODO
 	};
 }

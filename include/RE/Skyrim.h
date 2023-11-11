@@ -461,6 +461,7 @@
 #include "RE/C/CombatBehaviorEquipContext.h"
 #include "RE/C/CombatBehaviorExpression.h"
 #include "RE/C/CombatBehaviorFallbackSelector.h"
+#include "RE/C/CombatBehaviorNode.h"
 #include "RE/C/CombatBehaviorParallel.h"
 #include "RE/C/CombatBehaviorRepeat.h"
 #include "RE/C/CombatBehaviorResource.h"

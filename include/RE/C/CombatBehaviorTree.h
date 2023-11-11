@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdio.h>  // sprintf_s
-
 #include "RE/B/BSFixedString.h"
 #include "RE/B/BSTArray.h"
 #include "RE/C/CombatBehaviorAcquireResource.h"
@@ -69,27 +67,21 @@ namespace RE
 			static constexpr bool value = std::is_same<CombatBehaviorTreeNode*, decltype(detect(std::declval<T>()))>::value;
 		};
 
-		template <typename Context>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateContext()
+		template <typename Context, typename... Fields>
+		class CreateContextImpl
 		{
-			using Node = CombatBehaviorTreeCreateContextNode<Context>;
-			if constexpr (IsGameNode<Node>::value)
-				return Node::Create();
-			else
-				return new CombatBehaviorTreeCreateContextNode<Context>();
-		}
+			using Node = CombatBehaviorTreeCreateContextNode<Context, Fields...>;
 
-		template <typename Context, typename T>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateContext(T arg1)
-		{
-			return new CombatBehaviorTreeCreateContextNode1<Context, T>(std::move(arg1));
-		}
-
-		template <typename Context, typename T, typename U>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateContext(T arg1, U arg2)
-		{
-			return new CombatBehaviorTreeCreateContextNode2<Context, T, U>(std::move(arg1), std::move(arg2));
-		}
+		public:
+			template <typename... Args>
+			[[nodiscard]] static Node* eval(Args&&... params)
+			{
+				if constexpr (IsGameNode<Node>::value)
+					return static_cast<Node*>(Node::Create(std::forward<Args>(params)...));
+				else
+					return new Node(std::forward<Args>(params)...);
+			}
+		};
 
 		template <typename Object, typename... Fields>
 		class CreateObjectImpl
@@ -107,35 +99,68 @@ namespace RE
 			}
 		};
 
-		template <typename T>
-		struct IsGameNode1
+		template <typename Expr>
+		class CreateConditionalNodeImpl
 		{
-		public:
-			static constexpr bool value = false;
-		};
-
-		template <typename T>
-		struct IsGameNode1<CombatBehaviorTreeConditionalNode<T>>
-		{
-		private:
-			static int detect(...);
-
-			template <typename U>
-			static decltype(std::declval<U>().Create(std::declval<T>(), false)) detect(const U&);
+			using Node = CombatBehaviorTreeConditionalNode<Expr>;
 
 		public:
-			static constexpr bool value = std::is_same<CombatBehaviorTreeNode*, decltype(detect(std::declval<CombatBehaviorTreeConditionalNode<T>>()))>::value;
+			template <typename T>
+			[[nodiscard]] static Node* eval(T&& expr, bool isSelector)
+			{
+				return new Node(std::forward<T>(expr), isSelector);
+			}
 		};
 
 		template <typename Expr>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateConditionalNode(Expr expr, bool fail)
+		class AddConditionalSelectorNodeImpl
 		{
-			using Node = CombatBehaviorTreeConditionalNode<Expr>;
-			if constexpr (IsGameNode1<Node>::value)
-				return Node::Create(std::move(expr), fail);
-			else
-				return new CombatBehaviorTreeConditionalNode<Expr>(std::move(expr), fail);
-		}
+		public:
+			template <typename T>
+			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			{
+				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), true);
+				char DstBuf[260];
+				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+				cond_node->name = RE::BSFixedString(DstBuf);
+				cond_node->AddChild(node);
+				return AddNode(name, node);
+			}
+		};
+
+		template <typename Expr>
+		class AddConditionalSequenceNodeImpl
+		{
+		public:
+			template <typename T>
+			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			{
+				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), false);
+				char DstBuf[260];
+				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+				cond_node->name = RE::BSFixedString(DstBuf);
+				cond_node->AddChild(node);
+				return AddNode(name, node);
+			}
+		};
+
+		template <typename Expr>
+		class AddRandomNodeImpl
+		{
+			using MainExpr_t = CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float), Expr>>;
+
+		public:
+			template <typename T>
+			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			{
+				auto cond_node = CreateConditionalNodeImpl<MainExpr_t>::eval(std::forward<T>(expr), true);
+				char DstBuf[260];
+				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+				cond_node->name = RE::BSFixedString(DstBuf);
+				cond_node->AddChild(node);
+				return AddNode(name, node);
+			}
+		};
 
 		template <typename Expr, bool fail>
 		[[nodiscard]] static TreeBuilder AddConditionalNode(const char* name, Expr expr, CombatBehaviorTreeNode* node)
@@ -147,28 +172,6 @@ namespace RE
 			cond_node->AddChild(node);
 			return AddNode(name, node);
 		}
-
-#define DECLARE_OVERLOAD(SE_ID, AE_ID, Expr)                                                                       \
-	[[nodiscard]] static TreeBuilder AddConditionalNode(const char* name, Expr expr, CombatBehaviorTreeNode* node) \
-	{                                                                                                              \
-		using func_t = TreeBuilder(const char* name, Expr, CombatBehaviorTreeNode* node);                          \
-		REL::Relocation<func_t> func{ RELOCATION_ID(SE_ID, AE_ID) };                                               \
-		return func(name, expr, node);                                                                             \
-	}
-
-		DECLARE_OVERLOAD(46357, 0, decltype(&CombatBehaviorContextAcquireWeapon::HasAmmoTarget));
-		DECLARE_OVERLOAD(47152, 0, decltype(&CombatBehaviorContextFlankingMovement::CheckShouldStalk));
-		DECLARE_OVERLOAD(47430, 0, decltype(&CombatBehaviorContextFlee::CheckShouldFlee));
-		DECLARE_OVERLOAD(46732, 0, decltype(&CombatBehaviorContextCloseMovement::CheckShouldFallbackToRanged));
-		DECLARE_OVERLOAD(46596, 0, decltype(&CombatBehaviorContextDodgeThreat::CheckShouldDodge));
-		
-		// TODO (Expr)
-		//DECLARE_OVERLOAD(48554, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
-		//DECLARE_OVERLOAD(47760, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
-		//DECLARE_OVERLOAD(47761, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
-		//DECLARE_OVERLOAD(47762, 0, decltype(&CombatBehaviorContextAcquireWeapon::sub_1407CD9B0));
-
-		#undef DECLARE_OVERLOAD
 
 		// TODO: AddValue, also inlined
 		template <typename T, typename Expr>

@@ -43,10 +43,4 @@ namespace RE
 	public:
 		static bool Validate(CombatBehaviorTreeNode*);
 	};
-
-	class CombatBehaviorNode
-	{
-	public:
-		static bool Validate(CombatBehaviorTreeNode*);
-	};
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "RE/B/BSTArray.h"
-#include "RE/C/CombatBehaviorExpression.h"
 
 namespace RE
 {
@@ -21,7 +20,6 @@ namespace RE
 		};
 		static_assert(sizeof(ObjectPtr) == 0x10);
 
-		// TODO: add overloads for in-game functions
 		template <typename T, typename... Args>
 		ObjectPtr Allocate(Args&&... args)
 		{
@@ -34,8 +32,6 @@ namespace RE
 			new (&data[old_size]) T(std::forward<Args>(args)...);
 			return ans;
 		}
-
-		ObjectPtr Allocate(const CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextAcquireWeapon, CombatAcquireItem const& (CombatBehaviorContextAcquireWeapon::*)(void) const>>& arg1);
 
 		template <typename T>
 		void Deallocate()
@@ -51,14 +47,7 @@ namespace RE
 			uint32_t new_size = size + sizeof(T);
 			CheckBuffer(new_size);
 			size = new_size;
-			*reinterpret_cast<T*>(&data[old_size]) = obj;
-		}
-
-		template <typename T>
-		T RemoveData()
-		{
-			size -= sizeof(T);
-			return *reinterpret_cast<T*>(&data[size]);
+			new (&data[old_size]) T(obj);
 		}
 
 		template <typename T>

@@ -23,6 +23,7 @@ namespace RE
 
 		static bool Validate(CombatBehaviorTreeNode* node);
 
+		CombatBehaviorAcquireResource();
 		CombatBehaviorAcquireResource(const BSFixedString& name, uint32_t priority, FLAG flags);
 
 		void Abort();

@@ -25,6 +25,11 @@ namespace RE
 		CombatBehaviorTreeNodeObjectImplBase() = default;
 		~CombatBehaviorTreeNodeObjectImplBase() = default;
 
+		void Update(CombatBehaviorThread* thread) override
+		{
+			thread->GetCurrentStackObject<Object>().Update();
+		}
+
 		void Exit(CombatBehaviorThread* thread) override
 		{
 			thread->GetCurrentStackObject<Object>().Exit();
@@ -68,16 +73,11 @@ namespace RE
 		{}
 		~CombatBehaviorTreeNodeObjectImpl() = default;
 
-		template <typename F, typename T, typename U>
-		static decltype(auto) apply_invoke(F&& func, T&& first, U&& tuple)
-		{
-			return std::apply(std::forward<F>(func), std::tuple_cat(std::forward_as_tuple(std::forward<T>(first)), std::forward<U>(tuple)));
-		}
-
 		void Enter(CombatBehaviorThread* a_thread) override
 		{
 			//a_thread->stack.Allocate<Object>();
-			std::apply(&CombatBehaviorStack::Allocate<Object, const Fields&...>, std::tuple_cat(std::make_tuple(a_thread->stack), fields));
+			std::apply(
+				[a_thread](const auto&... args) { a_thread->stack.Allocate<Object, const Fields&...>(args...); }, fields);
 			a_thread->GetCurrentStackObject<Object>().Enter();
 		}
 
