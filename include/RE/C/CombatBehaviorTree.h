@@ -173,12 +173,18 @@ namespace RE
 			return AddNode(name, node);
 		}
 
-		// TODO: AddValue, also inlined
 		template <typename T, typename Expr>
-		[[nodiscard]] static CombatBehaviorTreeNode* CreateValueNodeT(Expr expr)
+		class AddValueNodeTImpl
 		{
-			return new CombatBehaviorTreeValueNodeT<T, Expr>(std::move(expr));
-		}
+			using Node = CombatBehaviorTreeValueNodeT<T, Expr>;
+
+		public:
+			template <typename U>
+			[[nodiscard]] static Node* eval(U&& expr)
+			{
+				return new Node(std::forward<U>(expr));
+			}
+		};
 
 		virtual void Initialize();  // 00
 
