@@ -39,18 +39,6 @@ namespace RE
 		};
 		static_assert(sizeof(TreeBuilder) == 0x18);
 
-		class CombatBehaviorAttacker
-		{
-		public:
-			operator Actor*();
-		};
-
-		class CombatBehaviorTarget
-		{
-		public:
-			operator Actor*();
-		};
-
 		static TreeBuilder AddNode(const char* name, CombatBehaviorTreeNode* node);
 		void               CreateTree(CombatBehaviorTreeNode* node);
 
@@ -117,7 +105,7 @@ namespace RE
 		{
 		public:
 			template <typename T>
-			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
 			{
 				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), true);
 				char DstBuf[260];
@@ -133,7 +121,7 @@ namespace RE
 		{
 		public:
 			template <typename T>
-			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
 			{
 				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), false);
 				char DstBuf[260];
@@ -151,7 +139,7 @@ namespace RE
 
 		public:
 			template <typename T>
-			[[nodiscard]] static CombatBehaviorTree::TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
+			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
 			{
 				auto cond_node = CreateConditionalNodeImpl<MainExpr_t>::eval(std::forward<T>(expr), true);
 				char DstBuf[260];

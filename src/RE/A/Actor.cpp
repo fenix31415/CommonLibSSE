@@ -124,6 +124,13 @@ namespace RE
 		return func(this, a_actor);
 	}
 
+	bool Actor::CanFly() const
+	{
+		using func_t = decltype(&Actor::CanFly);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36238, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	bool Actor::CanFlyHere() const
 	{
 		const auto* worldSpace = GetWorldspace();

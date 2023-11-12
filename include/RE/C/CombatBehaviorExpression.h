@@ -25,6 +25,79 @@ namespace RE
 		E e;
 	};
 
+	struct OpNot
+	{
+		template <typename T>
+		static bool apply(T&& arg)
+		{
+			return !arg;
+		}
+	};
+
+	struct OpLessThan
+	{
+		template <typename T, typename U>
+		static bool apply(T&& arg1, U&& arg2)
+		{
+			return static_cast<std::remove_reference_t<U>>(arg1) < arg2;
+		}
+	};
+
+	struct OpAnd
+	{
+		static bool apply(bool arg1, bool arg2)
+		{
+			return arg1 && arg2;
+		}
+	};
+
+	struct OpOr
+	{
+		static bool apply(bool arg1, bool arg2)
+		{
+			return arg1 || arg2;
+		}
+	};
+
+	template<typename F, typename Op>
+	class CombatBehaviorUnaryExpression
+	{
+	public:
+		template <typename T>
+		CombatBehaviorUnaryExpression(T&& f) :
+			f(std::forward<T>(f))
+		{}
+
+		template <typename T>
+		operator T()
+		{
+			return Op::apply(f);
+		}
+
+		// members
+		F f;
+	};
+
+	template <typename F1, typename F2, typename Op>
+	class CombatBehaviorBinaryExpression
+	{
+	public:
+		template <typename T, typename U>
+		CombatBehaviorBinaryExpression(T&& f1, U&& f2) :
+			f1(std::forward<T>(f1)), f2(std::forward<U>(f2))
+		{}
+
+		template <typename T>
+		operator T()
+		{
+			return Op::apply(f1, f2);
+		}
+
+		// members
+		F1 f1;
+		F2 f2;
+	};
+
 	template <typename F, typename... Args>
 	class CombatBehaviorFunc
 	{
@@ -91,7 +164,7 @@ namespace RE
 		template <typename T>
 		operator T()
 		{
-			return std::apply([this](const auto&... args) { (CombatBehaviorMemberFunc__GetThis<C>.*f)(args...); }, args);
+			return std::apply([this](auto&&... args) { return (CombatBehaviorMemberFunc__GetThis<C>()->*f)(std::forward<decltype(args)>(args)...); }, args);
 		}
 
 		// members
@@ -111,7 +184,7 @@ namespace RE
 		template <typename T>
 		operator T()
 		{
-			return (CombatBehaviorMemberFunc__GetThis<C>.*f)();
+			return static_cast<T>((CombatBehaviorMemberFunc__GetThis<C>()->*f)());
 		}
 
 		// members

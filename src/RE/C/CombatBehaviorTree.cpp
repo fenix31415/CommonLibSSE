@@ -43,18 +43,4 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(46263, 0) };  // I do not know for AE
 		return func(this, node);
 	}
-
-	CombatBehaviorTree::CombatBehaviorAttacker::operator Actor*()
-	{
-		using func_t = decltype(&CombatBehaviorTree::CombatBehaviorAttacker::operator Actor*);
-		REL::Relocation<func_t> func{ RELOCATION_ID(46264, 0) };  // I do not know for AE
-		return func(this);
-	}
-
-	CombatBehaviorTree::CombatBehaviorTarget::operator Actor*()
-	{
-		using func_t = decltype(&CombatBehaviorTree::CombatBehaviorTarget::operator Actor*);
-		REL::Relocation<func_t> func{ RELOCATION_ID(46265, 0) };  // I do not know for AE
-		return func(this);
-	}
 }

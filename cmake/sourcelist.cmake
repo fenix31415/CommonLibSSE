@@ -455,6 +455,7 @@ set(SOURCES
 	include/RE/C/CombatBehaviorContextFlee.h
 	include/RE/C/CombatBehaviorContextMagic.h
 	include/RE/C/CombatBehaviorContextMelee.h
+	include/RE/C/CombatBehaviorContextRangedMovement.h
 	include/RE/C/CombatBehaviorController.h
 	include/RE/C/CombatBehaviorDynamicSelector.h
 	include/RE/C/CombatBehaviorEquipContext.h
@@ -472,6 +473,7 @@ set(SOURCES
 	include/RE/C/CombatBehaviorTreeCreateContextNode.h
 	include/RE/C/CombatBehaviorTreeNode.h
 	include/RE/C/CombatBehaviorTreeNodeObject.h
+	include/RE/C/CombatBehaviorTreeUtils.h
 	include/RE/C/CombatBehaviorTreeValueNode.h
 	include/RE/C/CombatBehaviorTreeValueNodeT.h
 	include/RE/C/CombatBehaviorTreeWrapperNode.h
@@ -1779,6 +1781,7 @@ set(SOURCES
 	src/RE/C/CombatBehaviorContextFlee.cpp
 	src/RE/C/CombatBehaviorContextMagic.cpp
 	src/RE/C/CombatBehaviorContextMelee.cpp
+	src/RE/C/CombatBehaviorContextRangedMovement.cpp
 	src/RE/C/CombatBehaviorController.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
 	src/RE/C/CombatBehaviorFallbackSelector.cpp
@@ -1792,9 +1795,13 @@ set(SOURCES
 	src/RE/C/CombatBehaviorTree.cpp
 	src/RE/C/CombatBehaviorTreeNode.cpp
 	src/RE/C/CombatBehaviorTreeNodeObject.cpp
+	src/RE/C/CombatBehaviorTreeUtils.cpp
 	src/RE/C/CombatBlackboard.cpp
 	src/RE/C/CombatBlackboardFlag.cpp
 	src/RE/C/CombatBlackboardManager.cpp
+	src/RE/C/CombatController.cpp
+	src/RE/C/CombatGroup.cpp
+	src/RE/C/CombatState.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp
 	src/RE/C/Console.cpp
@@ -1881,6 +1888,7 @@ set(SOURCES
 	src/RE/I/IHandlerFunctor.cpp
 	src/RE/I/IMemoryStore.cpp
 	src/RE/I/IMenu.cpp
+	src/RE/I/IMovementState.cpp
 	src/RE/I/INIPrefSettingCollection.cpp
 	src/RE/I/INISettingCollection.cpp
 	src/RE/I/IObjectHandlePolicy.cpp

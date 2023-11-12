@@ -493,6 +493,7 @@ namespace RE
 		void                         AllowPCDialogue(bool a_talk);
 		void                         CastPermanentMagic(bool a_wornItemEnchantments, bool a_baseSpells, bool a_raceSpells, bool a_everyActorAbility);
 		bool                         CanAttackActor(Actor* a_actor);
+		bool                         CanFly() const;
 		bool                         CanFlyHere() const;
 		bool                         CanOfferServices() const;
 		bool                         CanPickpocket() const;

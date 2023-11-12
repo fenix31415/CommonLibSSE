@@ -26,6 +26,7 @@ namespace RE
 		{
 			return state->isFleeing;
 		}
+		bool CheckCombatArea(Actor* atatcker) const;
 
 		// members
 		CombatGroup*                   combatGroup;           // 00
