@@ -932,6 +932,13 @@ namespace RE
 		extraList.RemoveByType(ExtraDataType::kAttachedArrows3D);
 	}
 
+	void Actor::RemoveFromFaction(RE::TESFaction* a_faction)
+	{
+		using func_t = decltype(&Actor::RemoveFromFaction);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36680, 37688) };
+		return func(this, a_faction);
+	}
+
 	bool Actor::RemoveSpell(SpellItem* a_spell)
 	{
 		using func_t = decltype(&Actor::RemoveSpell);

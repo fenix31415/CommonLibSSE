@@ -6,10 +6,10 @@
 #include "RE/C/CombatBehaviorContextMagic.h"
 #include "RE/C/CombatBehaviorContextMelee.h"
 #include "RE/C/CombatBehaviorEquipContext.h"
-#include "RE/C/CombatBehaviorTreeCreateContextNode.h"
 #include "RE/C/CombatBehaviorFallbackSelector.h"
 #include "RE/C/CombatBehaviorParallel.h"
 #include "RE/C/CombatBehaviorRepeat.h"
+#include "RE/C/CombatBehaviorTreeCreateContextNode.h"
 
 // TODO remove?
 namespace RE

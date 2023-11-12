@@ -1,8 +1,8 @@
 #include "RE/C/CombatBehaviorAcquireResource.h"
 
+#include "RE/C/CombatBehaviorController.h"
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
-#include "RE/C/CombatBehaviorController.h"
 #include "RE/T/TLSData.h"
 
 namespace RE

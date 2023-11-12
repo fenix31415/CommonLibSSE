@@ -154,8 +154,4 @@ namespace RE
 		}                                                                                                  \
 	};                                                                                                     \
 	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<List>) == (size))
-
-
-
-#undef DECLARE_SPECIALIZATION
 }
