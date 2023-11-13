@@ -454,6 +454,7 @@
 #include "RE/C/CombatBehaviorContextCloseMovement.h"
 #include "RE/C/CombatBehaviorContextDodgeThreat.h"
 #include "RE/C/CombatBehaviorContextFlankingMovement.h"
+#include "RE/C/CombatBehaviorContextFlee.h"
 #include "RE/C/CombatBehaviorContextMagic.h"
 #include "RE/C/CombatBehaviorContextMelee.h"
 #include "RE/C/CombatBehaviorContextRangedMovement.h"

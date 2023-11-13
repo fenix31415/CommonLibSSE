@@ -14,13 +14,14 @@
 
 namespace RE
 {
-	template<typename T, typename Expr>
+	template <typename T, typename Expr>
 	class CombatBehaviorTreeValueNodeTImpl : public CombatBehaviorTreeValueNode<T>
 	{
 	public:
-		template<typename U>
+		template <typename U>
 		CombatBehaviorTreeValueNodeTImpl(U&& expr) :
-			expr(std::forward<U>(expr)) {}
+			expr(std::forward<U>(expr))
+		{}
 
 		T GetValue() override
 		{

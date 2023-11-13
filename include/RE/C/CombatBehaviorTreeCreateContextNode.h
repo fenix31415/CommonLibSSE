@@ -126,16 +126,16 @@ namespace RE
 	};                                                                                                           \
 	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<Context>) == 0x28)
 
-	DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0);       // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextCloseMovement, 46753, 0);       // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextCover, 48865, 0);               // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextDodgeThreat, 46599, 0);         // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextFindAttackLocation, 46985, 0);  // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextFlankingMovement, 47164, 0);    // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextFlee, 47449, 0);                // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextHide, 47450, 0);                // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextRangedMovement, 48484, 0);      // I do not know for AE
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextSearch, 48572, 0);              // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0);  // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextCloseMovement, 46753, 0);       // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextCover, 48865, 0);               // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextDodgeThreat, 46599, 0);         // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextFindAttackLocation, 46985, 0);  // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextFlankingMovement, 47164, 0);    // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextFlee, 47449, 0);                // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextHide, 47450, 0);                // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextRangedMovement, 48484, 0);      // I do not know for AE
+																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextSearch, 48572, 0);              // I do not know for AE
 
 #undef DECLARE_SPECIALIZATION
 

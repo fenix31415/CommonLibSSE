@@ -86,7 +86,7 @@ namespace RE
 		}
 	};
 
-	template<typename F, typename Op>
+	template <typename F, typename Op>
 	class CombatBehaviorUnaryExpression
 	{
 	public:
