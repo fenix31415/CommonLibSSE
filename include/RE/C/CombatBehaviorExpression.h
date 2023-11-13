@@ -43,6 +43,33 @@ namespace RE
 		}
 	};
 
+	struct OpGreaterThan
+	{
+		template <typename T, typename U>
+		static bool apply(T&& arg1, U&& arg2)
+		{
+			return static_cast<std::remove_reference_t<U>>(arg1) > arg2;
+		}
+	};
+
+	struct OpEquals
+	{
+		template <typename T, typename U>
+		static bool apply(T&& arg1, U&& arg2)
+		{
+			return static_cast<std::remove_reference_t<U>>(arg1) == arg2;
+		}
+	};
+
+	struct OpNotEquals
+	{
+		template <typename T, typename U>
+		static bool apply(T&& arg1, U&& arg2)
+		{
+			return static_cast<std::remove_reference_t<U>>(arg1) != arg2;
+		}
+	};
+
 	struct OpAnd
 	{
 		static bool apply(bool arg1, bool arg2)

@@ -511,6 +511,7 @@ namespace RE
 		void                         EnableAI(bool a_enable);
 		void                         EndInterruptPackage(bool a_skipDialogue);
 		void                         EvaluatePackage(bool a_immediate = false, bool a_resetAI = false);
+		bool                         FightsInWater() const;
 		TESNPC*                      GetActorBase();
 		const TESNPC*                GetActorBase() const;
 		float                        GetActorValueModifier(ACTOR_VALUE_MODIFIER a_modifier, ActorValue a_value) const;
@@ -573,10 +574,12 @@ namespace RE
 		bool                         IsCommandedActor() const;
 		bool                         IsCurrentShout(SpellItem* a_power);
 		bool                         IsEssential() const;
+		bool                         IsEssentialDown() const;
 		bool                         IsFactionInCrimeGroup(const TESFaction* a_faction) const;
 		bool                         IsGhost() const;
 		bool                         IsGuard() const;
 		bool                         IsHostileToActor(Actor* a_actor);
+		bool                         IsInBleedout() const;
 		bool                         IsInCastPowerList(SpellItem* a_power);
 		[[nodiscard]] constexpr bool IsInKillMove() const noexcept { return boolFlags.all(BOOL_FLAGS::kIsInKillMove); }
 		bool                         IsInMidair() const;
@@ -584,6 +587,7 @@ namespace RE
 		bool                         IsLimbGone(std::uint32_t a_limb);
 		bool                         IsMoving() const;
 		bool                         IsOnMount() const;
+		bool                         IsOnWaterTriangle() const;
 		bool                         IsOverEncumbered() const;
 		bool                         IsPlayerTeammate() const;
 		bool                         IsProtected() const;

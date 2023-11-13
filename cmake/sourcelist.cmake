@@ -1800,6 +1800,7 @@ set(SOURCES
 	src/RE/C/CombatBlackboardManager.cpp
 	src/RE/C/CombatController.cpp
 	src/RE/C/CombatGroup.cpp
+	src/RE/C/CombatInventory.cpp
 	src/RE/C/CombatState.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp

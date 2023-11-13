@@ -162,17 +162,23 @@ namespace RE
 		}
 
 		template <typename T, typename Expr>
-		class AddValueNodeTImpl
+		[[nodiscard]] static auto CreateValueNodeT(auto&& expr)
 		{
-			using Node = CombatBehaviorTreeValueNodeT<T, Expr>;
+			return new CombatBehaviorTreeValueNodeT<T, Expr>(std::forward<decltype(expr)>(expr));
+		}
 
-		public:
-			template <typename U>
-			[[nodiscard]] static Node* eval(U&& expr)
-			{
-				return new Node(std::forward<U>(expr));
-			}
-		};
+		// TODO: I do not know how to add overloads for instances that already present in the game (e.g. 1407DA2B0). Do we need this?
+		template <typename T, typename Expr>
+		static TreeBuilder AddValueNodeT(const char* name, auto&& expr, CombatBehaviorTreeNode* node)
+		{
+			auto value_node = CreateValueNodeT<T, Expr>(std::forward<decltype(expr)>(expr));
+			node->name = name;
+			char DstBuf[260];
+			sprintf_s(DstBuf, 260, "ValueNode - %s", name);
+			return AddNode(DstBuf, value_node);
+		}
+
+		// TODO: I do not know how to implement AddValueNode (e.g. 1407DA250 detects unsigned int and calls 1407DA2B0)
 
 		virtual void Initialize();  // 00
 

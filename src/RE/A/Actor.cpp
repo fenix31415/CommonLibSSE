@@ -255,6 +255,13 @@ namespace RE
 		return func(this, a_immediate, a_resetAI);
 	}
 
+	bool Actor::FightsInWater() const
+	{
+		using func_t = decltype(&Actor::FightsInWater);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36236, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	TESNPC* Actor::GetActorBase()
 	{
 		auto obj = GetBaseObject();
@@ -753,6 +760,13 @@ namespace RE
 		return boolFlags.all(BOOL_FLAGS::kEssential);
 	}
 
+	bool Actor::IsEssentialDown() const
+	{
+		using func_t = decltype(&Actor::IsEssentialDown);
+		REL::Relocation<func_t> func{ RELOCATION_ID(48460, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	bool Actor::IsFactionInCrimeGroup(const TESFaction* a_faction) const
 	{
 		auto crimFac = GetCrimeFaction();
@@ -784,6 +798,13 @@ namespace RE
 		using func_t = decltype(&Actor::IsHostileToActor);
 		REL::Relocation<func_t> func{ Offset::Actor::GetHostileToActor };
 		return func(this, a_actor);
+	}
+
+	bool Actor::IsInBleedout() const
+	{
+		using func_t = decltype(&Actor::IsInBleedout);
+		REL::Relocation<func_t> func{ RELOCATION_ID(48461, 0) };  // I do not know for AE
+		return func(this);
 	}
 
 	bool Actor::IsInCastPowerList(SpellItem* a_power)
@@ -824,6 +845,13 @@ namespace RE
 	bool Actor::IsOnMount() const
 	{
 		return !IsAMount() && extraList.HasType(ExtraDataType::kInteraction);
+	}
+
+	bool Actor::IsOnWaterTriangle() const
+	{
+		using func_t = decltype(&Actor::IsOnWaterTriangle);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36817, 0) };  // I do not know for AE
+		return func(this);
 	}
 
 	bool Actor::IsOverEncumbered() const
