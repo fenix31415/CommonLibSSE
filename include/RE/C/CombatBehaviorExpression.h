@@ -10,9 +10,8 @@ namespace RE
 	class CombatBehaviorExpression
 	{
 	public:
-		template <typename U>
-		CombatBehaviorExpression(U&& e) :
-			e(std::forward<U>(e))
+		CombatBehaviorExpression(E&& e) :
+			e(std::forward<E>(e))
 		{}
 
 		template <typename T>
@@ -183,9 +182,8 @@ namespace RE
 	class CombatBehaviorMemberFunc
 	{
 	public:
-		template <typename T, typename... Params>
-		CombatBehaviorMemberFunc(T&& f, Params&&... params) :
-			f(std::forward<T>(f)), args(std::make_tuple(std::forward<Params>(params)...))
+		CombatBehaviorMemberFunc(auto&& f, auto&&... params) :
+			f(std::forward<decltype(f)>(f)), args(std::make_tuple(std::forward<decltype(params)>(params)...))
 		{}
 
 		template <typename T>
@@ -203,9 +201,8 @@ namespace RE
 	class CombatBehaviorMemberFunc<C, M>
 	{
 	public:
-		template <typename T>
-		CombatBehaviorMemberFunc(T&& f) :
-			f(std::forward<T>(f))
+		CombatBehaviorMemberFunc(auto&& f) :
+			f(std::forward<decltype(f)>(f))
 		{}
 
 		template <typename T>

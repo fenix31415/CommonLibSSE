@@ -457,6 +457,8 @@
 #include "RE/C/CombatBehaviorContextMagic.h"
 #include "RE/C/CombatBehaviorContextMelee.h"
 #include "RE/C/CombatBehaviorContextRangedMovement.h"
+#include "RE/C/CombatBehaviorContextSearch.h"
+#include "RE/C/CombatBehaviorContextShout.h"
 #include "RE/C/CombatBehaviorController.h"
 #include "RE/C/CombatBehaviorDynamicSelector.h"
 #include "RE/C/CombatBehaviorEquipContext.h"

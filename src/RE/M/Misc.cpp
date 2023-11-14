@@ -102,6 +102,13 @@ namespace RE
 		return func(a_editorID);
 	}
 
+	bool RandomBoolChance(float chance)
+	{
+		using func_t = decltype(&RandomBoolChance);
+		REL::Relocation<func_t> func{ RELOCATION_ID(26009, 0) };  // I do not know for AE
+		return func(chance);
+	}
+
 	void ShakeCamera(float a_strength, const NiPoint3& a_position, float a_duration)
 	{
 		using func_t = decltype(&ShakeCamera);

@@ -20,6 +20,7 @@
 #include "RE/C/CombatBehaviorTreeValueNodeT.h"
 #include "RE/C/CombatBehaviorTreeNodeObject.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
+#include "RE/M/Misc.h"
 
 namespace RE
 {
@@ -88,76 +89,51 @@ namespace RE
 		};
 
 		template <typename Expr>
-		class CreateConditionalNodeImpl
+		[[nodiscard]] static auto CreateConditionalNode(auto&& expr, bool isSelector)
 		{
 			using Node = CombatBehaviorTreeConditionalNode<Expr>;
 
-		public:
-			template <typename T>
-			[[nodiscard]] static Node* eval(T&& expr, bool isSelector)
-			{
-				return new Node(std::forward<T>(expr), isSelector);
-			}
-		};
+			if constexpr (Node::HAS_CREATE)
+				return Node::Create(std::forward<decltype(expr)>(expr), isSelector);
+			else
+				return new Node(std::forward<decltype(expr)>(expr), isSelector);
+		}
 
+		// TODO: I do not know how to add overloads for instances that already present in the game (e.g. 1407DA060). Do we need this?
 		template <typename Expr>
-		class AddConditionalSelectorNodeImpl
+		static TreeBuilder AddConditionalSelectorNode(const char* name, auto&& expr, CombatBehaviorTreeNode* node)
 		{
-		public:
-			template <typename T>
-			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
-			{
-				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), true);
-				char DstBuf[260];
-				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
-				cond_node->name = RE::BSFixedString(DstBuf);
-				cond_node->AddChild(node);
-				return AddNode(name, node);
-			}
-		};
-
-		template <typename Expr>
-		class AddConditionalSequenceNodeImpl
-		{
-		public:
-			template <typename T>
-			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
-			{
-				auto cond_node = CreateConditionalNodeImpl::eval(std::forward<T>(expr), false);
-				char DstBuf[260];
-				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
-				cond_node->name = RE::BSFixedString(DstBuf);
-				cond_node->AddChild(node);
-				return AddNode(name, node);
-			}
-		};
-
-		template <typename Expr>
-		class AddRandomNodeImpl
-		{
-			using MainExpr_t = CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float), Expr>>;
-
-		public:
-			template <typename T>
-			[[nodiscard]] static TreeBuilder eval(const char* name, T&& expr, CombatBehaviorTreeNode* node)
-			{
-				auto cond_node = CreateConditionalNodeImpl<MainExpr_t>::eval(std::forward<T>(expr), true);
-				char DstBuf[260];
-				sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
-				cond_node->name = RE::BSFixedString(DstBuf);
-				cond_node->AddChild(node);
-				return AddNode(name, node);
-			}
-		};
-
-		template <typename Expr, bool fail>
-		[[nodiscard]] static TreeBuilder AddConditionalNode(const char* name, Expr expr, CombatBehaviorTreeNode* node)
-		{
-			auto cond_node = CreateConditionalNode(std::move(expr), fail);
+			auto cond_node = CreateConditionalNode<Expr>(std::forward<decltype(expr)>(expr), true);
 			char DstBuf[260];
 			sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
 			cond_node->name = RE::BSFixedString(DstBuf);
 			cond_node->AddChild(node);
+			return AddNode(name, node);
+		}
+
+		// TODO: I do not know how to add overloads for instances that already present in the game (e.g. 1407CBB20). Do we need this?
+		template <typename Expr>
+		static TreeBuilder AddConditionalSequenceNode(const char* name, auto&& expr, CombatBehaviorTreeNode* node)
+		{
+			auto cond_node = CreateConditionalNode<Expr>(std::forward<decltype(expr)>(expr), false);
+			char DstBuf[260];
+			sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+			cond_node->name = RE::BSFixedString(DstBuf);
+			cond_node->AddChild(node);
+			return AddNode(name, node);
+		}
+
+		// TODO: I do not know how to add overloads for instances that already present in the game (e.g. 1407D4A80). Do we need this?
+		template <typename Expr>
+		static TreeBuilder AddRandomNode(const char* name, auto&& expr, CombatBehaviorTreeNode* node)
+		{
+			using MainExpr_t = CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float), Expr>>;
+
+			auto randomnode = CreateConditionalNode<MainExpr_t>(CombatBehaviorFunc<bool (*)(float), Expr>(RandomBoolChance, std::forward<decltype(expr)>(expr)), true);
+			char DstBuf[260];
+			sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
+			randomnode->name = RE::BSFixedString(DstBuf);
+			randomnode->AddChild(node);
 			return AddNode(name, node);
 		}
 

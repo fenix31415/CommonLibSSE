@@ -456,6 +456,8 @@ set(SOURCES
 	include/RE/C/CombatBehaviorContextMagic.h
 	include/RE/C/CombatBehaviorContextMelee.h
 	include/RE/C/CombatBehaviorContextRangedMovement.h
+	include/RE/C/CombatBehaviorContextSearch.h
+	include/RE/C/CombatBehaviorContextShout.h
 	include/RE/C/CombatBehaviorController.h
 	include/RE/C/CombatBehaviorDynamicSelector.h
 	include/RE/C/CombatBehaviorEquipContext.h
@@ -1781,6 +1783,8 @@ set(SOURCES
 	src/RE/C/CombatBehaviorContextMagic.cpp
 	src/RE/C/CombatBehaviorContextMelee.cpp
 	src/RE/C/CombatBehaviorContextRangedMovement.cpp
+	src/RE/C/CombatBehaviorContextSearch.cpp
+	src/RE/C/CombatBehaviorContextShout.cpp
 	src/RE/C/CombatBehaviorController.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
 	src/RE/C/CombatBehaviorFallbackSelector.cpp

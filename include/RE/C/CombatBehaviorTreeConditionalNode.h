@@ -1,19 +1,23 @@
 #pragma once
 
+#include "RE/A/Actor.h"
 #include "RE/C/CombatBehaviorContextAcquireWeapon.h"
+#include "RE/C/CombatBehaviorContextSearch.h"
+#include "RE/C/CombatBehaviorContextShout.h"
+#include "RE/C/CombatBehaviorExpression.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
+#include "RE/C/CombatBehaviorTreeUtils.h"
 
 namespace RE
 {
 	template <typename Expr>
-	class CombatBehaviorTreeConditionalNodeBase : public CombatBehaviorTreeNode
+	class CombatBehaviorTreeConditionalNodeImpl : public CombatBehaviorTreeNode
 	{
 	public:
-		~CombatBehaviorTreeConditionalNodeBase() = default;
+		~CombatBehaviorTreeConditionalNodeImpl() = default;
 
-		template <typename T>
-		CombatBehaviorTreeConditionalNodeBase(T&& expr, bool isSelector) :
-			expr(std::forward<T>(expr)), isSelector(isSelector)
+		CombatBehaviorTreeConditionalNodeImpl(auto&& expr, bool isSelector) :
+			expr(std::forward<decltype(expr)>(expr)), isSelector(isSelector)
 		{}
 
 		void Enter(CombatBehaviorThread* thread) override
@@ -44,30 +48,75 @@ namespace RE
 	};
 
 	template <typename Expr>
-	class CombatBehaviorTreeConditionalNode : public CombatBehaviorTreeConditionalNodeBase<Expr>
+	class CombatBehaviorTreeConditionalNode : public CombatBehaviorTreeConditionalNodeImpl<Expr>
 	{
 	public:
-		using CombatBehaviorTreeConditionalNodeBase<Expr>::CombatBehaviorTreeConditionalNodeBase;
+		static constexpr inline bool HAS_CREATE = false;
+		static constexpr inline bool HAS_VFTABLE = false;
+
+		using CombatBehaviorTreeConditionalNodeImpl<Expr>::CombatBehaviorTreeConditionalNodeImpl;
 	};
 
 	// Specs for nodes with Create
 
 #define DECLARE_SPECIALIZATION(Expr, size, SE_ID, AE_ID)                                               \
 	template <>                                                                                        \
-	class CombatBehaviorTreeConditionalNode<Expr> : public CombatBehaviorTreeConditionalNodeBase<Expr> \
+	class CombatBehaviorTreeConditionalNode<Expr> : public CombatBehaviorTreeConditionalNodeImpl<Expr> \
 	{                                                                                                  \
 	public:                                                                                            \
+		static constexpr inline bool HAS_CREATE = true;                                                \
+		static constexpr inline bool HAS_VFTABLE = true;                                               \
+                                                                                                       \
 		CombatBehaviorTreeConditionalNode() = delete;                                                  \
                                                                                                        \
-		static CombatBehaviorTreeNode* Create()                                                        \
+		static CombatBehaviorTreeConditionalNode<Expr>* Create(const Expr& expr, bool isSelector)      \
 		{                                                                                              \
-			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID((SE_ID), (AE_ID)) };        \
-			return func();                                                                             \
+			REL::Relocation<decltype(Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };                 \
+			return func(expr, isSelector);                                                             \
 		}                                                                                              \
 	};                                                                                                 \
-	static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
+	
+	//static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
 
-	//DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0);  // I do not know for AE
+#define COMMA ,
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorUnaryExpression<CombatBehaviorFunc<bool (*)(Actor* COMMA Actor*) COMMA CombatBehaviorTreeUtils::CombatBehaviorAttacker COMMA CombatBehaviorTreeUtils::CombatBehaviorTarget> COMMA OpNot>>, 0x40, 47786, 0);  // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorEquipContext COMMA decltype(&CombatBehaviorEquipContext::CanEquipItem)>>, 0x38, 46484, 0);                                                                                          // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextFlee COMMA decltype(&CombatBehaviorContextFlee::CheckShouldFlee)>>, 0x38, 47448, 0);                                                                                         // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextFlankingMovement COMMA decltype(&CombatBehaviorContextFlankingMovement::CheckShouldStalk)>>, 0x38, 47163, 0);                                                                // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextDodgeThreat COMMA decltype(&CombatBehaviorContextDodgeThreat::CheckShouldDodge)>>, 0x38, 46598, 0);                                                                          // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextCloseMovement COMMA decltype(&CombatBehaviorContextCloseMovement::CheckShouldFallbackToRanged)>>, 0x38, 46752, 0);                                                           // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextAcquireWeapon COMMA decltype(&CombatBehaviorContextAcquireWeapon::HasAmmoTarget)>>, 0x38, 46372, 0);                                                                         // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(Actor*) COMMA CombatBehaviorTreeUtils::CombatBehaviorAttacker>>, 0x40, 47785, 0);                                                                                                              // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorBinaryExpression<CombatBehaviorMemberFunc<CombatBehaviorContextSearch COMMA decltype(&CombatBehaviorContextSearch::QCurrentSearchPriority)> COMMA unsigned int COMMA OpGreaterThan>>, 0x40, 48571, 0);       // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorBinaryExpression<CombatBehaviorMemberFunc<Actor COMMA decltype(&ActorState::GetFlyState)> COMMA FLY_STATE COMMA OpEquals>>, 0x40, 47784, 0);                                                                 // I do not know for AE
+#undef COMMA
+
+	// Specs for instantiated nodes
+
+#define DECLARE_SPECIALIZATION(Expr, size, SE_ARR, AE_ARR)                                              \
+	template <>                                                                                         \
+	class CombatBehaviorTreeConditionalNode<Expr> : public CombatBehaviorTreeConditionalNodeImpl<Expr>  \
+	{                                                                                                   \
+	public:                                                                                             \
+		static constexpr inline bool HAS_CREATE = false;                                                \
+		static constexpr inline bool HAS_VFTABLE = true;                                                \
+                                                                                                        \
+		CombatBehaviorTreeConditionalNode(auto&& expr, bool isSelector) :                               \
+			CombatBehaviorTreeConditionalNodeImpl<Expr>(std::forward<decltype(expr)>(expr), isSelector) \
+		{                                                                                               \
+			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));                        \
+		}                                                                                               \
+	};                                                                                                  \
+	
+	//static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
+
+#define COMMA ,
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float) COMMA CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextShout COMMA decltype(&CombatBehaviorContextShout::CalcCastMagicChance)>>>>, 0x40, RE::VTABLE_CombatBehaviorTreeConditionalNode_CombatBehaviorExpression_CombatBehaviorFunc1_bool___float__CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorContextShout_float_CombatBehaviorContextShout____void______, 0);
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float) COMMA CombatBehaviorExpression<CombatBehaviorMemberFunc<CombatBehaviorContextMagic COMMA decltype(&CombatBehaviorContextMagic::CalcCastMagicChance)>>>>, 0x40, RE::VTABLE_CombatBehaviorTreeConditionalNode_CombatBehaviorExpression_CombatBehaviorFunc1_bool___float__CombatBehaviorExpression_CombatBehaviorMemberFunc_CombatBehaviorContextMagic_float_CombatBehaviorContextMagic____void______, 0);
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float) COMMA CombatBehaviorExpression<CombatBehaviorFunc<float (*)()>>>>, 0x40, RE::VTABLE_CombatBehaviorTreeConditionalNode_CombatBehaviorExpression_CombatBehaviorFunc1_bool___float__CombatBehaviorExpression_CombatBehaviorFunc_float___void______, 0);
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float) COMMA CombatBehaviorExpression<CombatBehaviorFunc<float (*)(Actor* COMMA Actor*) COMMA CombatBehaviorTreeUtils::CombatBehaviorAttacker COMMA CombatBehaviorTreeUtils::CombatBehaviorTarget>>>>, 0x48, RE::VTABLE_CombatBehaviorTreeConditionalNode_CombatBehaviorExpression_CombatBehaviorFunc1_bool___float__CombatBehaviorExpression_CombatBehaviorFunc2_float___Actor_Actor__CombatBehaviorTree__CombatBehaviorAttacker_CombatBehaviorTree__CombatBehaviorTarget_____, 0);
+	DECLARE_SPECIALIZATION(CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float) COMMA CombatBehaviorExpression<CombatBehaviorFunc<float (*)(Actor*) COMMA CombatBehaviorTreeUtils::CombatBehaviorAttacker>>>>, 0x48, RE::VTABLE_CombatBehaviorTreeConditionalNode_CombatBehaviorExpression_CombatBehaviorFunc1_bool___float__CombatBehaviorExpression_CombatBehaviorFunc1_float___Actor__CombatBehaviorTree__CombatBehaviorAttacker_____, 0);
+#undef COMMA
 
 #undef DECLARE_SPECIALIZATION
 }

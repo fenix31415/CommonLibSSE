@@ -16,6 +16,8 @@ namespace RE
 	public:
 		CombatBehaviorContextMagic(CombatInventoryItemMagic* citem);
 
+		float                    CalcCastMagicChance() const;
+		float                    CalcDualCastMagicChance() const;
 		MagicSystem::CastingType GetCastingType();
 
 		// members

@@ -18,9 +18,8 @@ namespace RE
 	class CombatBehaviorTreeValueNodeTImpl : public CombatBehaviorTreeValueNode<T>
 	{
 	public:
-		template<typename U>
-		CombatBehaviorTreeValueNodeTImpl(U&& expr) :
-			expr(std::forward<U>(expr)) {}
+		CombatBehaviorTreeValueNodeTImpl(auto&& expr) :
+			expr(std::forward<decltype(expr)>(expr)) {}
 
 		T GetValue() override
 		{
@@ -38,21 +37,22 @@ namespace RE
 		using CombatBehaviorTreeValueNodeTImpl<T, Expr>::CombatBehaviorTreeValueNodeTImpl;
 	};
 
-	// inlined specs
+	// Specs for instantiated nodes
 
 #define DECLARE_SPECIALIZATION(T, Expr, size, SE_ARR, AE_ARR)                                      \
 	template <>                                                                                    \
 	class CombatBehaviorTreeValueNodeT<T, Expr> : public CombatBehaviorTreeValueNodeTImpl<T, Expr> \
 	{                                                                                              \
 	public:                                                                                        \
-		template <typename U>                                                                      \
-		CombatBehaviorTreeValueNodeT(U&& expr) :                                                   \
-			CombatBehaviorTreeValueNodeTImpl<T, Expr>(std::forward<U>(expr))                       \
+		CombatBehaviorTreeValueNodeT(auto&& expr) :                                                \
+			CombatBehaviorTreeValueNodeTImpl<T, Expr>(std::forward<decltype(expr)>(expr))          \
 		{                                                                                          \
 			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));                   \
 		}                                                                                          \
 	};                                                                                             \
-	static_assert(sizeof(CombatBehaviorTreeValueNodeT<T, Expr>) == (size))
+	
+	// sizeof instatiates template, so use for tests
+	//static_assert(sizeof(CombatBehaviorTreeValueNodeT<T, Expr>) == (size))
 
 #define COMMA ,
 	DECLARE_SPECIALIZATION(unsigned int, int, 0x38, RE::VTABLE_CombatBehaviorTreeValueNodeT_unsignedint_int_, 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   // I do not know for AE
