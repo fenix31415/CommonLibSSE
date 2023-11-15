@@ -26,8 +26,8 @@ namespace RE
 		virtual float      GetSecondaryAVWeight() const;     // 22
 
 		// members
-		ActorValue secondaryActorValue;  // 98
-		float      secondaryAVWeight;    // 9C
+		float         secondaryAVWeight;  // 98
+		std::uint32_t pad9C;              // 9C
 	};
 	static_assert(sizeof(DualValueModifierEffect) == 0xA0);
 }

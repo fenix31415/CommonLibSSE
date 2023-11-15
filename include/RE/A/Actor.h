@@ -549,6 +549,7 @@ namespace RE
 		[[nodiscard]] TESObjectARMO* GetSkin() const;
 		[[nodiscard]] TESObjectARMO* GetSkin(BGSBipedObjectForm::BipedObjectSlot a_slot, bool a_noInit = false);
 		[[nodiscard]] SOUL_LEVEL     GetSoulSize() const;
+		float                        GetTotalCarryWeight();
 		TESFaction*                  GetVendorFaction();
 		const TESFaction*            GetVendorFaction() const;
 		float                        GetVoiceRecoveryTime();

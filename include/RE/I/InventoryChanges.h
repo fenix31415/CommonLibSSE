@@ -39,6 +39,7 @@ namespace RE
 
 		void           AddEntryData(InventoryEntryData* a_entry);
 		TESObjectARMO* GetArmorInSlot(std::int32_t a_slot);
+		float          GetInventoryWeight();
 		std::uint16_t  GetNextUniqueID();
 		std::uint32_t  GetWornMask();
 		void           InitFromContainerExtra();
