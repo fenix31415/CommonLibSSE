@@ -9,7 +9,6 @@ namespace RE
 	class CombatBehaviorContextShout : public CombatBehaviorContextMagic
 	{
 	public:
-
 		float CalcCastMagicChance() const;
 
 		// members

@@ -49,8 +49,8 @@ namespace RE
 		{                                                                                          \
 			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));                   \
 		}                                                                                          \
-	};                                                                                             \
-	
+	};
+
 	// sizeof instatiates template, so use for tests
 	//static_assert(sizeof(CombatBehaviorTreeValueNodeT<T, Expr>) == (size))
 

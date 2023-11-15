@@ -74,8 +74,8 @@ namespace RE
 			REL::Relocation<decltype(Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };                 \
 			return func(expr, isSelector);                                                             \
 		}                                                                                              \
-	};                                                                                                 \
-	
+	};
+
 	//static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
 
 #define COMMA ,
@@ -106,8 +106,8 @@ namespace RE
 		{                                                                                               \
 			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));                        \
 		}                                                                                               \
-	};                                                                                                  \
-	
+	};
+
 	//static_assert(sizeof(CombatBehaviorTreeConditionalNode<Expr>) == (size))
 
 #define COMMA ,

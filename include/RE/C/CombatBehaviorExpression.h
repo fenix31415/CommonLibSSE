@@ -199,7 +199,7 @@ namespace RE
 	class CombatBehaviorMemberFunc
 	{
 	public:
-		template<typename T>
+		template <typename T>
 		explicit operator T()
 		{
 			return static_cast<T>(this->operator RE::Impl::return_type<M>::type());
