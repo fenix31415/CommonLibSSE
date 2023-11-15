@@ -15,7 +15,7 @@ namespace RE
 		// not in addresslib
 
 		// CombatInventory::CanEquip
-		using func_t = bool (*)(CombatInventory* self, uint32_t slot, CombatInventoryItem* citem);
+		using func_t = bool (*)(CombatInventory * self, uint32_t slot, CombatInventoryItem * citem);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43628, 0) };  // I do not know for AE
 		return func(GetStaticTLSData()->combatAIThread->control->combat_control->inventory, slot, combat_item);
 	}

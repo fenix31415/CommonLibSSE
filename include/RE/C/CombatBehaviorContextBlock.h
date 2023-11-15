@@ -2,7 +2,8 @@
 
 #include "RE/C/CombatBehaviorContextMelee.h"
 
-namespace RE {
+namespace RE
+{
 	class CombatBehaviorContextBlock : public CombatBehaviorContextMelee
 	{
 	public:

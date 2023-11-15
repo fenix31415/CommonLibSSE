@@ -8,8 +8,8 @@
 #include "RE/C/CombatBehaviorContextCloseMovement.h"
 #include "RE/C/CombatBehaviorContextDodgeThreat.h"
 #include "RE/C/CombatBehaviorContextFlankingMovement.h"
-#include "RE/C/CombatBehaviorContextMelee.h"
 #include "RE/C/CombatBehaviorContextFlee.h"
+#include "RE/C/CombatBehaviorContextMelee.h"
 #include "RE/C/CombatBehaviorEquipContext.h"
 #include "RE/C/CombatBehaviorFallbackSelector.h"
 #include "RE/C/CombatBehaviorParallel.h"
@@ -17,9 +17,9 @@
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTreeConditionalNode.h"
 #include "RE/C/CombatBehaviorTreeCreateContextNode.h"
-#include "RE/C/CombatBehaviorTreeValueNodeT.h"
-#include "RE/C/CombatBehaviorTreeNodeObject.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
+#include "RE/C/CombatBehaviorTreeNodeObject.h"
+#include "RE/C/CombatBehaviorTreeValueNodeT.h"
 #include "RE/M/Misc.h"
 
 namespace RE

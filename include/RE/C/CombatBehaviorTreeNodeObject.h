@@ -121,7 +121,7 @@ namespace RE
 			return func();                                                                       \
 		}                                                                                        \
 	};                                                                                           \
-	static_assert(sizeof(CombatBehaviorTreeNodeObject<Object>) == 0x28)                          \
+	static_assert(sizeof(CombatBehaviorTreeNodeObject<Object>) == 0x28)
 
 	DECLARE_SPECIALIZATION(CombatBehaviorBlock, 46647, 0);                                          // I do not know for AE
 	DECLARE_SPECIALIZATION(CombatBehaviorBlockAttack, 46648, 0);                                    // I do not know for AE
@@ -150,12 +150,12 @@ namespace RE
 			this->SetVftable(RELOCATION_ID((SE_ID), (AE_ID)));                               \
 		}                                                                                    \
 	};                                                                                       \
-	static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))						 \
+	static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))
 
-	#define COMMA ,
-	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float, 0x30, 265835, 0);  // I do not know for AE
+#define COMMA ,
+	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float, 0x30, 265835, 0);                                    // I do not know for AE
 	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float COMMA CombatBehaviorRepeat::Flags, 0x30, 267191, 0);  // I do not know for AE
-	#undef COMMA
+#undef COMMA
 
 #undef DECLARE_SPECIALIZATION
 }

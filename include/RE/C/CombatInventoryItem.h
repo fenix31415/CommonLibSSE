@@ -67,7 +67,7 @@ namespace RE
 		virtual float                GetOptimalRange();                                         // 07 - { return 0.0; }
 		virtual float                GetEquipRange();                                           // 08 - { return FLT_MAX; }
 		virtual TYPE                 GetType();                                                 // 09
-		virtual TYPE                 GetEquipType(BGSEquipSlot* a_slot);                         // 0A - { return GetType(); }
+		virtual TYPE                 GetEquipType(BGSEquipSlot* a_slot);                        // 0A - { return GetType(); }
 		virtual CATEGORY             GetCategory() = 0;                                         // 0B
 		virtual float                CalculateScore(CombatController* a_controller) = 0;        // 0C
 		virtual CombatInventoryItem* Clone() = 0;                                               // 0D

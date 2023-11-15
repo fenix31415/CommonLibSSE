@@ -14,7 +14,7 @@
 
 namespace RE
 {
-	template<typename T, typename Expr>
+	template <typename T, typename Expr>
 	class CombatBehaviorTreeValueNodeTImpl : public CombatBehaviorTreeValueNode<T>
 	{
 	public:

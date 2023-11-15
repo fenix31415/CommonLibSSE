@@ -2,7 +2,8 @@
 
 #include "RE/C/CombatBehavior.h"
 
-namespace RE {
+namespace RE
+{
 
 	class CombatBehaviorNode : public CombatBehavior
 	{
