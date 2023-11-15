@@ -129,7 +129,7 @@ namespace RE
 		{
 			using MainExpr_t = CombatBehaviorExpression<CombatBehaviorFunc<bool (*)(float), Expr>>;
 
-			auto randomnode = CreateConditionalNode<MainExpr_t>(CombatBehaviorFunc<bool (*)(float), Expr>(RandomBoolChance, std::forward<decltype(expr)>(expr)), true);
+			auto randomnode = CreateConditionalNode<MainExpr_t>(MainExpr_t{ RandomBoolChance, { expr } }, true);
 			char DstBuf[260];
 			sprintf_s(DstBuf, 260, "ConditionalNode - %s", name);
 			randomnode->name = RE::BSFixedString(DstBuf);

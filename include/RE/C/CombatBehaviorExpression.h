@@ -6,18 +6,89 @@
 
 namespace RE
 {
+	namespace Impl
+	{
+		template <typename F>
+		struct return_type;
+
+		template <typename R, typename... Args>
+		struct return_type<R (*)(Args...)>
+		{
+			using type = R;
+		};
+
+		template <typename C, typename R, typename... Args>
+		struct return_type<R (C::*)(Args...)>
+		{
+			using type = R;
+		};
+
+		template <typename C, typename R, typename... Args>
+		struct return_type<R (C::*)(Args...) const>
+		{
+			using type = R;
+		};
+
+		template <typename C, typename R, typename... Args>
+		struct return_type<R (C::*)(Args...) noexcept>
+		{
+			using type = R;
+		};
+
+		template <typename C, typename R, typename... Args>
+		struct return_type<R (C::*)(Args...) const noexcept>
+		{
+			using type = R;
+		};
+	}
+
+	template <typename F, typename... Args>
+	class CombatBehaviorFunc
+	{
+	public:
+		template <typename T>
+		explicit operator T()
+		{
+			return static_cast<T>(std::apply(f, args));
+		}
+
+		operator Impl::return_type<F>::type()
+		{
+			return std::apply(f, args);
+		}
+
+		// members
+		F                   f;
+		std::tuple<Args...> args;
+	};
+
+	template <typename F>
+	class CombatBehaviorFunc<F>
+	{
+	public:
+		template <typename T>
+		explicit operator T()
+		{
+			return static_cast<T>(f());
+		}
+
+		operator Impl::return_type<F>::type()
+		{
+			return f();
+		}
+
+		// members
+		F f;
+	};
+
 	template <typename E>
 	class CombatBehaviorExpression
 	{
 	public:
-		CombatBehaviorExpression(E&& e) :
-			e(std::forward<E>(e))
-		{}
-
 		template <typename T>
 		operator T()
 		{
-			return e;
+			return static_cast<T>(e);
 		}
 
 		// members
@@ -26,46 +97,55 @@ namespace RE
 
 	struct OpNot
 	{
-		template <typename T>
-		static bool apply(T&& arg)
+		static bool apply(bool arg)
 		{
 			return !arg;
 		}
 	};
 
+	template <typename F, typename Op>
+	class CombatBehaviorUnaryExpression
+	{
+	public:
+		template <typename T>
+		operator T()
+		{
+			return Op::apply(f);
+		}
+
+		// members
+		F f;
+	};
+
 	struct OpLessThan
 	{
-		template <typename T, typename U>
-		static bool apply(T&& arg1, U&& arg2)
+		static bool apply(auto&& arg1, auto&& arg2)
 		{
-			return static_cast<std::remove_reference_t<U>>(arg1) < arg2;
+			return arg1 < arg2;
 		}
 	};
 
 	struct OpGreaterThan
 	{
-		template <typename T, typename U>
-		static bool apply(T&& arg1, U&& arg2)
+		static bool apply(auto&& arg1, auto&& arg2)
 		{
-			return static_cast<std::remove_reference_t<U>>(arg1) > arg2;
+			return arg1 > arg2;
 		}
 	};
 
 	struct OpEquals
 	{
-		template <typename T, typename U>
-		static bool apply(T&& arg1, U&& arg2)
+		static bool apply(auto&& arg1, auto&& arg2)
 		{
-			return static_cast<std::remove_reference_t<U>>(arg1) == arg2;
+			return arg1 == arg2;
 		}
 	};
 
 	struct OpNotEquals
 	{
-		template <typename T, typename U>
-		static bool apply(T&& arg1, U&& arg2)
+		static bool apply(auto&& arg1, auto&& arg2)
 		{
-			return static_cast<std::remove_reference_t<U>>(arg1) != arg2;
+			return arg1 != arg2;
 		}
 	};
 
@@ -85,34 +165,10 @@ namespace RE
 		}
 	};
 
-	template<typename F, typename Op>
-	class CombatBehaviorUnaryExpression
-	{
-	public:
-		template <typename T>
-		CombatBehaviorUnaryExpression(T&& f) :
-			f(std::forward<T>(f))
-		{}
-
-		template <typename T>
-		operator T()
-		{
-			return Op::apply(f);
-		}
-
-		// members
-		F f;
-	};
-
 	template <typename F1, typename F2, typename Op>
 	class CombatBehaviorBinaryExpression
 	{
 	public:
-		template <typename T, typename U>
-		CombatBehaviorBinaryExpression(T&& f1, U&& f2) :
-			f1(std::forward<T>(f1)), f2(std::forward<U>(f2))
-		{}
-
 		template <typename T>
 		operator T()
 		{
@@ -122,45 +178,6 @@ namespace RE
 		// members
 		F1 f1;
 		F2 f2;
-	};
-
-	template <typename F, typename... Args>
-	class CombatBehaviorFunc
-	{
-	public:
-		template <typename T, typename... Params>
-		CombatBehaviorFunc(T&& f, Params&&... params) :
-			f(std::forward<T>(f)), args(std::make_tuple(std::forward<Params>(params)...))
-		{}
-
-		template <typename T>
-		operator T()
-		{
-			return std::apply(f, args);
-		}
-
-		// members
-		F                   f;
-		std::tuple<Args...> args;
-	};
-
-	template <typename F>
-	class CombatBehaviorFunc<F>
-	{
-	public:
-		template <typename T>
-		CombatBehaviorFunc(T&& f) :
-			f(std::forward<T>(f))
-		{}
-
-		template <typename T>
-		operator T()
-		{
-			return f();
-		}
-
-		// members
-		F f;
 	};
 
 	template <typename T>
@@ -182,12 +199,13 @@ namespace RE
 	class CombatBehaviorMemberFunc
 	{
 	public:
-		CombatBehaviorMemberFunc(auto&& f, auto&&... params) :
-			f(std::forward<decltype(f)>(f)), args(std::make_tuple(std::forward<decltype(params)>(params)...))
-		{}
+		template<typename T>
+		explicit operator T()
+		{
+			return static_cast<T>(this->operator RE::Impl::return_type<M>::type());
+		}
 
-		template <typename T>
-		operator T()
+		operator Impl::return_type<M>::type()
 		{
 			return std::apply([this](auto&&... args) { return (CombatBehaviorMemberFunc__GetThis<C>()->*f)(std::forward<decltype(args)>(args)...); }, args);
 		}
@@ -201,14 +219,15 @@ namespace RE
 	class CombatBehaviorMemberFunc<C, M>
 	{
 	public:
-		CombatBehaviorMemberFunc(auto&& f) :
-			f(std::forward<decltype(f)>(f))
-		{}
-
 		template <typename T>
-		operator T()
+		explicit operator T()
 		{
-			return static_cast<T>((CombatBehaviorMemberFunc__GetThis<C>()->*f)());
+			return static_cast<T>(this->operator RE::Impl::return_type<M>::type());
+		}
+
+		operator Impl::return_type<M>::type()
+		{
+			return (CombatBehaviorMemberFunc__GetThis<C>()->*f)();
 		}
 
 		// members
