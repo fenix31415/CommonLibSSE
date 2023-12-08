@@ -117,7 +117,7 @@ namespace RE
 			kNone = 0,
 			kTargetActivated = 1 << 0,
 			kCurrentActionComplete = 1 << 1,
-      kIsAggressor = 1 << 2,
+			kIsAggressor = 1 << 2,
 			kAlert = 1 << 3,
 			kFollower = 1 << 4,
 			kPackageDoneOnce = 1 << 5,

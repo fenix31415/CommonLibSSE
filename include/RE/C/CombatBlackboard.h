@@ -24,10 +24,10 @@ namespace RE
 		//AITimeStamp GetValue(const CombatBlackboardKey<AITimeStamp>& key) const;
 
 		// members
-		BSTHashMap<const CombatBlackboardKeyBase*, uint32_t>        stack_offsets;  // 00
-		CombatBehaviorStack                               stack;          // 30
-		uint32_t                                          flags;          // 40 -- see CombatBlackboardFlag
-		uint32_t                                          pad44;          // 44
+		BSTHashMap<const CombatBlackboardKeyBase*, uint32_t> stack_offsets;  // 00
+		CombatBehaviorStack                                  stack;          // 30
+		uint32_t                                             flags;          // 40 -- see CombatBlackboardFlag
+		uint32_t                                             pad44;          // 44
 	};
 	static_assert(sizeof(CombatBlackboard) == 0x48);
 }

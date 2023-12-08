@@ -4,7 +4,7 @@ namespace RE
 {
 	CombatBehaviorTree::TreeBuilder::TreeBuilder(CombatBehaviorTreeNode* node)
 	{
-		using func_t = CombatBehaviorTree::TreeBuilder*(CombatBehaviorTree::TreeBuilder*, CombatBehaviorTreeNode* node);
+		using func_t = CombatBehaviorTree::TreeBuilder*(CombatBehaviorTree::TreeBuilder*, CombatBehaviorTreeNode * node);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46266, 0) };  // I do not know for AE
 		func(this, node);
 	}

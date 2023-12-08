@@ -11,7 +11,7 @@ namespace RE
 
 	CombatBehaviorThread::~CombatBehaviorThread()
 	{
-		using func_t = void (CombatBehaviorThread*);
+		using func_t = void(CombatBehaviorThread*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46227, 0) };  // I do not know for AE
 		func(this);
 	}
@@ -32,14 +32,14 @@ namespace RE
 
 	void CombatBehaviorThread::Ascend()
 	{
-		using func_t = void (CombatBehaviorThread*);
+		using func_t = void(CombatBehaviorThread*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46229, 0) };  // I do not know for AE
 		return func(this);
 	}
 
 	void CombatBehaviorThread::Ascend(CombatBehaviorTreeNode* node)
 	{
-		using func_t = void (CombatBehaviorThread*, CombatBehaviorTreeNode* node);
+		using func_t = void(CombatBehaviorThread*, CombatBehaviorTreeNode * node);
 		REL::Relocation<func_t> func{ RELOCATION_ID(529915, 0) };  // I do not know for AE
 		return func(this, node);
 	}

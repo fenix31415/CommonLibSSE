@@ -14,8 +14,8 @@ namespace RE
 		void Update();
 
 		// members
-		NiPointer<CombatPath> path;  // 00
-		AITimer               timer; // 08
+		NiPointer<CombatPath> path;   // 00
+		AITimer               timer;  // 08
 	};
 	static_assert(sizeof(CombatBehaviorFallbackToRanged) == 0x10);
 }

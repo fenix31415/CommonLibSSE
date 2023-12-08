@@ -4,7 +4,7 @@ namespace RE
 {
 	CombatBehaviorResource::CombatBehaviorResource(CombatBehaviorController* controller, const BSFixedString& name)
 	{
-		using func_t = CombatBehaviorResource*(CombatBehaviorResource*, CombatBehaviorController* controller, const BSFixedString& name);
+		using func_t = CombatBehaviorResource*(CombatBehaviorResource*, CombatBehaviorController * controller, const BSFixedString& name);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46198, 0) };  // I do not know for AE
 		func(this, controller, name);
 	}

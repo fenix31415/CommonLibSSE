@@ -500,11 +500,11 @@ set(SOURCES
 	include/RE/C/CombatBehaviorTreeNodeEvaluateFunction.h
 	include/RE/C/CombatBehaviorTreeNodeObject.h
 	include/RE/C/CombatBehaviorTreeRootNode.h
-	include/RE/C/CombatBehaviorTrees.h
 	include/RE/C/CombatBehaviorTreeUtils.h
 	include/RE/C/CombatBehaviorTreeValueNode.h
 	include/RE/C/CombatBehaviorTreeValueNodeT.h
 	include/RE/C/CombatBehaviorTreeWrapperNode.h
+	include/RE/C/CombatBehaviorTrees.h
 	include/RE/C/CombatBlackboard.h
 	include/RE/C/CombatBlackboardFlag.h
 	include/RE/C/CombatBlackboardKey.h
@@ -1766,11 +1766,11 @@ set(SOURCES
 	src/RE/B/BSLightingShaderProperty.cpp
 	src/RE/B/BSModelDB.cpp
 	src/RE/B/BSMouseDevice.cpp
-	src/RE/B/BSPathingLocation.cpp
-	src/RE/B/BSPathingRequest.cpp
 	src/RE/B/BSPCGamepadDeviceDelegate.cpp
 	src/RE/B/BSPCGamepadDeviceHandler.cpp
 	src/RE/B/BSPCOrbisGamepadDevice.cpp
+	src/RE/B/BSPathingLocation.cpp
+	src/RE/B/BSPathingRequest.cpp
 	src/RE/B/BSPointerHandle.cpp
 	src/RE/B/BSResourceNiBinaryStream.cpp
 	src/RE/B/BSResponse.cpp
@@ -1855,8 +1855,8 @@ set(SOURCES
 	src/RE/C/CombatBehaviorTreeNodeEvaluateFunction.cpp
 	src/RE/C/CombatBehaviorTreeNodeObject.cpp
 	src/RE/C/CombatBehaviorTreeRootNode.cpp
-	src/RE/C/CombatBehaviorTrees.cpp
 	src/RE/C/CombatBehaviorTreeUtils.cpp
+	src/RE/C/CombatBehaviorTrees.cpp
 	src/RE/C/CombatBlackboard.cpp
 	src/RE/C/CombatBlackboardFlag.cpp
 	src/RE/C/CombatBlackboardManager.cpp
