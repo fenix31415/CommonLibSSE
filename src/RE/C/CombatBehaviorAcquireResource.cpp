@@ -7,11 +7,6 @@
 
 namespace RE
 {
-	bool CombatBehaviorAcquireResource::Validate(CombatBehaviorTreeNode* node)
-	{
-		return CombatBehaviorBranch::Validate(node);
-	}
-
 	CombatBehaviorAcquireResource::CombatBehaviorAcquireResource()
 	{
 		using func_t = CombatBehaviorAcquireResource*(CombatBehaviorAcquireResource*);

@@ -296,7 +296,12 @@ set(SOURCES
 	include/RE/B/BSParticleShaderEmitter.h
 	include/RE/B/BSParticleShaderObjectEmitter.h
 	include/RE/B/BSParticleShaderProperty.h
+	include/RE/B/BSPathingActorAttributes.h
+	include/RE/B/BSPathingAvoidNode.h
 	include/RE/B/BSPathingCell.h
+	include/RE/B/BSPathingLocation.h
+	include/RE/B/BSPathingRequest.h
+	include/RE/B/BSPathingSearchParameters.h
 	include/RE/B/BSPointerHandle.h
 	include/RE/B/BSPointerHandleManager.h
 	include/RE/B/BSPointerHandleSmartPointer.h
@@ -441,11 +446,18 @@ set(SOURCES
 	include/RE/C/Color.h
 	include/RE/C/ColorUtil.h
 	include/RE/C/CombatAcquireItem.h
+	include/RE/C/CombatAimController.h
 	include/RE/C/CombatBehavior.h
+	include/RE/C/CombatBehaviorAccessors.h
+	include/RE/C/CombatBehaviorAcquireItem.h
 	include/RE/C/CombatBehaviorAcquireResource.h
+	include/RE/C/CombatBehaviorAdvance.h
+	include/RE/C/CombatBehaviorBackoff.h
 	include/RE/C/CombatBehaviorBlock.h
 	include/RE/C/CombatBehaviorBlockAttack.h
 	include/RE/C/CombatBehaviorChildSelector.h
+	include/RE/C/CombatBehaviorCircle.h
+	include/RE/C/CombatBehaviorCircleDistant.h
 	include/RE/C/CombatBehaviorContext.h
 	include/RE/C/CombatBehaviorContextAcquireWeapon.h
 	include/RE/C/CombatBehaviorContextBlock.h
@@ -459,22 +471,36 @@ set(SOURCES
 	include/RE/C/CombatBehaviorContextSearch.h
 	include/RE/C/CombatBehaviorContextShout.h
 	include/RE/C/CombatBehaviorController.h
+	include/RE/C/CombatBehaviorDodgeThreat.h
+	include/RE/C/CombatBehaviorDynamicConditionalNode.h
 	include/RE/C/CombatBehaviorDynamicSelector.h
 	include/RE/C/CombatBehaviorEquipContext.h
 	include/RE/C/CombatBehaviorExpression.h
+	include/RE/C/CombatBehaviorFallback.h
 	include/RE/C/CombatBehaviorFallbackSelector.h
-	include/RE/C/CombatBehaviorNode.h
+	include/RE/C/CombatBehaviorFallbackToRanged.h
+	include/RE/C/CombatBehaviorFindWeapon.h
+	include/RE/C/CombatBehaviorIdle.h
 	include/RE/C/CombatBehaviorParallel.h
+	include/RE/C/CombatBehaviorPause.h
 	include/RE/C/CombatBehaviorRepeat.h
+	include/RE/C/CombatBehaviorReposition.h
 	include/RE/C/CombatBehaviorResource.h
 	include/RE/C/CombatBehaviorSequence.h
+	include/RE/C/CombatBehaviorSpawnParallel.h
 	include/RE/C/CombatBehaviorStack.h
+	include/RE/C/CombatBehaviorSurround.h
 	include/RE/C/CombatBehaviorThread.h
 	include/RE/C/CombatBehaviorTree.h
 	include/RE/C/CombatBehaviorTreeConditionalNode.h
 	include/RE/C/CombatBehaviorTreeCreateContextNode.h
+	include/RE/C/CombatBehaviorTreeLinkNode.h
+	include/RE/C/CombatBehaviorTreeManager.h
 	include/RE/C/CombatBehaviorTreeNode.h
+	include/RE/C/CombatBehaviorTreeNodeEvaluateFunction.h
 	include/RE/C/CombatBehaviorTreeNodeObject.h
+	include/RE/C/CombatBehaviorTreeRootNode.h
+	include/RE/C/CombatBehaviorTrees.h
 	include/RE/C/CombatBehaviorTreeUtils.h
 	include/RE/C/CombatBehaviorTreeValueNode.h
 	include/RE/C/CombatBehaviorTreeValueNodeT.h
@@ -513,8 +539,13 @@ set(SOURCES
 	include/RE/C/CombatManager.h
 	include/RE/C/CombatMeleeAimController.h
 	include/RE/C/CombatObject.h
+	include/RE/C/CombatPath.h
 	include/RE/C/CombatSearchLocation.h
 	include/RE/C/CombatState.h
+	include/RE/C/CombatTargetLocation.h
+	include/RE/C/CombatTargetLocationSearch.h
+	include/RE/C/CombatTargetLocationSearchResult.h
+	include/RE/C/CombatThreat.h
 	include/RE/C/CommandEffect.h
 	include/RE/C/CommandSummonedEffect.h
 	include/RE/C/CommandTable.h
@@ -1241,9 +1272,11 @@ set(SOURCES
 	include/RE/M/MouseMoveEvent.h
 	include/RE/M/MoveToFunctor.h
 	include/RE/M/Movement.h
+	include/RE/M/MovementActorAvoidanceParameters.h
 	include/RE/M/MovementControllerAI.h
 	include/RE/M/MovementControllerNPC.h
 	include/RE/M/MovementHandler.h
+	include/RE/M/MovementParameters.h
 	include/RE/M/MoviePlayer.h
 	include/RE/M/MultiBoundMarkerData.h
 	include/RE/N/NativeFunction.h
@@ -1369,6 +1402,7 @@ set(SOURCES
 	include/RE/P/PositionPlayerEvent.h
 	include/RE/P/Precipitation.h
 	include/RE/P/PrecomputedNavmeshInfoPathMap.h
+	include/RE/P/PriorityChildSelector.h
 	include/RE/P/ProcessLists.h
 	include/RE/P/Profiler.h
 	include/RE/P/Projectile.h
@@ -1732,6 +1766,8 @@ set(SOURCES
 	src/RE/B/BSLightingShaderProperty.cpp
 	src/RE/B/BSModelDB.cpp
 	src/RE/B/BSMouseDevice.cpp
+	src/RE/B/BSPathingLocation.cpp
+	src/RE/B/BSPathingRequest.cpp
 	src/RE/B/BSPCGamepadDeviceDelegate.cpp
 	src/RE/B/BSPCGamepadDeviceHandler.cpp
 	src/RE/B/BSPCOrbisGamepadDevice.cpp
@@ -1768,11 +1804,19 @@ set(SOURCES
 	src/RE/C/ChildSelectorBase.cpp
 	src/RE/C/Color.cpp
 	src/RE/C/ColorUtil.cpp
+	src/RE/C/CombatAcquireItem.cpp
+	src/RE/C/CombatAimController.cpp
 	src/RE/C/CombatBehavior.cpp
+	src/RE/C/CombatBehaviorAccessors.cpp
+	src/RE/C/CombatBehaviorAcquireItem.cpp
 	src/RE/C/CombatBehaviorAcquireResource.cpp
+	src/RE/C/CombatBehaviorAdvance.cpp
+	src/RE/C/CombatBehaviorBackoff.cpp
 	src/RE/C/CombatBehaviorBlock.cpp
 	src/RE/C/CombatBehaviorBlockAttack.cpp
 	src/RE/C/CombatBehaviorChildSelector.cpp
+	src/RE/C/CombatBehaviorCircle.cpp
+	src/RE/C/CombatBehaviorCircleDistant.cpp
 	src/RE/C/CombatBehaviorContext.cpp
 	src/RE/C/CombatBehaviorContextAcquireWeapon.cpp
 	src/RE/C/CombatBehaviorContextBlock.cpp
@@ -1786,18 +1830,32 @@ set(SOURCES
 	src/RE/C/CombatBehaviorContextSearch.cpp
 	src/RE/C/CombatBehaviorContextShout.cpp
 	src/RE/C/CombatBehaviorController.cpp
+	src/RE/C/CombatBehaviorDodgeThreat.cpp
+	src/RE/C/CombatBehaviorDynamicConditionalNode.cpp
 	src/RE/C/CombatBehaviorEquipContext.cpp
+	src/RE/C/CombatBehaviorFallback.cpp
 	src/RE/C/CombatBehaviorFallbackSelector.cpp
-	src/RE/C/CombatBehaviorNode.cpp
+	src/RE/C/CombatBehaviorFallbackToRanged.cpp
+	src/RE/C/CombatBehaviorFindWeapon.cpp
+	src/RE/C/CombatBehaviorIdle.cpp
 	src/RE/C/CombatBehaviorParallel.cpp
+	src/RE/C/CombatBehaviorPause.cpp
 	src/RE/C/CombatBehaviorRepeat.cpp
+	src/RE/C/CombatBehaviorReposition.cpp
 	src/RE/C/CombatBehaviorResource.cpp
 	src/RE/C/CombatBehaviorSequence.cpp
+	src/RE/C/CombatBehaviorSpawnParallel.cpp
 	src/RE/C/CombatBehaviorStack.cpp
+	src/RE/C/CombatBehaviorSurround.cpp
 	src/RE/C/CombatBehaviorThread.cpp
 	src/RE/C/CombatBehaviorTree.cpp
+	src/RE/C/CombatBehaviorTreeLinkNode.cpp
+	src/RE/C/CombatBehaviorTreeManager.cpp
 	src/RE/C/CombatBehaviorTreeNode.cpp
+	src/RE/C/CombatBehaviorTreeNodeEvaluateFunction.cpp
 	src/RE/C/CombatBehaviorTreeNodeObject.cpp
+	src/RE/C/CombatBehaviorTreeRootNode.cpp
+	src/RE/C/CombatBehaviorTrees.cpp
 	src/RE/C/CombatBehaviorTreeUtils.cpp
 	src/RE/C/CombatBlackboard.cpp
 	src/RE/C/CombatBlackboardFlag.cpp
@@ -1805,7 +1863,12 @@ set(SOURCES
 	src/RE/C/CombatController.cpp
 	src/RE/C/CombatGroup.cpp
 	src/RE/C/CombatInventory.cpp
+	src/RE/C/CombatPath.cpp
 	src/RE/C/CombatState.cpp
+	src/RE/C/CombatTargetLocation.cpp
+	src/RE/C/CombatTargetLocationSearch.cpp
+	src/RE/C/CombatTargetLocationSearchResult.cpp
+	src/RE/C/CombatThreat.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp
 	src/RE/C/Console.cpp
@@ -1977,6 +2040,7 @@ set(SOURCES
 	src/RE/P/PlayerCharacter.cpp
 	src/RE/P/PlayerControls.cpp
 	src/RE/P/PlayerInputHandler.cpp
+	src/RE/P/PriorityChildSelector.cpp
 	src/RE/P/ProcessLists.cpp
 	src/RE/P/Projectile.cpp
 	src/RE/Q/QuestStatus.cpp

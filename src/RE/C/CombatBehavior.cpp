@@ -4,16 +4,13 @@
 #include "RE/C/CombatBehaviorTreeNode.h"
 #include "RE/T/TLSData.h"
 
+#include "RE/C/CombatBehaviorAccessors.h"
+
 namespace RE
 {
-	bool CombatBehavior::Validate(CombatBehaviorTreeNode* node)
-	{
-		return node->children.empty();
-	}
-
 	void CombatBehavior::Abort()
 	{
-		GetStaticTLSData()->combatAIThread->Ascend();
+		CombatBehaviorAccessors::Finish();
 	}
 
 	bool CombatBehavior::CheckTargetChanged()
@@ -39,6 +36,27 @@ namespace RE
 
 	void CombatBehavior::Update()
 	{
-		GetStaticTLSData()->combatAIThread->Ascend();
+		CombatBehaviorAccessors::Finish();
+	}
+
+	bool CombatBehaviorBranch::Validate(CombatBehaviorTreeNode* node)
+	{
+		using func_t = decltype(&CombatBehaviorBranch::Validate);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46093, 0) };  // I do not know for AE
+		return func(node);
+	}
+
+	bool CombatBehaviorNode::Validate(CombatBehaviorTreeNode* node)
+	{
+		using func_t = decltype(&CombatBehaviorNode::Validate);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46092, 0) };  // I do not know for AE
+		return func(node);
+	}
+
+	bool CombatBehaviorAction::Validate(CombatBehaviorTreeNode* node)
+	{
+		using func_t = decltype(&CombatBehaviorAction::Validate);
+		REL::Relocation<func_t> func{ RELOCATION_ID(529913, 0) };  // I do not know for AE
+		return func(node);
 	}
 }

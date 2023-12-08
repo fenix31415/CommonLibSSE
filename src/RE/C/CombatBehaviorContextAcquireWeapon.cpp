@@ -9,6 +9,13 @@ namespace RE
 		return func(this);
 	}
 
+	void CombatBehaviorContextAcquireWeapon::Exit()
+	{
+		using func_t = decltype(&CombatBehaviorContextAcquireWeapon::Exit);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46342, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	const CombatAcquireItem& CombatBehaviorContextAcquireWeapon::getAcquireAmmo() const
 	{
 		return ammo;

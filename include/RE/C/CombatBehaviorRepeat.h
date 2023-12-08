@@ -7,7 +7,7 @@ namespace RE
 {
 	class CombatBehaviorTreeNode;
 
-	class CombatBehaviorRepeat : public CombatBehavior
+	class CombatBehaviorRepeat : public CombatBehaviorNode
 	{
 	public:
 		enum class Flags : uint32_t
@@ -16,8 +16,6 @@ namespace RE
 			kRetryOnFailed = 1 << 1
 		};
 		using FLAGS = stl::enumeration<Flags, uint32_t>;
-
-		static bool Validate(CombatBehaviorTreeNode* node);
 
 		CombatBehaviorRepeat();
 		CombatBehaviorRepeat(float interval);

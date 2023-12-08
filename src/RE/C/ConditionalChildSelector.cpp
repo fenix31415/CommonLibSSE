@@ -9,10 +9,10 @@ namespace RE
 		return func(node);
 	}
 
-	uint32_t ConditionalChildSelector::SelectChild(CombatBehaviorTreeNode* node, uint32_t a_selected_ind)
+	uint32_t ConditionalChildSelector::SelectChild(CombatBehaviorTreeNode* node, uint32_t selected)
 	{
 		using func_t = decltype(&ConditionalChildSelector::SelectChild);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46165, 0) };  // I do not know for AE
-		return func(this, node, a_selected_ind);
+		return func(this, node, selected);
 	}
 }

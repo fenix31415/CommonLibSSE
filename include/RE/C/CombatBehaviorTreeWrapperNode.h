@@ -9,7 +9,7 @@ namespace RE
 	public:
 		~CombatBehaviorTreeWrapperNode() = default;
 		virtual const char*          GetName() const override { return wrapped->GetName(); }
-		virtual void                 Enter(CombatBehaviorThread* thread) override { return wrapped->Enter(thread); };
+		virtual void                 Enter(CombatBehaviorThread* thread) override { return wrapped->Enter(thread); }
 		virtual void                 Exit(CombatBehaviorThread* thread) override { return wrapped->Exit(thread); }
 		virtual void                 Update(CombatBehaviorThread* thread) override { return wrapped->Update(thread); }
 		virtual void                 Abort(CombatBehaviorThread* thread) override { return wrapped->Abort(thread); }

@@ -22,11 +22,11 @@ namespace RE
 	class CombatBehaviorEquipContext;
 
 	template <typename Context>
-	class CombatBehaviorTreeCreateContextNodeImplBase : public CombatBehaviorTreeNode
+	class CombatBehaviorTreeCreateContextNodeBaseImpl : public CombatBehaviorTreeNode
 	{
 	public:
-		CombatBehaviorTreeCreateContextNodeImplBase() = default;
-		~CombatBehaviorTreeCreateContextNodeImplBase() = default;
+		CombatBehaviorTreeCreateContextNodeBaseImpl() = default;
+		~CombatBehaviorTreeCreateContextNodeBaseImpl() = default;
 
 		void Exit(CombatBehaviorThread* thread) override
 		{
@@ -70,7 +70,7 @@ namespace RE
 	};
 
 	template <typename Context, typename... Fields>
-	class CombatBehaviorTreeCreateContextNodeImpl : public CombatBehaviorTreeCreateContextNodeImplBase<Context>
+	class CombatBehaviorTreeCreateContextNodeImpl : public CombatBehaviorTreeCreateContextNodeBaseImpl<Context>
 	{
 	public:
 		template <typename... Params>
@@ -90,7 +90,7 @@ namespace RE
 	};
 
 	template <typename Context>
-	class CombatBehaviorTreeCreateContextNodeImpl<Context> : public CombatBehaviorTreeCreateContextNodeImplBase<Context>
+	class CombatBehaviorTreeCreateContextNodeImpl<Context> : public CombatBehaviorTreeCreateContextNodeBaseImpl<Context>
 	{
 	public:
 		CombatBehaviorTreeCreateContextNodeImpl() = default;
@@ -106,25 +106,33 @@ namespace RE
 	class CombatBehaviorTreeCreateContextNode : public CombatBehaviorTreeCreateContextNodeImpl<Context, Fields...>
 	{
 	public:
+		static constexpr inline bool HAS_CREATE = false;
+		static constexpr inline bool HAS_VFTABLE = false;
+
 		using CombatBehaviorTreeCreateContextNodeImpl<Context, Fields...>::CombatBehaviorTreeCreateContextNodeImpl;
 	};
 
 	// Specs for nodes with Create
 
-#define DECLARE_SPECIALIZATION(Context, SE_ID, AE_ID)                                                            \
-	template <>                                                                                                  \
-	class CombatBehaviorTreeCreateContextNode<Context> : public CombatBehaviorTreeCreateContextNodeImpl<Context> \
-	{                                                                                                            \
-	public:                                                                                                      \
-		CombatBehaviorTreeCreateContextNode() = delete;                                                          \
-                                                                                                                 \
-		static CombatBehaviorTreeNode* Create()                                                                  \
-		{                                                                                                        \
-			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID((SE_ID), (AE_ID)) };                  \
-			return func();                                                                                       \
-		}                                                                                                        \
-	};                                                                                                           \
-	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<Context>) == 0x28)
+#define DECLARE_SPECIALIZATION(List, SE_ID, AE_ID)                                                         \
+	template <>                                                                                            \
+	class CombatBehaviorTreeCreateContextNode<List> : public CombatBehaviorTreeCreateContextNodeImpl<List> \
+	{                                                                                                      \
+	public:                                                                                                \
+		static constexpr inline bool HAS_CREATE = true;                                                    \
+		static constexpr inline bool HAS_VFTABLE = true;                                                   \
+                                                                                                           \
+		CombatBehaviorTreeCreateContextNode() = delete;                                                    \
+                                                                                                           \
+		static CombatBehaviorTreeCreateContextNode<List>* Create()                                         \
+		{                                                                                                  \
+			REL::Relocation<decltype(&Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };                    \
+			return func();                                                                                 \
+		}                                                                                                  \
+	};                                                                                                     \
+	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<List>) == 0x28)
+
+	// TODO: rest
 
 	DECLARE_SPECIALIZATION(CombatBehaviorContextAcquireWeapon, 46373, 0);  // I do not know for AE
 																		   //DECLARE_SPECIALIZATION(CombatBehaviorContextCloseMovement, 46753, 0);       // I do not know for AE
@@ -139,19 +147,25 @@ namespace RE
 
 #undef DECLARE_SPECIALIZATION
 
-	// inlined specs
+	// Specs for instantiated nodes
 
 #define DECLARE_SPECIALIZATION(List, size, SE_ID, AE_ID)                                                   \
 	template <>                                                                                            \
 	class CombatBehaviorTreeCreateContextNode<List> : public CombatBehaviorTreeCreateContextNodeImpl<List> \
 	{                                                                                                      \
 	public:                                                                                                \
-		template <typename... Params>                                                                      \
-		CombatBehaviorTreeCreateContextNode(Params&&... params) :                                          \
-			CombatBehaviorTreeCreateContextNodeImpl<List>(std::forward<Params>(params)...)                 \
+		static constexpr inline bool HAS_CREATE = false;                                                   \
+		static constexpr inline bool HAS_VFTABLE = true;                                                   \
+                                                                                                           \
+		CombatBehaviorTreeCreateContextNode(auto&&... params) :                                            \
+			CombatBehaviorTreeCreateContextNodeImpl<List>(std::forward<decltype(params)>(params)...)       \
 		{                                                                                                  \
 			this->SetVftable(RELOCATION_ID((SE_ID), (AE_ID)));                                             \
 		}                                                                                                  \
 	};                                                                                                     \
 	static_assert(sizeof(CombatBehaviorTreeCreateContextNode<List>) == (size))
+
+	// TODO: rest
+
+#undef DECLARE_SPECIALIZATION
 }

@@ -30,7 +30,7 @@ namespace RE
 		class TreeBuilder
 		{
 		public:
-			explicit TreeBuilder();
+			explicit TreeBuilder(CombatBehaviorTreeNode* node);
 			CombatBehaviorTreeNode* GetNode();
 			TreeBuilder&            operator[](const TreeBuilder& a_other);
 			TreeBuilder&            operator,(const TreeBuilder& a_other);
@@ -40,8 +40,12 @@ namespace RE
 		};
 		static_assert(sizeof(TreeBuilder) == 0x18);
 
-		static TreeBuilder AddNode(const char* name, CombatBehaviorTreeNode* node);
-		void               CreateTree(CombatBehaviorTreeNode* node);
+		static TreeBuilder             AddNode(const char* name, CombatBehaviorTreeNode* node);
+		static CombatBehaviorTreeNode* CreateLink(const char* name);
+
+		CombatBehaviorTree(const char* name);
+
+		void CreateTree(CombatBehaviorTreeNode* node);
 
 		template <typename T>
 		struct IsGameNode
@@ -73,20 +77,15 @@ namespace RE
 		};
 
 		template <typename Object, typename... Fields>
-		class CreateObjectImpl
+		[[nodiscard]] static auto CreateObject(auto&&... params)
 		{
 			using Node = CombatBehaviorTreeNodeObject<Object, Fields...>;
 
-		public:
-			template <typename... Args>
-			[[nodiscard]] static Node* eval(Args&&... params)
-			{
-				if constexpr (IsGameNode<Node>::value)
-					return static_cast<Node*>(Node::Create(std::forward<Args>(params)...));
-				else
-					return new Node(std::forward<Args>(params)...);
-			}
-		};
+			if constexpr (Node::HAS_CREATE)
+				return Node::Create(std::forward<decltype(params)>(params)...);
+			else
+				return new Node(std::forward<decltype(params)>(params)...);
+		}
 
 		template <typename Expr>
 		[[nodiscard]] static auto CreateConditionalNode(auto&& expr, bool isSelector)
@@ -160,7 +159,7 @@ namespace RE
 
 		// members
 		BSFixedString           name;  // 08
-		CombatBehaviorTreeNode* root;  // 10
+		CombatBehaviorTreeNode* root;  // 10 TODO: unique_ptr?
 	};
 	static_assert(sizeof(CombatBehaviorTree) == 0x18);
 }

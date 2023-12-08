@@ -5,14 +5,12 @@
 
 namespace RE
 {
-	class CombatBehaviorBlockAttack : public CombatBehavior
+	class CombatBehaviorBlockAttack : public CombatBehaviorBranch
 	{
 	public:
 		void Enter();
 		void Exit();
 		void Update();
-
-		static bool Validate(CombatBehaviorTreeNode* node);
 
 		// members
 		AITimer timer_block;        // 00

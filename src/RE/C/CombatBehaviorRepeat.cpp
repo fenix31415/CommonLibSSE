@@ -37,9 +37,4 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(46184, 0) };  // I do not know for AE
 		return func(this);
 	}
-
-	bool CombatBehaviorRepeat::Validate(CombatBehaviorTreeNode* node)
-	{
-		return CombatBehaviorBranch::Validate(node);
-	}
 }

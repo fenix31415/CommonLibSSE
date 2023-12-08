@@ -6,6 +6,6 @@ namespace RE
 {
 	bool CombatBehaviorContext::Validate(CombatBehaviorTreeNode* node)
 	{
-		return CombatBehaviorBranch::Validate(node);
+		return node->children.size() == 1;
 	}
 }

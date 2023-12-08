@@ -33,6 +33,9 @@ namespace RE
 			kIsWorking_mb = 1 << 3
 		};
 
+		CombatBehaviorThread(CombatBehaviorController* parent_control, CombatBehaviorThread* parent_thread);
+		~CombatBehaviorThread();
+
 		template <typename T>
 		T& GetCurrentStackObject()
 		{
@@ -45,13 +48,23 @@ namespace RE
 			return cur_context_sptr.stack ? &cur_context_sptr.stack->Access<T>(cur_context_sptr.frame) : nullptr;
 		}
 
+		void     Abort();
+		void     AddChildThread(CombatBehaviorThread* thread);
 		void     Ascend();
+		void     Ascend(CombatBehaviorTreeNode* node);
+		bool     CheckRelated(CombatBehaviorThread* other) const;
+		bool     CheckParent(CombatBehaviorThread* is_parent) const;
 		void     Descend(uint32_t ind = 0);
 		void     Descend(CombatBehaviorTreeNode* ind);
+		bool     GetAscendingUpdate() const;
 		uint32_t GetChildIndex() const;
+		bool     GetInitialUpdate() const;
 		void     Pause();
+		void     Resume();
+		void     SetAborted();
 		void     SetFailed(bool failed);
 		void     Suspend();
+		void     Update();
 		void     Unpause();
 		void     Unsuspend();
 

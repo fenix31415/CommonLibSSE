@@ -4,7 +4,7 @@
 
 namespace RE
 {
-	class CombatBehaviorSequence : public CombatBehavior
+	class CombatBehaviorSequence : public CombatBehaviorNode
 	{
 	public:
 		void Enter();

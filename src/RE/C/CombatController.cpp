@@ -8,4 +8,11 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(32508, 0) };  // I do not know for AE
 		return func(this, atatcker);
 	}
+
+	bool CombatController::CheckStraightPath(NiPoint3& dst, float dist, float min_dist) const
+	{
+		using func_t = decltype(&CombatController::CheckStraightPath);
+		REL::Relocation<func_t> func{ RELOCATION_ID(32513, 0) };  // I do not know for AE
+		return func(this, dst, dist, min_dist);
+	}
 }

@@ -13,12 +13,12 @@ namespace RE
 	class CombatBehaviorResource : public NiRefObject
 	{
 	public:
-		~CombatBehaviorResource();
-
-		static CombatBehaviorResource* Ctor(CombatBehaviorResource* a_this, CombatBehaviorController* controller, const BSFixedString& name);
+		CombatBehaviorResource(CombatBehaviorController* controller, const BSFixedString& name);
+		~CombatBehaviorResource() = default;
 
 		bool AcquireResource(CombatBehaviorThread* thread, uint32_t priority, bool can_suspend);
 		void ClearOwner(CombatBehaviorThread* thread);
+		void ForceAcquireResource(CombatBehaviorThread* new_owner);
 		void ReleaseResource(CombatBehaviorThread* thread);
 
 		// members

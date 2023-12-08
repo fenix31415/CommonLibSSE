@@ -1,10 +1,9 @@
 #pragma once
 
+#include "RE/C/CombatAimController.h"
 #include "RE/C/CombatBehaviorContext.h"
+#include "RE/C/CombatTargetLocation.h"
 #include "RE/N/NiSmartPointer.h"
-
-class CombatAimController;
-class CombatTargetLocation;
 
 namespace RE
 {
@@ -14,10 +13,13 @@ namespace RE
 		bool CheckOutOfPosition() const;
 		bool CheckOutOfRange() const;
 		bool CheckShouldFallbackToRanged() const;
+		bool CheckShouldStop(float R) const;
+		void Enter();
+		void SetTargetLocation(const NiPointer<CombatTargetLocation>& loc);
 
 		// members
 		NiPointer<CombatAimController> aim_controller;
-		CombatTargetLocation*          target_loc;
+		NiPointer<CombatTargetLocation> target_loc;
 	};
 	static_assert(sizeof(CombatBehaviorContextCloseMovement) == 0x10);
 }

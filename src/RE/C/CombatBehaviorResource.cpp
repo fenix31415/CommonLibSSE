@@ -2,11 +2,11 @@
 
 namespace RE
 {
-	CombatBehaviorResource* CombatBehaviorResource::Ctor(CombatBehaviorResource* a_this, CombatBehaviorController* controller, const BSFixedString& name)
+	CombatBehaviorResource::CombatBehaviorResource(CombatBehaviorController* controller, const BSFixedString& name)
 	{
-		using func_t = decltype(&CombatBehaviorResource::Ctor);
+		using func_t = CombatBehaviorResource*(CombatBehaviorResource*, CombatBehaviorController* controller, const BSFixedString& name);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46198, 0) };  // I do not know for AE
-		return func(a_this, controller, name);
+		func(this, controller, name);
 	}
 
 	bool CombatBehaviorResource::AcquireResource(CombatBehaviorThread* thread, uint32_t priority, bool can_suspend)
@@ -21,6 +21,13 @@ namespace RE
 		using func_t = decltype(&CombatBehaviorResource::ClearOwner);
 		REL::Relocation<func_t> func{ RELOCATION_ID(46203, 0) };  // I do not know for AE
 		return func(this, thread);
+	}
+
+	void CombatBehaviorResource::ForceAcquireResource(CombatBehaviorThread* new_owner)
+	{
+		using func_t = decltype(&CombatBehaviorResource::ForceAcquireResource);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46202, 0) };  // I do not know for AE
+		return func(this, new_owner);
 	}
 
 	void CombatBehaviorResource::ReleaseResource(CombatBehaviorThread* thread)

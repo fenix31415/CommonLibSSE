@@ -56,10 +56,16 @@ namespace RE
 			return *reinterpret_cast<T*>(&data[offset]);
 		}
 
+		template <typename T>
+		const T& Access(uint32_t offset) const
+		{
+			return *reinterpret_cast<const T*>(&data[offset]);
+		}
+
 		void CheckBuffer(uint32_t size);
 
 		// members
-		char*    data;      // 00
+		char*    data;      // 00 TODO: free on dtor
 		uint32_t capasity;  // 08
 		uint32_t size;      // 0C
 	};

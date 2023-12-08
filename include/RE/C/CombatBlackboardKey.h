@@ -20,6 +20,8 @@ namespace RE
 	*/
 
 	struct AITimeStamp;
+	struct AITimer;
+	class TESObjectREFR;
 
 	template <typename T, const std::array<REL::ID, 1>& vftableID = VTABLE_CombatBlackboardKeyBase>
 	class CombatBlackboardKey : public CombatBlackboardKeyBase

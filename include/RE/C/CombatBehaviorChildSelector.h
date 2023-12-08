@@ -1,7 +1,6 @@
 #pragma once
 
 #include "RE/C/CombatBehavior.h"
-#include "RE/C/CombatBehaviorNode.h"
 #include "RE/C/CombatBehaviorThread.h"
 #include "RE/C/CombatBehaviorTreeNode.h"
 #include "RE/C/ConditionalChildSelector.h"
@@ -13,11 +12,8 @@
 
 namespace RE
 {
-#pragma warning(push)
-#pragma warning(disable: 4324)  // structure was padded due to alignment specifier
-
 	template <typename Selector>
-	class alignas(4) CombatBehaviorChildSelector : public CombatBehaviorNode, public Selector
+	class CombatBehaviorChildSelector : public CombatBehaviorNode, public Selector
 	{
 	public:
 		static bool Validate(CombatBehaviorTreeNode* node)
@@ -37,7 +33,5 @@ namespace RE
 			}
 		}
 	};
-
-#pragma warning(pop)
 
 }

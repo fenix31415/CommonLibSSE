@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-
 #include "RE/A/AITimer.h"
 #include "RE/C/CombatBehaviorAcquireResource.h"
 #include "RE/C/CombatBehaviorBlock.h"
@@ -19,11 +17,11 @@
 namespace RE
 {
 	template <typename Object>
-	class CombatBehaviorTreeNodeObjectImplBase : public CombatBehaviorTreeNode
+	class CombatBehaviorTreeNodeObjectBaseImpl : public CombatBehaviorTreeNode
 	{
 	public:
-		CombatBehaviorTreeNodeObjectImplBase() = default;
-		~CombatBehaviorTreeNodeObjectImplBase() = default;
+		CombatBehaviorTreeNodeObjectBaseImpl() = default;
+		~CombatBehaviorTreeNodeObjectBaseImpl() = default;
 
 		void Update(CombatBehaviorThread* thread) override
 		{
@@ -64,12 +62,11 @@ namespace RE
 	};
 
 	template <typename Object, typename... Fields>
-	class CombatBehaviorTreeNodeObjectImpl : public CombatBehaviorTreeNodeObjectImplBase<Object>
+	class CombatBehaviorTreeNodeObjectImpl : public CombatBehaviorTreeNodeObjectBaseImpl<Object>
 	{
 	public:
-		template <typename... Params>
-		CombatBehaviorTreeNodeObjectImpl(Params&&... params) :
-			fields(std::make_tuple(std::forward<Params>(params)...))
+		CombatBehaviorTreeNodeObjectImpl(auto&&... params) :
+			fields(std::make_tuple(std::forward<decltype(params)>(params)...))
 		{}
 		~CombatBehaviorTreeNodeObjectImpl() = default;
 
@@ -86,7 +83,7 @@ namespace RE
 	};
 
 	template <typename Object>
-	class CombatBehaviorTreeNodeObjectImpl<Object> : public CombatBehaviorTreeNodeObjectImplBase<Object>
+	class CombatBehaviorTreeNodeObjectImpl<Object> : public CombatBehaviorTreeNodeObjectBaseImpl<Object>
 	{
 	public:
 		CombatBehaviorTreeNodeObjectImpl() = default;
@@ -103,6 +100,9 @@ namespace RE
 	class CombatBehaviorTreeNodeObject : public CombatBehaviorTreeNodeObjectImpl<Object, Fields...>
 	{
 	public:
+		static constexpr inline bool HAS_CREATE = false;
+		static constexpr inline bool HAS_VFTABLE = false;
+
 		using CombatBehaviorTreeNodeObjectImpl<Object, Fields...>::CombatBehaviorTreeNodeObjectImpl;
 	};
 
@@ -113,15 +113,19 @@ namespace RE
 	class CombatBehaviorTreeNodeObject<Object> : public CombatBehaviorTreeNodeObjectImpl<Object> \
 	{                                                                                            \
 	public:                                                                                      \
+		static constexpr inline bool HAS_CREATE = true;                                          \
+		static constexpr inline bool HAS_VFTABLE = true;                                         \
+                                                                                                 \
 		CombatBehaviorTreeNodeObject() = delete;                                                 \
                                                                                                  \
-		static CombatBehaviorTreeNode* Create()                                                  \
+		static CombatBehaviorTreeNodeObject<Object>* Create()                                    \
 		{                                                                                        \
-			REL::Relocation<CombatBehaviorTreeNode*()> func{ RELOCATION_ID((SE_ID), (AE_ID)) };  \
+			REL::Relocation<decltype(&Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };           \
 			return func();                                                                       \
 		}                                                                                        \
 	};                                                                                           \
-	static_assert(sizeof(CombatBehaviorTreeNodeObject<Object>) == 0x28)
+	
+	//static_assert(sizeof(CombatBehaviorTreeNodeObject<Object>) == 0x28)
 
 	DECLARE_SPECIALIZATION(CombatBehaviorBlock, 46647, 0);                                          // I do not know for AE
 	DECLARE_SPECIALIZATION(CombatBehaviorBlockAttack, 46648, 0);                                    // I do not know for AE
@@ -136,25 +140,30 @@ namespace RE
 
 #undef DECLARE_SPECIALIZATION
 
-	// inlined specs
+	// Specs for instantiated nodes
 
-#define DECLARE_SPECIALIZATION(List, size, SE_ID, AE_ID)                                     \
-	template <>                                                                              \
-	class CombatBehaviorTreeNodeObject<List> : public CombatBehaviorTreeNodeObjectImpl<List> \
-	{                                                                                        \
-	public:                                                                                  \
-		template <typename... Params>                                                        \
-		CombatBehaviorTreeNodeObject(Params&&... params) :                                   \
-			CombatBehaviorTreeNodeObjectImpl<List>(std::forward<Params>(params)...)          \
-		{                                                                                    \
-			this->SetVftable(RELOCATION_ID((SE_ID), (AE_ID)));                               \
-		}                                                                                    \
-	};                                                                                       \
-	static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))
+#define DECLARE_SPECIALIZATION(List, size, SE_ARR, AE_ARR)                                    \
+	template <>                                                                               \
+	class CombatBehaviorTreeNodeObject<List> : public CombatBehaviorTreeNodeObjectImpl<List>  \
+	{                                                                                         \
+	public:                                                                                   \
+		static constexpr inline bool HAS_CREATE = false;                                      \
+		static constexpr inline bool HAS_VFTABLE = true;                                      \
+                                                                                              \
+		CombatBehaviorTreeNodeObject(auto&&... params) :                                      \
+			CombatBehaviorTreeNodeObjectImpl<List>(std::forward<decltype(params)>(params)...) \
+		{                                                                                     \
+			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));              \
+		}                                                                                     \
+	};                                                                                        \
+	
+	//static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))
 
 #define COMMA ,
-	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float, 0x30, 265835, 0);                                    // I do not know for AE
-	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float COMMA CombatBehaviorRepeat::Flags, 0x30, 267191, 0);  // I do not know for AE
+	// TODO: rest
+
+	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float, 0x30, RE::VTABLE_CombatBehaviorTreeNodeObject1_CombatBehaviorRepeat_float_, 0);                                                                // I do not know for AE
+	DECLARE_SPECIALIZATION(CombatBehaviorRepeat COMMA float COMMA CombatBehaviorRepeat::Flags, 0x30, RE::VTABLE_CombatBehaviorTreeNodeObject2_CombatBehaviorRepeat_float_CombatBehaviorRepeat__FLAGS_, 0);  // I do not know for AE
 #undef COMMA
 
 #undef DECLARE_SPECIALIZATION

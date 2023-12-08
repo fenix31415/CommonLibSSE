@@ -9,6 +9,7 @@ namespace RE
 	{
 	public:
 		void                     Enter();
+		void                     Exit();
 		const CombatAcquireItem& getAcquireAmmo() const;
 		const CombatAcquireItem& getAcquireWeapon() const;
 		bool                     HasAmmoTarget() const;

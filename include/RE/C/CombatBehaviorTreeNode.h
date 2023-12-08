@@ -7,7 +7,7 @@ namespace RE
 {
 	class BGSLoadFormBuffer;
 	class BGSSaveFormBuffer;
-
+	
 	class CombatBehaviorTreeNode
 	{
 	public:
@@ -25,7 +25,10 @@ namespace RE
 		CombatBehaviorTreeNode();
 		CombatBehaviorTreeNode(const CombatBehaviorTreeNode&) = delete;
 		CombatBehaviorTreeNode& operator=(CombatBehaviorTreeNode&) = delete;
-		void                    AddChild(class CombatBehaviorTreeNode*);
+
+		void                    AddChild(CombatBehaviorTreeNode*);
+		CombatBehaviorTreeNode* FindChild(const BSFixedString& ch_name) const;
+		int32_t                 FindChildIndex(const BSFixedString& ch_name) const;
 		CombatBehaviorTreeNode* GetRoot();
 		void                    SetVftable(REL::ID id);
 
@@ -34,13 +37,7 @@ namespace RE
 		// members
 		BSFixedString                          name;      // 08
 		CombatBehaviorTreeNode*                parent;    // 10
-		BSStaticArray<CombatBehaviorTreeNode*> children;  // 18
+		BSStaticArray<CombatBehaviorTreeNode*> children;  // 18 TODO: unique_ptr?
 	};
 	static_assert(sizeof(CombatBehaviorTreeNode) == 0x28);
-
-	class CombatBehaviorBranch
-	{
-	public:
-		static bool Validate(CombatBehaviorTreeNode*);
-	};
 }

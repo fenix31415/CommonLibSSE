@@ -1,14 +1,7 @@
 #include "RE/C/CombatBehaviorParallel.h"
 
-#include "RE/C/CombatBehaviorNode.h"
-
 namespace RE
 {
-	bool RE::CombatBehaviorParallel::Validate(CombatBehaviorTreeNode* node)
-	{
-		return CombatBehaviorNode::Validate(node);
-	}
-
 	void CombatBehaviorParallel::Abort()
 	{
 		using func_t = decltype(&CombatBehaviorParallel::Abort);

@@ -2,14 +2,14 @@
 
 #include "RE/B/BSFixedString.h"
 #include "RE/C/CombatBehavior.h"
+#include "RE/C/CombatBehaviorResource.h"
 #include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {
-	class CombatBehaviorResource;
 	class CombatBehaviorThread;
 
-	class CombatBehaviorAcquireResource : public CombatBehavior
+	class CombatBehaviorAcquireResource : public CombatBehaviorBranch
 	{
 	public:
 		enum class Flags : uint32_t
@@ -20,8 +20,6 @@ namespace RE
 			kOwning = (uint32_t)1 << 31
 		};
 		using FLAG = stl::enumeration<Flags, uint32_t>;
-
-		static bool Validate(CombatBehaviorTreeNode* node);
 
 		CombatBehaviorAcquireResource();
 		CombatBehaviorAcquireResource(const BSFixedString& name, uint32_t priority, FLAG flags);
@@ -35,7 +33,7 @@ namespace RE
 		NiPointer<CombatBehaviorResource> resource;      // 00
 		uint32_t                          priority;      // 08
 		FLAG                              flags;         // 0C
-		CombatBehaviorThread*             child_thread;  // 10
+		CombatBehaviorThread*             child_thread;  // 10 -- TODO: unique_ptr?
 	};
 	static_assert(sizeof(CombatBehaviorAcquireResource) == 0x18);
 }

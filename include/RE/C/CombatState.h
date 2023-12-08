@@ -18,7 +18,7 @@ namespace RE
 		// members
 		BGSWorldLocation loc;        // 00
 		AITimeStamp      timestamp;  // 18
-		std::uint32_t    pad20;      // 20
+		std::uint32_t    pad1C;      // 1C
 	};
 	static_assert(sizeof(UnreachableLocation) == 0x20);
 

@@ -29,10 +29,17 @@ namespace RE
 		*(uint64_t*)this = id.address();
 	}
 
-	bool CombatBehaviorBranch::Validate(CombatBehaviorTreeNode* node)
+	int32_t CombatBehaviorTreeNode::FindChildIndex(const BSFixedString& ch_name) const
 	{
-		using func_t = decltype(&CombatBehaviorBranch::Validate);
-		REL::Relocation<func_t> func{ RELOCATION_ID(46093, 0) };  // I do not know for AE
-		return func(node);
+		using func_t = decltype(&CombatBehaviorTreeNode::FindChildIndex);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46307, 0) };  // I do not know for AE
+		return func(this, ch_name);
+	}
+
+	CombatBehaviorTreeNode* CombatBehaviorTreeNode::FindChild(const BSFixedString& ch_name) const
+	{
+		using func_t = decltype(&CombatBehaviorTreeNode::FindChild);
+		REL::Relocation<func_t> func{ RELOCATION_ID(46306, 0) };  // I do not know for AE
+		return func(this, ch_name);
 	}
 }

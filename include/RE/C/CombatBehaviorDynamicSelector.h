@@ -3,7 +3,7 @@
 namespace RE
 {
 	template <typename Selector>
-	class CombatBehaviorDynamicSelector
+	class CombatBehaviorDynamicSelector : public CombatBehaviorNode
 	{
 	public:
 		static bool Validate(CombatBehaviorTreeNode* node)

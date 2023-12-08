@@ -11,7 +11,7 @@ namespace RE
 	public:
 		static bool Validate(CombatBehaviorTreeNode* node);
 
-		uint32_t SelectChild(CombatBehaviorTreeNode* node, uint32_t a_selected_ind);
+		uint32_t SelectChild(CombatBehaviorTreeNode* node, uint32_t selected);
 	};
 	static_assert(sizeof(ConditionalChildSelector) == 0x1);
 }
