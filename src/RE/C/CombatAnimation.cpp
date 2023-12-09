@@ -25,14 +25,14 @@ namespace RE
 
 	bool CombatAnimation::Execute(Actor* actor, CombatAnimation::ANIM anim)
 	{
-		using func_t = bool (Actor*, CombatAnimation::ANIM);
+		using func_t = bool(Actor*, CombatAnimation::ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43245, 0) };  // I do not know for AE
 		return func(actor, anim);
 	}
 
 	bool CombatAnimation::Execute(Actor* actor, TESObjectREFR* target, CombatAnimation::ANIM anim)
 	{
-		using func_t = bool (Actor*, TESObjectREFR*, CombatAnimation::ANIM);
+		using func_t = bool(Actor*, TESObjectREFR*, CombatAnimation::ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43246, 0) };  // I do not know for AE
 		return func(actor, target, anim);
 	}
@@ -46,21 +46,21 @@ namespace RE
 
 	bool CombatAnimation::Execute()
 	{
-		using func_t = bool (CombatAnimation*);
+		using func_t = bool(CombatAnimation*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43239, 0) };  // I do not know for AE
 		return func(this);
 	}
 
 	bool CombatAnimation::GetEventData(const BSFixedString& event_name, float& event_time)
 	{
-		using func_t = bool (CombatAnimation*, const BSFixedString&, float&);
+		using func_t = bool(CombatAnimation*, const BSFixedString&, float&);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43240, 0) };  // I do not know for AE
 		return func(this, event_name, event_time);
 	}
 
 	bool CombatAnimation::GetEventData(const BSFixedString& event_name, float& event_time, NiPoint3& translation)
 	{
-		using func_t = bool (CombatAnimation*, const BSFixedString&, float&, NiPoint3&);
+		using func_t = bool(CombatAnimation*, const BSFixedString&, float&, NiPoint3&);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43241, 0) };  // I do not know for AE
 		return func(this, event_name, event_time, translation);
 	}

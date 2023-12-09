@@ -1,8 +1,8 @@
 #pragma once
 
 #include "RE/A/AnimationSystemUtils.h"
-#include "RE/B/BSTArray.h"
 #include "RE/B/BSFixedString.h"
+#include "RE/B/BSTArray.h"
 #include "RE/T/TESActionData.h"
 
 namespace RE

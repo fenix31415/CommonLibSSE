@@ -25,7 +25,6 @@ namespace RE
 		class ClipData
 		{
 		public:
-
 			bool GetEventTime(const BSFixedString& event_name, float& time);
 
 			// members
