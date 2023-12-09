@@ -32,8 +32,10 @@ set(SOURCES
 	include/RE/A/AddCallbackVisitor.h
 	include/RE/A/AlchemyItem.h
 	include/RE/A/AlchemyMenu.h
+	include/RE/A/AnimationClipDataSingleton.h
 	include/RE/A/AnimationFileManagerSingleton.h
 	include/RE/A/AnimationObjects.h
+	include/RE/A/AnimationSystemUtils.h
 	include/RE/A/Archive.h
 	include/RE/A/ArmorRatingVisitor.h
 	include/RE/A/ArmorRatingVisitorBase.h
@@ -447,6 +449,8 @@ set(SOURCES
 	include/RE/C/ColorUtil.h
 	include/RE/C/CombatAcquireItem.h
 	include/RE/C/CombatAimController.h
+	include/RE/C/CombatAnimation.h
+	include/RE/C/CombatAttackData.h
 	include/RE/C/CombatBehavior.h
 	include/RE/C/CombatBehaviorAccessors.h
 	include/RE/C/CombatBehaviorAcquireItem.h
@@ -1724,6 +1728,8 @@ set(SOURCES
 	src/RE/A/ActorValueList.cpp
 	src/RE/A/ActorValueOwner.cpp
 	src/RE/A/AddCallbackVisitor.cpp
+	src/RE/A/AnimationClipDataSingleton.cpp
+	src/RE/A/AnimationSystemUtils.cpp
 	src/RE/A/ArmorRatingVisitor.cpp
 	src/RE/A/ArmorRatingVisitorBase.cpp
 	src/RE/A/Array.cpp
@@ -1806,6 +1812,7 @@ set(SOURCES
 	src/RE/C/ColorUtil.cpp
 	src/RE/C/CombatAcquireItem.cpp
 	src/RE/C/CombatAimController.cpp
+	src/RE/C/CombatAnimation.cpp
 	src/RE/C/CombatBehavior.cpp
 	src/RE/C/CombatBehaviorAccessors.cpp
 	src/RE/C/CombatBehaviorAcquireItem.cpp

@@ -3,6 +3,8 @@
 #include "RE/A/ActorState.h"
 #include "RE/B/BGSAction.h"
 #include "RE/B/BGSAnimationSequencer.h"
+#include "RE/N/NiSmartPointer.h"
+#include "RE/T/TESObjectREFR.h"
 
 namespace RE
 {
