@@ -13,7 +13,7 @@ namespace RE
 		void Update();
 
 		// members
-		NiPointer<CombatPath>                       path;            // 00
+		NiPointer<CombatPath> path;  // 00
 	};
 	static_assert(sizeof(CombatBehaviorSurround) == 0x8);
 }

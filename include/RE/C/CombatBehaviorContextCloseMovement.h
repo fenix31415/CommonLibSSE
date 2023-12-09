@@ -18,7 +18,7 @@ namespace RE
 		void SetTargetLocation(const NiPointer<CombatTargetLocation>& loc);
 
 		// members
-		NiPointer<CombatAimController> aim_controller;
+		NiPointer<CombatAimController>  aim_controller;
 		NiPointer<CombatTargetLocation> target_loc;
 	};
 	static_assert(sizeof(CombatBehaviorContextCloseMovement) == 0x10);

@@ -7,7 +7,7 @@ namespace RE
 {
 	class BGSLoadFormBuffer;
 	class BGSSaveFormBuffer;
-	
+
 	class CombatBehaviorTreeNode
 	{
 	public:

@@ -120,11 +120,11 @@ namespace RE
                                                                                                  \
 		static CombatBehaviorTreeNodeObject<Object>* Create()                                    \
 		{                                                                                        \
-			REL::Relocation<decltype(&Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };           \
+			REL::Relocation<decltype(&Create)> func{ RELOCATION_ID((SE_ID), (AE_ID)) };          \
 			return func();                                                                       \
 		}                                                                                        \
-	};                                                                                           \
-	
+	};
+
 	//static_assert(sizeof(CombatBehaviorTreeNodeObject<Object>) == 0x28)
 
 	DECLARE_SPECIALIZATION(CombatBehaviorBlock, 46647, 0);                                          // I do not know for AE
@@ -155,8 +155,8 @@ namespace RE
 		{                                                                                     \
 			this->SetVftable(RELOCATION_ID((SE_ARR)[0].id(), (AE_ARR)[0].id()));              \
 		}                                                                                     \
-	};                                                                                        \
-	
+	};
+
 	//static_assert(sizeof(CombatBehaviorTreeNodeObject<List>) == (size))
 
 #define COMMA ,
