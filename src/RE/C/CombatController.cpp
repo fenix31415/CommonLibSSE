@@ -122,7 +122,7 @@ namespace RE
 
 	bool CombatController::GetAimLocation(NiPoint3& aim) const
 	{
-		using func_t = bool (const CombatController*, NiPoint3&);
+		using func_t = bool(const CombatController*, NiPoint3&);
 		REL::Relocation<func_t> func{ RELOCATION_ID(32483, 0) };  // I do not know for AE
 		return func(this, aim);
 	}

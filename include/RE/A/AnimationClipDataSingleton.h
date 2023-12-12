@@ -10,7 +10,7 @@ namespace RE
 {
 	class AnimationClipDataSingleton
 	{
-  public:
+	public:
 		class BoundAnimationData
 		{
 		};
@@ -53,7 +53,7 @@ namespace RE
 		};
 		static_assert(sizeof(AnimationData) == 0x68);
 
-    static AnimationClipDataSingleton* GetSingleton();
+		static AnimationClipDataSingleton* GetSingleton();
 
 		virtual ~AnimationClipDataSingleton();
 
