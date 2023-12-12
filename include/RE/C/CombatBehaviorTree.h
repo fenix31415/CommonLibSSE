@@ -155,7 +155,7 @@ namespace RE
 
 		// TODO: I do not know how to implement AddValueNode (e.g. 1407DA250 detects unsigned int and calls 1407DA2B0)
 
-		virtual void Initialize();  // 00
+		virtual void Initialize() = 0;  // 00
 
 		// members
 		BSFixedString           name;  // 08

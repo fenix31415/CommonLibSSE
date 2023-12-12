@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/A/AITimeStamp.h"
 #include "RE/B/BSCoreTypes.h"
 #include "RE/C/CombatObject.h"
 #include "RE/N/NiPoint3.h"
@@ -7,11 +8,17 @@
 namespace RE
 {
 	class NiNode;
+	class TESObjectREFR;
 	class bhkRigidBody;
 
 	class CombatThreat : public CombatObject
 	{
 	public:
+		// TODO: rest
+		//bool CheckCollision(CombatMathUtilities::GenericShape* a2, float time);
+		void Initialize(TESObjectREFR* refr, float rad, float damage, float expl_time);
+		bool Update();
+
 		// members
 		FormID        formid;          // 10
 		RefHandle     handle;          // 14
@@ -21,7 +28,7 @@ namespace RE
 		float         damage;          // 34
 		float         range;           // 38
 		float         cone;            // 3C
-		float         explosion_time;  // 40
+		AITimeStamp   explosion_time;  // 40
 		RefHandle     shooter;         // 44
 		NiNode*       root;            // 48
 		bhkRigidBody* body;            // 50

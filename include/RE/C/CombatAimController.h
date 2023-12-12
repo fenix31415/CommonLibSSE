@@ -36,6 +36,21 @@ namespace RE
 		};
 		using FLAGS = stl::enumeration<Flags, uint32_t>;
 
+		// add
+		virtual bool                 CheckAim(const NiPoint3& from, const NiPoint3& to);  // 5
+		virtual bool                 CheckAim(const NiPoint3& P);                         // 6
+		virtual bool                 CheckAim(float cone);                                // 7
+		virtual void                 Update();                                            // 8
+		virtual CombatAimController* Clone() const;                                       // 9
+		virtual void                 FinishLoadGame();                                    // A
+
+		uint32_t CalculatePriority(PRIORITY priority);
+		void     ClearAim();
+		bool     HasTargetLOS() const;
+		void     Register();
+		void     SetAim(const NiPoint3& P);
+		void     Unregister();
+
 		// members
 		MagicCaster*      mcaster;         // 10 -- or weap?
 		NiPoint3          P;               // 18

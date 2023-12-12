@@ -9,6 +9,15 @@ namespace RE
 	class CombatPath : public CombatObject
 	{
 	public:
+		enum class SPEED : uint32_t
+		{
+			kWalk,
+			kRun_1,
+			kRun_2,
+			kRun_3,
+			kRun_4
+		};
+
 		enum class STATE : uint32_t
 		{
 			kNone,

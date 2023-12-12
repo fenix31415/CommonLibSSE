@@ -1,18 +1,19 @@
 #pragma once
 
+#include "RE/B/BSFixedString.h"
 #include "RE/B/BSTArray.h"
 
 namespace RE
 {
+	class BoundAnimationData;
+	class BSAnimationGraphManager;
+	class ClipGeneratorData;
+	class NiPoint3;
+	class NiQuaternion;
+	class TESObjectREFR;
+
 	namespace AnimationSystemUtils
 	{
-		class BoundAnimationData;
-		class BSAnimationGraphManager;
-		class BSFixedString;
-		class ClipGeneratorData;
-		class NiPoint3;
-		class NiQuaternion;
-		class TESObjectREFR;
 
 		class UtilsClipData
 		{

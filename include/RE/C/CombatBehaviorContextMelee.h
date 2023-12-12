@@ -3,6 +3,7 @@
 #include "RE/A/AITimeStamp.h"
 #include "RE/A/AITimer.h"
 #include "RE/B/BSTArray.h"
+#include "RE/C/CombatAttackData.h"
 #include "RE/C/CombatBehaviorContext.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/S/SetEventData.h"
@@ -21,18 +22,6 @@ namespace RE
 			Shield,
 			WeaponLeft
 		};
-
-		class CombatAttackData
-		{
-		public:
-			BGSAttackData* attackdata;      // 00
-			NiPoint3       P1;              // 08
-			NiPoint3       P2;              // 14
-			float          P1_len;          // 20
-			float          hitframe_time;   // 24
-			AITimer        cooldown_timer;  // 28
-		};
-		static_assert(sizeof(CombatAttackData) == 0x30);
 
 		void CalculateAnimationData();
 		bool CheckAttack(CombatAttackData* attack);

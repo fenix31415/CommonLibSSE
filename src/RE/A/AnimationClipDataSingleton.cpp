@@ -2,6 +2,11 @@
 
 namespace RE
 {
+	AnimationClipDataSingleton* AnimationClipDataSingleton::GetSingleton()
+	{
+		return *REL::Relocation<AnimationClipDataSingleton**>(RELOCATION_ID(515414, 0));  // I do not know for AE
+	}
+
 	bool AnimationClipDataSingleton::GetClipInformation(const BSFixedString& project_name, const BSFixedString& clip_name, AnimationClipData& ClipInformation)
 	{
 		using func_t = decltype(&AnimationClipDataSingleton::GetClipInformation);

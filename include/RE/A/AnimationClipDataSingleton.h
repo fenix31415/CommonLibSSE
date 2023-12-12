@@ -10,6 +10,7 @@ namespace RE
 {
 	class AnimationClipDataSingleton
 	{
+  public:
 		class BoundAnimationData
 		{
 		};
@@ -51,6 +52,8 @@ namespace RE
 			BSTArray<BSFixedString>              hkxFiles;     // 50
 		};
 		static_assert(sizeof(AnimationData) == 0x68);
+
+    static AnimationClipDataSingleton* GetSingleton();
 
 		virtual ~AnimationClipDataSingleton();
 

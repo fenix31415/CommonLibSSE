@@ -12,15 +12,15 @@ namespace RE
 	{
 	public:
 		// members
-		NiPoint3                 P;             // 00
-		uint32_t                 padC;          // 0C
-		BSNavmeshInfo*           navmesh_info;  // 10
-		uint64_t                 field_18;      // 18
-		NiPointer<BSPathingCell> cell;          // 20
-		uint16_t                 mb_inside;     // 28
-		uint8_t                  flags;         // 2A
-		uint8_t                  flags1;        // 2B
-		uint32_t                 pad2C;         // 2C
+		NiPoint3                       P;             // 00
+		uint32_t                       padC;          // 0C
+		BSNavmeshInfo*                 navmesh_info;  // 10
+		uint64_t                       field_18;      // 18
+		BSTSmartPointer<BSPathingCell> cell;          // 20
+		uint16_t                       mb_inside;     // 28
+		uint8_t                        flags;         // 2A
+		uint8_t                        flags1;        // 2B
+		uint32_t                       pad2C;         // 2C
 	};
 	static_assert(sizeof(BSPathingLocation) == 0x30);
 }
