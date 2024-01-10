@@ -549,6 +549,9 @@ set(SOURCES
 	include/RE/C/CombatTargetLocation.h
 	include/RE/C/CombatTargetLocationSearch.h
 	include/RE/C/CombatTargetLocationSearchResult.h
+	include/RE/C/CombatTargetSelector.h
+	include/RE/C/CombatTargetSelectorFixed.h
+	include/RE/C/CombatTargetSelectorStandard.h
 	include/RE/C/CombatThreat.h
 	include/RE/C/CommandEffect.h
 	include/RE/C/CommandSummonedEffect.h
@@ -1875,6 +1878,9 @@ set(SOURCES
 	src/RE/C/CombatTargetLocation.cpp
 	src/RE/C/CombatTargetLocationSearch.cpp
 	src/RE/C/CombatTargetLocationSearchResult.cpp
+	src/RE/C/CombatTargetSelector.cpp
+	src/RE/C/CombatTargetSelectorFixed.cpp
+	src/RE/C/CombatTargetSelectorStandard.cpp
 	src/RE/C/CombatThreat.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp

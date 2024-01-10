@@ -46,7 +46,7 @@ namespace RE
 
 	WEAPON_TYPE TESObjectWEAP::GetWeaponType() const
 	{
-		return *weaponData.animationType;
+		return weaponData.animationType;
 	}
 
 	bool TESObjectWEAP::IsBound() const
@@ -56,7 +56,7 @@ namespace RE
 
 	bool TESObjectWEAP::IsMelee() const
 	{
-		switch (*weaponData.animationType) {
+		switch (weaponData.animationType) {
 		case WEAPON_TYPE::kHandToHandMelee:
 		case WEAPON_TYPE::kOneHandSword:
 		case WEAPON_TYPE::kOneHandDagger:
@@ -72,7 +72,7 @@ namespace RE
 
 	bool TESObjectWEAP::IsRanged() const
 	{
-		switch (*weaponData.animationType) {
+		switch (weaponData.animationType) {
 		case WEAPON_TYPE::kBow:
 		case WEAPON_TYPE::kStaff:
 		case WEAPON_TYPE::kCrossbow:

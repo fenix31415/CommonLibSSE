@@ -4,7 +4,14 @@
 
 namespace RE
 {
-	class hkbEventPayload;
+	class hkbEventPayload : public hkReferencedObject
+	{
+	public:
+		inline static constexpr auto RTTI = RTTI_hkbEventPayload;
+
+		~hkbEventPayload() override;  // 00
+	};
+	static_assert(sizeof(hkbEventPayload) == 0x10);
 
 	class hkbEventBase
 	{

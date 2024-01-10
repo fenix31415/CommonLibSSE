@@ -11,9 +11,9 @@ namespace RE
 
 		enum class AttackType : std::uint8_t
 		{
-			kRight = 0,
+			kNone = 0,
 			kLeft = 1,
-			kDual = 2
+			kRight = 2
 		};
 
 		virtual ~AttackBlockHandler();  // 00
@@ -32,9 +32,8 @@ namespace RE
 		std::uint8_t  pad29;                       // 29
 		std::uint16_t pad2A;                       // 2A
 		std::uint8_t  attackCount;                 // 2C
-		float         initialPowerAttackDelay;     // 30
-		std::uint32_t pad34;                       // 34
-		float         subsequentPowerAttackDelay;  // 38
+		uintptr_t  initialPowerAttackDelay;     // 30
+		uintptr_t  subsequentPowerAttackDelay;  // 38
 		bool          ignore;                      // 40
 		bool          unk41;                       // 41
 		bool          heldLeft;                    // 42

@@ -10,7 +10,7 @@ namespace RE
 	{
 		// members
 		NiPoint3 pos;               // 00
-		TESForm* cellOrWorldSpace;  // 0C
+		TESForm* cellOrWorldSpace;  // 10
 	};
 	static_assert(sizeof(BGSWorldLocation) == 0x18);
 }

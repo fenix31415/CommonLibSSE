@@ -41,7 +41,7 @@ namespace RE
 
 	struct WeaponTypes
 	{
-		enum WEAPON_TYPE : std::uint32_t
+		enum WEAPON_TYPE : std::uint8_t
 		{
 			kHandToHandMelee = 0,
 			kOneHandSword = 1,
@@ -179,7 +179,7 @@ namespace RE
 			std::uint8_t                                       baseVATSToHitChance;  // 32
 			stl::enumeration<AttackAnimation, std::uint8_t>    attackAnimation;      // 33
 			stl::enumeration<ActorValue, std::uint8_t>         embeddedWeaponAV;     // 34 - unused
-			stl::enumeration<WEAPON_TYPE, std::uint8_t>        animationType;        // 35
+			WEAPON_TYPE                                        animationType;        // 35
 			stl::enumeration<Flag, std::uint8_t>               flags;                // 36
 			std::uint8_t                                       unk37;                // 37
 		};
