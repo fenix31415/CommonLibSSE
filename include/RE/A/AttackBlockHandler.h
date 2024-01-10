@@ -32,8 +32,8 @@ namespace RE
 		std::uint8_t  pad29;                       // 29
 		std::uint16_t pad2A;                       // 2A
 		std::uint8_t  attackCount;                 // 2C
-		uintptr_t  initialPowerAttackDelay;     // 30
-		uintptr_t  subsequentPowerAttackDelay;  // 38
+		uintptr_t     initialPowerAttackDelay;     // 30
+		uintptr_t     subsequentPowerAttackDelay;  // 38
 		bool          ignore;                      // 40
 		bool          unk41;                       // 41
 		bool          heldLeft;                    // 42
