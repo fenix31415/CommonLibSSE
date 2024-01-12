@@ -10,12 +10,20 @@ namespace RE
 	class CombatTargetSelectorStandard : public CombatTargetSelector
 	{
 	public:
-		ActorHandle SelectTarget() override;
+		~CombatTargetSelectorStandard();  // 00
+
+		// override (CombatObject)
+		std::uint32_t GetObjectType() override;                     // 02
+		void          SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
+		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
+
+		// override (CombatTargetSelector)
+		ActorHandle SelectTarget() override;  // 06
+
+		ActorHandle FindBestTarget() const;
+		bool        IsValidTarget(Actor* actor, Actor* a_target, BGSEncounterZone* me_EncounterZone) const;
 
 		static CombatTargetSelectorStandard* Create(CombatController* control, PRIORITY priority);
-
-		ActorHandle FindBestTarget();
-		bool        IsValidTarget(RE::Actor* actor, Actor* a_target, BGSEncounterZone* me_EncounterZone);
 
 		// members
 		AITimer updateTimer;  // 28

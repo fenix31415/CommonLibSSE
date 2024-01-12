@@ -36,20 +36,31 @@ namespace RE
 		};
 		using FLAGS = stl::enumeration<Flags, uint32_t>;
 
+		~CombatAimController();  // 00
+
+		// override (CombatObject)
+		std::uint32_t GetObjectType() override;                     // 02
+		void          SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
+		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
+
 		// add
-		virtual bool                 CheckAim(const NiPoint3& from, const NiPoint3& to);  // 5
-		virtual bool                 CheckAim(const NiPoint3& P);                         // 6
-		virtual bool                 CheckAim(float cone);                                // 7
-		virtual void                 Update();                                            // 8
-		virtual CombatAimController* Clone() const;                                       // 9
-		virtual void                 FinishLoadGame();                                    // A
+		virtual bool                 CheckAim(const NiPoint3& from, const NiPoint3& to);  // 05
+		virtual bool                 CheckAim(const NiPoint3& P);                         // 06
+		virtual bool                 CheckAim(float cone);                                // 07
+		virtual void                 Update();                                            // 08
+		virtual CombatAimController* Clone() const;                                       // 09
+		virtual void                 FinishLoadGame();                                    // 0A
 
 		uint32_t CalculatePriority(PRIORITY priority);
 		void     ClearAim();
+		bool     GetTargetLastSeenLocation(NiPoint3& ans);
 		bool     HasTargetLOS() const;
 		void     Register();
 		void     SetAim(const NiPoint3& P);
 		void     Unregister();
+
+		[[nodiscard]] static CombatAimController* Create(CombatController* control, PRIORITY priority);
+		[[nodiscard]] static CombatAimController* Create(CombatController* control, PRIORITY priority, const NiPoint3& P);
 
 		// members
 		MagicCaster*      mcaster;         // 10 -- or weap?
@@ -61,6 +72,9 @@ namespace RE
 		PRIORITY          priority2;       // 38
 		FLAGS             flags;           // 3C
 		AITimer           timer;           // 40
+	private:
+		CombatAimController* Ctor1(CombatController* control, PRIORITY priority);
+		CombatAimController* Ctor2(CombatController* control, PRIORITY priority, const NiPoint3& P);
 	};
 	static_assert(sizeof(CombatAimController) == 0x48);
 }

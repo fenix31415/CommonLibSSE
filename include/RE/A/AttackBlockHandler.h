@@ -9,11 +9,12 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_AttackBlockHandler;
 
-		enum class AttackType : std::uint8_t
+		enum class AttackType : std::uint32_t
 		{
-			kNone = 0,
-			kLeft = 1,
-			kRight = 2
+			kNone,
+			kLeft,
+			kRight,
+			kDual
 		};
 
 		virtual ~AttackBlockHandler();  // 00
@@ -25,16 +26,13 @@ namespace RE
 		virtual void SetHeldStateActive(bool a_flag) override;                                  // 06
 
 		// members
-		std::uint32_t heldTimeMs;                  // 18
-		std::uint32_t unk1C;                       // 1C
-		BSFixedString controlID;                   // 20
+		uint64_t      dualTimeMs;                  // 18
+		BSFixedString ignoreControlId;             // 20
 		AttackType    attackType;                  // 28
-		std::uint8_t  pad29;                       // 29
-		std::uint16_t pad2A;                       // 2A
-		std::uint8_t  attackCount;                 // 2C
-		uintptr_t  initialPowerAttackDelay;     // 30
-		uintptr_t  subsequentPowerAttackDelay;  // 38
-		bool          ignore;                      // 40
+		std::uint32_t attackCount;                 // 2C
+		uintptr_t     initialPowerAttackDelay;     // 30 -- Setting*
+		uintptr_t     subsequentPowerAttackDelay;  // 38 -- Setting*
+		bool          ignoreUP;                    // 40
 		bool          unk41;                       // 41
 		bool          heldLeft;                    // 42
 		bool          heldRight;                   // 43

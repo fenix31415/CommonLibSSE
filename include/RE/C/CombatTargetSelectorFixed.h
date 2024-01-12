@@ -9,10 +9,16 @@ namespace RE
 	class CombatTargetSelectorFixed : public CombatTargetSelector
 	{
 	public:
-		virtual void        Update() override;
-		virtual ActorHandle SelectTarget() override;
+		~CombatTargetSelectorFixed();  // 00
 
-		static CombatTargetSelectorFixed* Create(CombatController* control, Actor* target, PRIORITY priority);
+		// override (CombatObject)
+		std::uint32_t GetObjectType() override;  // 02
+
+		// override (CombatTargetSelector)
+		virtual void        Update() override;        // 05
+		virtual ActorHandle SelectTarget() override;  // 06
+
+		[[nodiscard]] static CombatTargetSelectorFixed* Create(CombatController* control, Actor* target, PRIORITY priority);
 
 	private:
 		CombatTargetSelectorFixed* Ctor(CombatController* control, Actor* target, PRIORITY priority);

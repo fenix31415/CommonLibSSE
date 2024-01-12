@@ -4,7 +4,7 @@ namespace RE
 {
 	CombatTargetSelectorFixed* CombatTargetSelectorFixed::Create(CombatController* control, Actor* a_target, PRIORITY priority)
 	{
-		return RE::malloc<CombatTargetSelectorFixed>()->Ctor(control, a_target, priority);
+		return malloc<CombatTargetSelectorFixed>()->Ctor(control, a_target, priority);
 	}
 
 	CombatTargetSelectorFixed* CombatTargetSelectorFixed::Ctor(CombatController* control, Actor* a_target, PRIORITY a_priority)

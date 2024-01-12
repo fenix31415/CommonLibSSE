@@ -4,17 +4,17 @@ namespace RE
 {
 	CombatTargetSelectorStandard* CombatTargetSelectorStandard::Create(CombatController* control, PRIORITY priority)
 	{
-		return RE::malloc<CombatTargetSelectorStandard>()->Ctor(control, priority);
+		return malloc<CombatTargetSelectorStandard>()->Ctor(control, priority);
 	}
 
-	ActorHandle CombatTargetSelectorStandard::FindBestTarget()
+	ActorHandle CombatTargetSelectorStandard::FindBestTarget() const
 	{
 		using func_t = decltype(&CombatTargetSelectorStandard::FindBestTarget);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45922, 0) };  // I do not know for AE
 		return func(this);
 	}
 
-	bool CombatTargetSelectorStandard::IsValidTarget(RE::Actor* actor, Actor* a_target, BGSEncounterZone* me_EncounterZone)
+	bool CombatTargetSelectorStandard::IsValidTarget(Actor* actor, Actor* a_target, BGSEncounterZone* me_EncounterZone) const
 	{
 		using func_t = decltype(&CombatTargetSelectorStandard::IsValidTarget);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45923, 0) };  // I do not know for AE

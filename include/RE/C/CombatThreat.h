@@ -14,26 +14,34 @@ namespace RE
 	class CombatThreat : public CombatObject
 	{
 	public:
-		// TODO: rest
-		//bool CheckCollision(CombatMathUtilities::GenericShape* a2, float time);
-		void Initialize(TESObjectREFR* refr, float rad, float damage, float expl_time);
+		~CombatThreat() override;  // 00
+
+		// override (CombatObject)
+		std::uint32_t GetObjectType() override;                     // 02
+		void          SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
+		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
+
+		bool CheckVelocityDirection(const NiPoint3& pos) const;
+		//bool CheckCollision(CombatMathUtilities::GenericShape* a2, float time);  TODO
+		//bool CreateCollisionShape(CombatThreat *this, float time, CombatMathUtilities::GenericShape *ans) const  TODO
+		void Initialize(TESObjectREFR* refr, float radius, float damage, float expl_time);
 		bool Update();
 
 		// members
-		FormID        formid;          // 10
-		RefHandle     handle;          // 14
-		NiPoint3      pos;             // 18
-		NiPoint3      angle;           // 24
-		float         rad;             // 30
-		float         damage;          // 34
-		float         range;           // 38
-		float         cone;            // 3C
-		AITimeStamp   explosion_time;  // 40
-		RefHandle     shooter;         // 44
-		NiNode*       root;            // 48
-		bhkRigidBody* body;            // 50
-		NiPoint3      velocity;        // 58
-		float         cacheVelocity;   // 64
+		FormID        threatID;                        // 10
+		RefHandle     threatRef;                       // 14
+		NiPoint3      threatLocation;                  // 18
+		NiPoint3      angle;                           // 24
+		float         radius;                          // 30
+		float         damage;                          // 34
+		float         range;                           // 38
+		float         cone;                            // 3C
+		AITimeStamp   explosionTimestamp;              // 40
+		RefHandle     owner;                           // 44
+		NiNode*       threatRoot;                      // 48
+		bhkRigidBody* body;                            // 50
+		NiPoint3      linearVelocity;                  // 58
+		AITimeStamp   updatedCachedVelocityTimeStamp;  // 64
 	};
 	static_assert(sizeof(CombatThreat) == 0x68);
 }

@@ -25,8 +25,16 @@ namespace RE
 		};
 		using FLAGS = stl::enumeration<Flag, uint32_t>;
 
-		virtual void        Update();
-		virtual ActorHandle SelectTarget() = 0;
+		~CombatTargetSelector();
+
+		// override (CombatObject)
+		std::uint32_t GetObjectType() override;                     // 02
+		void          SaveGame(BGSSaveGameBuffer* a_buf) override;  // 03
+		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
+
+		// add
+		virtual void        Update();            // 05
+		virtual ActorHandle SelectTarget() = 0;  // 06
 
 		// members
 		CombatController* combat_control;  // 10

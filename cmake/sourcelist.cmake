@@ -540,19 +540,26 @@ set(SOURCES
 	include/RE/C/CombatMagicCasterSummon.h
 	include/RE/C/CombatMagicCasterTargetEffect.h
 	include/RE/C/CombatMagicCasterWard.h
-	include/RE/C/CombatManager.h
 	include/RE/C/CombatMeleeAimController.h
+	include/RE/C/CombatManager.h
+	include/RE/C/CombatMathUtilities.h
 	include/RE/C/CombatObject.h
 	include/RE/C/CombatPath.h
 	include/RE/C/CombatSearchLocation.h
 	include/RE/C/CombatState.h
+	include/RE/C/CombatTargetArc.h
 	include/RE/C/CombatTargetLocation.h
+	include/RE/C/CombatTargetLocationAngle.h
 	include/RE/C/CombatTargetLocationSearch.h
 	include/RE/C/CombatTargetLocationSearchResult.h
+	include/RE/C/CombatTargetMap.h
+	include/RE/C/CombatTargetReservation.h
 	include/RE/C/CombatTargetSelector.h
 	include/RE/C/CombatTargetSelectorFixed.h
 	include/RE/C/CombatTargetSelectorStandard.h
 	include/RE/C/CombatThreat.h
+	include/RE/C/CombatThreatMap.h
+	include/RE/C/CombatTrackTargetAimController.h
 	include/RE/C/CommandEffect.h
 	include/RE/C/CommandSummonedEffect.h
 	include/RE/C/CommandTable.h
@@ -1873,15 +1880,22 @@ set(SOURCES
 	src/RE/C/CombatController.cpp
 	src/RE/C/CombatGroup.cpp
 	src/RE/C/CombatInventory.cpp
+	src/RE/C/CombatMathUtilities.cpp
 	src/RE/C/CombatPath.cpp
 	src/RE/C/CombatState.cpp
+	src/RE/C/CombatTargetArc.cpp
 	src/RE/C/CombatTargetLocation.cpp
+	src/RE/C/CombatTargetLocationAngle.cpp
 	src/RE/C/CombatTargetLocationSearch.cpp
 	src/RE/C/CombatTargetLocationSearchResult.cpp
+	src/RE/C/CombatTargetMap.cpp
+	src/RE/C/CombatTargetReservation.cpp
 	src/RE/C/CombatTargetSelector.cpp
 	src/RE/C/CombatTargetSelectorFixed.cpp
 	src/RE/C/CombatTargetSelectorStandard.cpp
 	src/RE/C/CombatThreat.cpp
+	src/RE/C/CombatThreatMap.cpp
+	src/RE/C/CombatTrackTargetAimController.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp
 	src/RE/C/Console.cpp

@@ -11,7 +11,7 @@ namespace RE
 		// members
 		BGSWorldLocation loc;        // 00
 		AITimeStamp      timestamp;  // 18
-		float            unk20;      // 20
+		float            score;      // 20
 	};
 	static_assert(sizeof(CombatSearchLocation) == 0x20);
 }
