@@ -2,9 +2,9 @@
 
 #include "RE/B/BSAtomic.h"
 #include "RE/B/BSContainer.h"
+#include "RE/B/BSPointerHandle.h"
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTHashMap.h"
-#include "RE/B/BSPointerHandle.h"
 #include "RE/C/CombatTargetLocationAngle.h"
 
 namespace RE

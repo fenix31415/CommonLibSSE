@@ -4,7 +4,7 @@ namespace RE
 {
 	void CombatThreatMap::AddThreat(Projectile* proj)
 	{
-		using func_t = void (CombatThreatMap*, Projectile*);
+		using func_t = void(CombatThreatMap*, Projectile*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45965, 0) };  // I do not know for AE
 		return func(this, proj);
 	}
@@ -32,7 +32,7 @@ namespace RE
 
 	float CombatThreatMap::FindThreats(Actor* actor, const NiPoint3& actor_pos, float time, BSScrapArray<CombatThreat*>& ans)
 	{
-		using func_t = float (CombatThreatMap*, Actor*, const NiPoint3&, float, BSScrapArray<CombatThreat*>& ans);
+		using func_t = float(CombatThreatMap*, Actor*, const NiPoint3&, float, BSScrapArray<CombatThreat*>& ans);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45969, 0) };  // I do not know for AE
 		return func(this, actor, actor_pos, time, ans);
 	}

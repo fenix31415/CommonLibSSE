@@ -540,9 +540,9 @@ set(SOURCES
 	include/RE/C/CombatMagicCasterSummon.h
 	include/RE/C/CombatMagicCasterTargetEffect.h
 	include/RE/C/CombatMagicCasterWard.h
-	include/RE/C/CombatMeleeAimController.h
 	include/RE/C/CombatManager.h
 	include/RE/C/CombatMathUtilities.h
+	include/RE/C/CombatMeleeAimController.h
 	include/RE/C/CombatObject.h
 	include/RE/C/CombatPath.h
 	include/RE/C/CombatSearchLocation.h
@@ -1881,6 +1881,7 @@ set(SOURCES
 	src/RE/C/CombatGroup.cpp
 	src/RE/C/CombatInventory.cpp
 	src/RE/C/CombatMathUtilities.cpp
+	src/RE/C/CombatMeleeAimController.cpp
 	src/RE/C/CombatPath.cpp
 	src/RE/C/CombatState.cpp
 	src/RE/C/CombatTargetArc.cpp

@@ -15,8 +15,8 @@ namespace RE
 		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
 
 		// override (CombatAimController)
-		void                 Update() override;                                            // 08
-		CombatAimController* Clone() const override;                                       // 09
+		void                 Update() override;       // 08
+		CombatAimController* Clone() const override;  // 09
 
 		static CombatTrackTargetAimController* Create(CombatController* control, PRIORITY priority, float R, bool a5);
 

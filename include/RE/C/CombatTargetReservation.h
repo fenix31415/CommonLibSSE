@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RE/B/BSPointerHandle.h"
 #include "RE/B/BSContainer.h"
+#include "RE/B/BSPointerHandle.h"
 #include "RE/B/BSTArray.h"
 #include "RE/C/CombatTargetArc.h"
 

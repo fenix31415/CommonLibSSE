@@ -43,7 +43,7 @@ namespace RE
 
 	bool CombatTargetMap::ReserveTarget(CombatTargetLocation* loc)
 	{
-		using func_t = bool (CombatTargetMap*, CombatTargetLocation*);
+		using func_t = bool(CombatTargetMap*, CombatTargetLocation*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45734, 0) };  // I do not know for AE
 		return func(this, loc);
 	}
