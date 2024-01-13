@@ -11,6 +11,11 @@ namespace RE
 	class TESObjectREFR;
 	class bhkRigidBody;
 
+	namespace CombatMathUtilities
+	{
+		class GenericShape;
+	}
+
 	class CombatThreat : public CombatObject
 	{
 	public:
@@ -22,8 +27,8 @@ namespace RE
 		void          LoadGame(BGSLoadGameBuffer* a_buf) override;  // 04
 
 		bool CheckVelocityDirection(const NiPoint3& pos) const;
-		//bool CheckCollision(CombatMathUtilities::GenericShape* a2, float time);  TODO
-		//bool CreateCollisionShape(CombatThreat *this, float time, CombatMathUtilities::GenericShape *ans) const  TODO
+		bool CheckCollision(const CombatMathUtilities::GenericShape& s, float time) const;
+		bool CreateCollisionShape(float time, CombatMathUtilities::GenericShape& ans) const;
 		void Initialize(TESObjectREFR* refr, float radius, float damage, float expl_time);
 		bool Update();
 

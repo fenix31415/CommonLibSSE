@@ -8,6 +8,20 @@ namespace RE
 		return (pos - threatLocation).Dot(linearVelocity) > 0.0f;
 	}
 
+	bool CombatThreat::CheckCollision(const CombatMathUtilities::GenericShape& s, float time) const
+	{
+		using func_t = decltype(&CombatThreat::CheckCollision);
+		REL::Relocation<func_t> func{ RELOCATION_ID(45955, 0) };  // I do not know for AE
+		return func(this, s, time);
+	}
+
+	bool CombatThreat::CreateCollisionShape(float time, CombatMathUtilities::GenericShape& ans) const
+	{
+		using func_t = decltype(&CombatThreat::CreateCollisionShape);
+		REL::Relocation<func_t> func{ RELOCATION_ID(45958, 0) };  // I do not know for AE
+		return func(this, time, ans);
+	}
+
 	void CombatThreat::Initialize(TESObjectREFR* refr, float a_radius, float a_damage, float expl_time)
 	{
 		using func_t = decltype(&CombatThreat::Initialize);

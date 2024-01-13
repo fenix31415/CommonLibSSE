@@ -5,6 +5,7 @@
 #include "RE/B/BSContainer.h"
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTHashMap.h"
+#include "RE/C/CombatMathUtilities.h"
 #include "RE/N/NiSmartPointer.h"
 
 namespace RE
@@ -19,12 +20,12 @@ namespace RE
 
 	class CombatThreatMap
 	{
-		void  AddThreat(Projectile* proj);
-		void  AddThreat(TESObjectREFR* refr, BGSExplosion* expl, float expl_time);
-		void  AddThreat(TESObjectREFR* refr, float range, float expl_time, float damage);
-		float FindAnticipatedThreats(Actor* actor, float time, BSScrapArray<CombatThreat*>& ans) const;
-		float FindThreats(Actor* actor, const NiPoint3& actor_pos, float time, BSScrapArray<CombatThreat*>& ans);
-		// float __fastcall CombatThreatMap__FindThreats(CombatThreatMap *map, Actor *me, CombatMathUtilities::SweptShape_Capsule_ *me_capsule, float reaction_time, BSScrapArray_CombatThreat__ *sorted_threats);  // TODO
+		void          AddThreat(Projectile* proj);
+		void          AddThreat(TESObjectREFR* refr, BGSExplosion* expl, float expl_time);
+		void          AddThreat(TESObjectREFR* refr, float range, float expl_time, float damage);
+		float         FindAnticipatedThreats(Actor* actor, float time, BSScrapArray<CombatThreat*>& ans) const;
+		float         FindThreats(Actor* actor, const NiPoint3& actor_pos, float time, BSScrapArray<CombatThreat*>& ans);
+		float         FindThreats(Actor* actor, const CombatMathUtilities::MovingCapsule& actor_capsule, float time, BSScrapArray<CombatThreat*>& ans);
 		void          ForEachThreat(std::function<BSContainer::ForEachResult(const CombatThreat&)> fun) const;
 		CombatThreat* GetThreat(FormID threat);
 		void          RemoveAllThreats();

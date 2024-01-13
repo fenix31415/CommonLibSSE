@@ -32,9 +32,16 @@ namespace RE
 
 	float CombatThreatMap::FindThreats(Actor* actor, const NiPoint3& actor_pos, float time, BSScrapArray<CombatThreat*>& ans)
 	{
-		using func_t = float(CombatThreatMap*, Actor*, const NiPoint3&, float, BSScrapArray<CombatThreat*>& ans);
+		using func_t = float(CombatThreatMap*, Actor*, const NiPoint3&, float, BSScrapArray<CombatThreat*>&);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45969, 0) };  // I do not know for AE
 		return func(this, actor, actor_pos, time, ans);
+	}
+
+	float CombatThreatMap::FindThreats(Actor* actor, const CombatMathUtilities::MovingCapsule& actor_capsule, float time, BSScrapArray<CombatThreat*>& ans)
+	{
+		using func_t = float(CombatThreatMap*, Actor*, const CombatMathUtilities::MovingCapsule&, float, BSScrapArray<CombatThreat*>&);
+		REL::Relocation<func_t> func{ RELOCATION_ID(45969, 0) };  // I do not know for AE
+		return func(this, actor, actor_capsule, time, ans);
 	}
 
 	void CombatThreatMap::ForEachThreat(std::function<BSContainer::ForEachResult(const CombatThreat&)> fun) const
