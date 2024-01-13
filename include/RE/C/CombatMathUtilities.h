@@ -76,9 +76,9 @@ namespace RE
 			void SetLocation(const NiPoint3& location);
 
 			// members
-			LineSegment segment;       // 04
-			float       radius;        // 20
-			float       cone;          // 24
+			LineSegment segment;  // 04
+			float       radius;   // 20
+			float       cone;     // 24
 		};
 		static_assert(sizeof(Cone) == 0x28);
 
@@ -93,8 +93,8 @@ namespace RE
 			void SetLocation(const NiPoint3& location);
 
 			// members
-			LineSegment segment;       // 04
-			float       radius;        // 20
+			LineSegment segment;  // 04
+			float       radius;   // 20
 		};
 		static_assert(sizeof(Capsule) == 0x24);
 
