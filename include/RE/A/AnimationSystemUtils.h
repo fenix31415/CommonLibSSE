@@ -19,9 +19,9 @@ namespace RE
 		{
 			ClipGeneratorData*  eventData;      // 00
 			BoundAnimationData* movement_data;  // 08
-			float               time_scale;     // 10
-			float               pos_scale;      // 14
-			bool                xNeg;           // 18
+			float               playbackSpeed;  // 10
+			float               weight;         // 14
+			bool                isMirror;       // 18
 			char                pad19[7];       // 19
 		};
 		static_assert(sizeof(UtilsClipData) == 0x20);
@@ -32,6 +32,7 @@ namespace RE
 		float GetAnimationEndTime(const ClipInfo& clipInfo);
 		float GetAnimationMaxDuration(TESObjectREFR* refr);
 		bool  GetAnimationTranslation(const ClipInfo& clipInfo, NiPoint3& translation);
+		bool  GetAttackClipData(const BSFixedString& project_name, const BSFixedString& clip_name, float& hitframe_time, NiPoint3& hitframe_pos, NiPoint3& a_final_pos);
 		bool  GetClipInfo(BSAnimationGraphManager* mngr, int32_t activeGraph_ind, const BSScrapArray<BSFixedString>& events, ClipInfo& clipInfo);
 		bool  GetClipInfoFromEvent(TESObjectREFR* a, const BSFixedString& event_name, ClipInfo& clipInfo);
 		bool  GetEventTime(const ClipInfo& clipInfo, const BSFixedString& event_name, float& event_time);

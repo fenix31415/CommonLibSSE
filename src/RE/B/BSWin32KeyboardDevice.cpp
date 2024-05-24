@@ -43,12 +43,12 @@ namespace RE
 		return Key::kNone;
 	}
 
-	BSWin32KeyboardDevice::BSWin32KeyboardDevice() :
-		BSKeyboardDevice(),
-		dInputDevice(nullptr),
-		diObjData(),
-		prevState(),
-		curState(),
-		capsLockOn(false)
-	{}
+	//BSWin32KeyboardDevice::BSWin32KeyboardDevice() :
+	//	BSKeyboardDevice(),
+	//	dInputDevice(nullptr),
+	//	diObjData(),
+	//	prevState(),
+	//	curState(),
+	//	capsLockOn(false)
+	//{}
 }

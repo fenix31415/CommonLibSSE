@@ -39,8 +39,8 @@ namespace RE
 		CombatAnimation(Actor* actor, TESObjectREFR* target, ANIM anim);
 		CombatAnimation(Actor* actor, BGSAction* action);
 
-		static bool Execute(Actor* actor, CombatAnimation::ANIM anim);
-		static bool Execute(Actor* actor, TESObjectREFR* target, CombatAnimation::ANIM anim);
+		static bool Execute(Actor* actor, ANIM anim);
+		static bool Execute(Actor* actor, TESObjectREFR* target, ANIM anim);
 
 		bool  Check();
 		bool  Execute();  // { return Process(); }

@@ -32,6 +32,13 @@ namespace RE
 			return func(clipInfo, translation);
 		}
 
+		bool GetAttackClipData(const BSFixedString& project_name, const BSFixedString& clip_name, float& hitframe_time, NiPoint3& hitframe_pos, NiPoint3& a_final_pos)
+		{
+			using func_t = decltype(&GetAttackClipData);
+			REL::Relocation<func_t> func{ RELOCATION_ID(26721, 0) };  // I do not know for AE
+			return func(project_name, clip_name, hitframe_time, hitframe_pos, a_final_pos);
+		}
+
 		bool GetClipInfo(BSAnimationGraphManager* mngr, int32_t activeGraph_ind, const BSScrapArray<BSFixedString>& events, ClipInfo& clipInfo)
 		{
 			using func_t = decltype(&GetClipInfo);

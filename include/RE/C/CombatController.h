@@ -44,7 +44,7 @@ namespace RE
 		bool               CheckCombatArea(Actor* atatcker) const;
 		bool               CheckLOS(const NiPoint3& P) const;
 		bool               CheckMovement(BGSWorldLocation* location, float radius) const;
-		bool               CheckStraightPath(NiPoint3& dst, float dist, float min_dist = -1.0f) const;
+		bool               CheckStraightPath(NiPoint3& dst, float speed, float min_dist = -1.0f) const;
 		bool               CheckTargetReachable(float dist) const;
 		void               DamagedByAttacker(Actor* attacker, float damage);
 		void               Disarmed();
@@ -72,6 +72,7 @@ namespace RE
 		void               TargetChanged();
 		void               UnCacheActorHandles();
 		void               UnPauseCombat();
+		void               UpdateAimLocation();
 
 		// members
 		CombatGroup*                   combatGroup;           // 00

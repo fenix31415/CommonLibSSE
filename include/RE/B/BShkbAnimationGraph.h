@@ -25,6 +25,19 @@ namespace RE
 
 	BSSmartPointer(BShkbAnimationGraph);
 
+	class ProjectDBData
+	{
+	public:
+		// members
+		char                                unk00[0x70];         // 000
+		BSTHashMap<uint64_t, uint32_t>      variableNamesToIds;  // 070 - variable name -> event id
+		BSTHashMap<BSFixedString, uint32_t> eventNamesToIds;     // 0A0 - event name -> event id
+		BSTArray<char*>                     eventNames;          // 0D0 - all anim events (~2000 total)
+		BSTArray<BSFixedString>             array;               // 0E8 - state names?
+		char                                unk100[0x80];        // 100
+	};
+	static_assert(sizeof(ProjectDBData) == 0x180);
+
 	class BShkbAnimationGraph :
 		public BSIRagdollDriver,                       // 000
 		public BSIntrusiveRefCounted,                  // 008
@@ -130,7 +143,7 @@ namespace RE
 		float                          interpolationTimeOffsets[2];  // 1E8
 		BSFixedString                  projectName;                  // 1F0
 		BSResource::ID*                unk1F8;                       // 1F8
-		void*                          projectDBData;                // 200 - BShkbHkxDB::ProjectDBData*
+		ProjectDBData*                 projectDBData;                // 200 - BShkbHkxDB::ProjectDBData*
 		hkbBehaviorGraph*              behaviorGraph;                // 208
 		Actor*                         holder;                       // 210
 		BSFadeNode*                    rootNode;                     // 218

@@ -76,13 +76,14 @@ namespace RE
 		class ClipData
 		{
 		public:
-			BSFixedString clipName;
-			float         time_scale;
-			float         field_C;
-			float         pos_scale;
-			float         field_14;
-			bool          Xneg;
-			uint8_t       pad19[7];
+			// members
+			BSFixedString clipName;       // 00
+			float         playbackSpeed;  // 08
+			float         field_C;        // 0C
+			float         weight;         // 10
+			float         field_14;       // 14
+			bool          isMirror;       // 18
+			uint8_t       pad19[7];       // 19
 		};
 		static_assert(sizeof(ClipData) == 0x20);
 

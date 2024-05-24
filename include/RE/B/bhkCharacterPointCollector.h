@@ -12,8 +12,8 @@ namespace RE
 		~bhkCharacterPointCollector() override;  // 00
 
 		// override (hkpAllCdPointCollector)
-		void AddCdPoint(const hkpCdPoint& a_point) override;  // 01
-		void Reset() override;                                // 02
+		void addCdPoint(const hkpCdPoint& a_point) override;  // 01
+		void reset() override;                                // 02
 
 		// members
 		std::uint64_t unk220;  // 220

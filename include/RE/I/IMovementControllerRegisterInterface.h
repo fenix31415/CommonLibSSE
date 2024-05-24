@@ -2,6 +2,8 @@
 
 namespace RE
 {
+	class IMovementInterface;
+
 	class IMovementControllerRegisterInterface
 	{
 	public:
@@ -10,10 +12,10 @@ namespace RE
 		virtual ~IMovementControllerRegisterInterface();  // 00
 
 		// add
-		virtual void Unk_01(void) = 0;  // 01
-		virtual void Unk_02(void) = 0;  // 02
-		virtual void Unk_03(void) = 0;  // 03
-		virtual void Unk_04(void) = 0;  // 04
+		virtual void                Unk_01(void) = 0;                              // 01
+		virtual IMovementInterface* GetInterface1(const BSFixedString& name) = 0;  // 02
+		virtual IMovementInterface* GetInterface2(const BSFixedString& name) = 0;  // 03
+		virtual void                Unk_04(void) = 0;                              // 04
 	};
 	static_assert(sizeof(IMovementControllerRegisterInterface) == 0x8);
 }

@@ -4,18 +4,82 @@
 #include "RE/B/BSIntrusiveRefCounted.h"
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTHashMap.h"
+#include "RE/H/hkQuaternion.h"
+#include "RE/N/NiPoint3.h"
 #include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {
+	template <typename T>
+	class StrangePointer
+	{
+		enum
+		{
+			kManaged = 1 << 0
+		};
+
+		void* ptr;
+
+	public:
+		StrangePointer() :
+			ptr(nullptr) {}
+
+		T* data()
+		{
+			return reinterpret_cast<T*>(reinterpret_cast<std::uintptr_t>(ptr) & ~kManaged);
+		}
+
+		const T* data() const
+		{
+			return reinterpret_cast<const T*>(reinterpret_cast<std::uintptr_t>(ptr) & ~kManaged);
+		}
+	};
+
+	template<typename Data>
+	class BSTInterpolatorData
+	{
+	public:
+		const float* times() const
+		{
+			return reinterpret_cast<const float*>(&data.data()[size]);
+		}
+
+		const Data* checkpoints() const
+		{
+			return data.data();
+		}
+
+		Data* checkpoints()
+		{
+			return data.data();
+		}
+
+		std::pair<float, Data> operator[](size_t ind) const
+		{
+			return { times()[ind], checkpoints()[ind] };
+		}
+
+		// members
+		StrangePointer<Data> data;  // 00 - data[0..size-1] contains points/quats, &data[size] contains times
+		uint32_t             size;  // 08
+		uint32_t             padC;  // 0C
+	};
+
 	class AnimationClipDataSingleton
 	{
 	public:
 		class BoundAnimationData
 		{
+		public:
+			// members
+			BSTInterpolatorData<NiPoint3>     translation;  // 00
+			BSTInterpolatorData<hkQuaternion> rotation;     // 10
+			float                             duration;     // 20
+			uint32_t                          pad24;        // 24
 		};
+		static_assert(sizeof(BoundAnimationData) == 0x28);
 
-		class ClipTriggerData
+		struct ClipTriggerData
 		{
 			BSFixedString name;
 			float         time;

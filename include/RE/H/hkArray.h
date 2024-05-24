@@ -179,9 +179,9 @@ namespace RE
 
 		static constexpr float GROWTH_FACTOR = 1.5;  // NOT PART OF NATIVE TYPE
 
-		T*           _data;              // 00
-		std::int32_t _size;              // 08
-		std::int32_t _capacityAndFlags;  // 0C
+		T*           _data{ nullptr };        // 00
+		std::int32_t _size{ 0 };              // 08
+		std::int32_t _capacityAndFlags{ 0 };  // 0C
 	};
 	static_assert(sizeof(hkArrayBase<void*>) == 0x10);
 
@@ -196,6 +196,13 @@ namespace RE
 	class hkInplaceArray : public hkArray<T, Allocator>
 	{
 	public:
+		hkInplaceArray() :
+			hkArray<T, Allocator>()
+		{
+			this->_capacityAndFlags |= hkArray<T, Allocator>::kDontDeallocFlag;
+			this->_data = &storage[0];
+		}
+
 		T storage[N];  // 10
 	};
 }

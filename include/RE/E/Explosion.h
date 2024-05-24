@@ -32,6 +32,24 @@ namespace RE
 			kInWater = 1 << 5
 		};
 
+		struct SpawnExplosionData
+		{
+			// members
+			BGSExplosion*  expl;      // 00
+			TESObjectCELL* cell;      // 08
+			TESObjectREFR* shooter;   // 10
+			TESObjectREFR* target;    // 18
+			Projectile*    proj;      // 20
+			MagicItem*     spel;      // 28
+			Effect*        effect;    // 30
+			uint64_t       unk38;     // 38
+			NiPoint3       pos;       // 40
+			NiMatrix3      rotation;  // 4C
+			float          scale;     // 70
+			uint32_t       pad74;     // 74
+		};
+		static_assert(sizeof(SpawnExplosionData) == 0x78);
+
 		~Explosion() override;  // 00
 
 		// override (TESObjectREFR)
@@ -49,6 +67,13 @@ namespace RE
 		virtual void Initialize();           // A2
 		virtual void Update(float a_delta);  // A3
 		virtual void FindTargets();          // A4
+
+		static Explosion* SpawnExplosion(SpawnExplosionData& data)
+		{
+			using func_t = decltype(&SpawnExplosion);
+			REL::Relocation<func_t> func{ RELOCATION_ID(42657, 0) };  // I do not know for AE
+			return func(data);
+		}
 
 		// members
 		std::uint64_t                          unk98;             // 098

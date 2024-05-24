@@ -9,35 +9,99 @@
 namespace RE
 {
 	class BSPathingAvoidNode;
+	class PathingLockData;
 	class MovementParameters;
 
 	class BSPathingRequest : public BSIntrusiveRefCounted
 	{
 	public:
-		virtual ~BSPathingRequest();
+		struct BSPathingStart
+		{
+			// members
+			BSPathingLocation location;  // 00
+			float             tangent;   // 30
+			uint32_t          pad34;     // 34
+		};
+		static_assert(sizeof(BSPathingStart) == 0x38);
 
-		using ArrayRefCounted = std::pair<BSTArray<BSPathingAvoidNode>, uint32_t>;
+		struct BSPathingGoal
+		{
+			// members
+			NiPoint3          P;       // 00
+			float             zDelta;  // 0C
+			BSPathingLocation loc;     // 10
+			NiPoint3          P2;      // 40
+			uint32_t          pad4C;   // 4C
+		};
+		static_assert(sizeof(BSPathingGoal) == 0x50);
+
+		struct BSPathingSearchAreaRestrictions
+		{
+			// members
+			float    area_pos;     // 00
+			float    area_radius;  // 04
+			uint32_t unk08;        // 08
+			uint32_t unk0C;        // 0C
+		};
+		static_assert(sizeof(BSPathingSearchAreaRestrictions) == 0x10);
+
+		struct BSPathingRestrictions
+		{
+			using ArrayRefCounted = std::pair<BSTArray<BSPathingAvoidNode>, uint32_t>;
+
+			// members
+			ArrayRefCounted*                avoid_array;               // 00
+			BSPathingSearchAreaRestrictions search_area_restrictions;  // 08
+		};
+		static_assert(sizeof(BSPathingRestrictions) == 0x18);
+
+		class BSPathingActorAttributes
+		{
+		public:
+			enum class FLAG : uint32_t
+			{
+				kUnk0 = 1 << 0,
+				kUnk1 = 1 << 1,
+				kUnk2 = 1 << 2,
+				kCantOpenDoors = 1 << 3,
+				kWalks = 1 << 4,
+				kFightsInWater = 1 << 5,
+				kFlies = 1 << 6,
+				kUnk7 = 1 << 7,
+				kUnk8 = 1 << 8,
+				kUnk9 = 1 << 9,
+				kUnk10 = 1 << 10,
+				kUnk11 = 1 << 11,
+			};
+			using FLAGS = stl::enumeration<FLAG, uint32_t>;
+
+			float            width;
+			float            height;
+			PathingLockData* pathing_loc_data;
+			FLAGS            flags;
+			uint32_t         pad;
+		};
+		static_assert(sizeof(BSPathingActorAttributes) == 0x18);
+
+		virtual ~BSPathingRequest();                       // 00
+
+		// add
+		virtual uint32_t GetType();                        // 01
+		virtual void     CopyTo(BSPathingRequest& other);  // 02
+		virtual void     Write(void* buf);                 // 03
+		virtual void     Read(void* buf);                  // 04
+		virtual void     CheckValid();                     // 05
+		virtual void     PrintDebugText(void* a2);		   // 06
 
 		// members
-		BSPathingLocation                loc;                 // 10
-		float                            field_40;            // 40
-		float                            field_44;            // 44
-		NiPoint3                         P;                   // 48
-		float                            flt_54;              // 54
-		BSPathingLocation                destination;         // 58
-		float                            field_88;            // 88
-		float                            radius;              // 8C
-		uint32_t                         field_90;            // 90
-		uint32_t                         field_94;            // 94
-		ArrayRefCounted*                 avoidNodes;          // 98
-		NiPoint3                         area_pos;            // A0
-		float                            area_radius;         // AC
-		BSPathingSearchParameters        search_params;       // B0
-		uint32_t                         field_BC;            // BC
-		BSPathingActorAttributes         actor_attrs;         // C0
-		uint32_t                         field_D4;            // D4
-		MovementActorAvoidanceParameters actor_avoid_params;  // D8
-		MovementParameters*              movement_params;     // F8
+		BSPathingStart                   start;                     // 10
+		BSPathingGoal                    goal;                      // 48
+		BSPathingRestrictions            restrictions;              // 98
+		BSPathingSearchParameters        searchParams;              // B0
+		uint32_t                         field_BC;                  // BC
+		BSPathingActorAttributes         actorAttributes;           // C0
+		MovementActorAvoidanceParameters actorAvoidanceParameters;  // D8
+		MovementParameters*              defaultParameters;         // F8
 	};
 	static_assert(sizeof(BSPathingRequest) == 0x100);
 }

@@ -611,6 +611,10 @@ namespace RE
 			return func(simplex, P);
 		}
 
+		Sphere::Sphere() :
+			Shape{ GetSphereType() }, center(), radius()
+		{}
+
 		Sphere::Sphere(const NiPoint3& a_center, float a_radius) :
 			Shape{ GetSphereType() }, center(a_center), radius(a_radius)
 		{}
@@ -625,6 +629,10 @@ namespace RE
 			center = location;
 		}
 
+		Cone::Cone() :
+			Shape{ GetConeType() }, segment{}, radius(), cone()
+		{}
+
 		Cone::Cone(const NiPoint3& P1, const NiPoint3& P2, float a_radius, float a_cone) :
 			Shape{ GetConeType() }, segment{ P1, P2 - P1 }, radius(a_radius), cone(a_cone)
 		{}
@@ -638,6 +646,10 @@ namespace RE
 		{
 			segment.base = location;
 		}
+
+		Capsule::Capsule() :
+			Shape{ GetCapsuleType() }, segment{}, radius()
+		{}
 
 		Capsule::Capsule(const NiPoint3& P1, const NiPoint3& P2, float a_radius) :
 			Shape{ GetCapsuleType() }, segment{ P1, P2 - P1 }, radius(a_radius)

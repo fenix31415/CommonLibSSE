@@ -9,37 +9,19 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_TESActionData;
 		inline static constexpr auto VTABLE = VTABLE_TESActionData;
-
-		virtual ~TESActionData() override;  // 00
+		
+		using BGSActionData::BGSActionData;
+		virtual ~TESActionData() override {}  // 00
 
 		// override (ActionInput)
-		ActorState*            GetSourceActorState() const override;  // 01
-		void                   Unk_02(void) override;                 // 02 - { return 0; }
-		BGSAnimationSequencer* GetSourceSequencer() const override;   // 03
+		ActorState*            GetSourceActorState() const override { return nullptr; }  // 01
+		ActionQueue*           GetActionQueue(void) override { return nullptr; }         // 02 - { return 0; }
+		BGSAnimationSequencer* GetSourceSequencer() const override { return nullptr; }   // 03
 
 		// override (BGSActionData)
-		BGSActionData* Clone() const override;  // 04
-		bool           Process() override;      // 05
+		BGSActionData* Clone() const override { return nullptr; }  // 04
+		bool           Process() override { return false; }        // 05
 
-		static TESActionData* Create()
-		{
-			auto tesActionData = malloc<TESActionData>();
-			std::memset(tesActionData, 0, sizeof(TESActionData));
-			if (tesActionData) {
-				tesActionData->Ctor();
-			}
-			return tesActionData;
-		}
-
-	private:
-		TESActionData* Ctor()
-		{
-			using func_t = decltype(&TESActionData::Ctor);
-			REL::Relocation<func_t> func{ RELOCATION_ID(15916, 41558) };
-			TESActionData*          tesActionData = func(this);
-			stl::emplace_vtable<TESActionData>(tesActionData);
-			return tesActionData;
-		}
 	};
 	static_assert(sizeof(TESActionData) == 0x60);
 }

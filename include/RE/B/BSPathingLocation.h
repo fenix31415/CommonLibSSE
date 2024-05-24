@@ -17,7 +17,7 @@ namespace RE
 		BSNavmeshInfo*                 navmesh_info;  // 10
 		uint64_t                       field_18;      // 18
 		BSTSmartPointer<BSPathingCell> cell;          // 20
-		uint16_t                       mb_inside;     // 28
+		uint16_t                       triangle_ind;  // 28
 		uint8_t                        flags;         // 2A
 		uint8_t                        flags1;        // 2B
 		uint32_t                       pad2C;         // 2C

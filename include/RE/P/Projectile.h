@@ -119,20 +119,21 @@ namespace RE
 			NiPointer<bhkCollisionObject>             colObj;              // 20
 			BGSMaterialType*                          material;            // 28
 			std::int32_t                              damageRootNodeType;  // 30
-			stl::enumeration<COL_LAYER, std::int32_t> collidedLayer;       // 34
+			COL_LAYER                                 collidedLayer;       // 34
 			NiNode*                                   damageRootNode;      // 38
 			ImpactResult                              impactResult;        // 40
 			std::uint16_t                             unk44;               // 44
 			std::uint16_t                             unk46;               // 46
 			std::uint8_t                              unk48;               // 48
-			std::uint8_t                              unk49;               // 49
+			std::uint8_t                              hit_happend;         // 49
+			std::uint8_t                              pad4A[6];            // 4A
 		};
 		static_assert(sizeof(ImpactData) == 0x50);
 
 		enum class Flags : uint32_t
 		{
 			kNone = 0,
-			kUnk0 = 1 << 0,
+			kInstant = 1 << 0,
 			kNotAddThreat = 1 << 1,
 			kUnk2 = 1 << 2,
 			kUnk3 = 1 << 3,

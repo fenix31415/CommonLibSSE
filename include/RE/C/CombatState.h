@@ -30,40 +30,42 @@ namespace RE
 		bool QTargetLost() const;
 
 		// members
-		float                             unk00;                        // 00
+		float                             actor_threatRatio_fraction;   // 00
 		bool                              isFleeing;                    // 04
 		bool                              isDetected;                   // 05
 		bool                              targetLost;                   // 06
 		std::uint8_t                      unk07;                        // 07
 		std::uint8_t                      unk08;                        // 08
-		std::uint8_t                      unk09;                        // 09
+		std::uint8_t                      hasTargetLOS;                 // 09
 		std::uint8_t                      unk0A;                        // 0A
 		std::uint8_t                      unk0B;                        // 0B
-		std::uint32_t                     unk0C;                        // 0C
-		NiPoint3                          unk10;                        // 10
+		std::uint32_t                     targeted_los_location;        // 0C
+		NiPoint3                          lastSeenPos;                  // 10
 		AITimeStamp                       activeCombatantLastSeenTime;  // 1C
 		AITimeStamp                       unk20;                        // 20
-		AITimeStamp                       unk24;                        // 24
-		AITimeStamp                       unk28;                        // 28
+		AITimeStamp                       last_attack;                  // 24
+		AITimeStamp                       last_damaged;                 // 28
 		AITimer                           attackDialogueTimer;          // 2C
 		AITimer                           tauntDialogueTimer;           // 34
 		AITimer                           bleedOutDialogueTimer;        // 3C
 		AITimer                           fleeDialogueTimer;            // 44
-		std::uint32_t                     unk4C;                        // 4C
+		float                             total_threat_damage;          // 4C
 		BSTArray<NiPointer<CombatThreat>> combatThreats;                // 50
-		AITimeStamp                       unk68;                        // 68
-		std::uint8_t                      unk6C;                        // 6C
-		std::uint8_t                      unk6D;                        // 6D
+		AITimeStamp                       threat_seen;                  // 68
+		std::uint8_t                      confidence_another;           // 6C
+		std::uint8_t                      confidence;                   // 6D
+		uint16_t                          pad6E;                        // 6E
 		float                             confidenceModifier;           // 70
 		float                             threatValue;                  // 74
-		float                             unk78;                        // 78
+		float                             dps;                          // 78
 		std::uint32_t                     unk7C;                        // 7C
 		BSTArray<UnreachableLocation>     unreachableLocations;         // 80
-		CombatController*                 unk98;                        // 98
+		CombatController*                 controller;                   // 98
 		std::uint8_t                      unkA0;                        // A0
 		AITimer                           strengthUpdateTimer;          // A4
 		AITimer                           threatRatioUpdateTimer;       // AC
 		AITimer                           threatUpdateTimer;            // B4
+		uint32_t                          padBC;                        // BC
 	};
 	static_assert(sizeof(CombatState) == 0xC0);
 }

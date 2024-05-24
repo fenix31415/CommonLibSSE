@@ -78,11 +78,11 @@ namespace RE
 		return func(this, location, radius);
 	}
 
-	bool CombatController::CheckStraightPath(NiPoint3& dst, float dist, float min_dist) const
+	bool CombatController::CheckStraightPath(NiPoint3& dst, float speed, float min_dist) const
 	{
 		using func_t = decltype(&CombatController::CheckStraightPath);
 		REL::Relocation<func_t> func{ RELOCATION_ID(32513, 0) };  // I do not know for AE
-		return func(this, dst, dist, min_dist);
+		return func(this, dst, speed, min_dist);
 	}
 
 	bool CombatController::CheckTargetReachable(float dist) const
@@ -123,7 +123,7 @@ namespace RE
 	bool CombatController::GetAimLocation(NiPoint3& aim) const
 	{
 		using func_t = bool(const CombatController*, NiPoint3&);
-		REL::Relocation<func_t> func{ RELOCATION_ID(32483, 0) };  // I do not know for AE
+		REL::Relocation<func_t> func{ RELOCATION_ID(32504, 0) };  // I do not know for AE
 		return func(this, aim);
 	}
 
@@ -263,6 +263,13 @@ namespace RE
 	{
 		using func_t = decltype(&CombatController::UnPauseCombat);
 		REL::Relocation<func_t> func{ RELOCATION_ID(529275, 0) };  // I do not know for AE
+		return func(this);
+	}
+
+	void CombatController::UpdateAimLocation()
+	{
+		using func_t = decltype(&CombatController::UpdateAimLocation);
+		REL::Relocation<func_t> func{ RELOCATION_ID(32522, 0) };  // I do not know for AE
 		return func(this);
 	}
 }

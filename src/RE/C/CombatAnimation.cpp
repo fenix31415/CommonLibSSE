@@ -2,37 +2,40 @@
 
 namespace RE
 {
-	CombatAnimation::CombatAnimation(Actor* actor, ANIM anim)
+	CombatAnimation::CombatAnimation(Actor* actor, ANIM anim) :
+		TESActionData(NoCallCtor())
 	{
 		using func_t = CombatAnimation*(CombatAnimation*, Actor*, ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43235, 0) };  // I do not know for AE
 		func(this, actor, anim);
 	}
-
-	CombatAnimation::CombatAnimation(Actor* actor, TESObjectREFR* target, ANIM anim)
+	
+	CombatAnimation::CombatAnimation(Actor* actor, TESObjectREFR* target, ANIM anim) :
+		TESActionData(NoCallCtor())
 	{
 		using func_t = CombatAnimation*(CombatAnimation*, Actor*, TESObjectREFR*, ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43236, 0) };  // I do not know for AE
 		func(this, actor, target, anim);
 	}
-
-	CombatAnimation::CombatAnimation(Actor* actor, BGSAction* action)
+	
+	CombatAnimation::CombatAnimation(Actor* actor, BGSAction* action) :
+		TESActionData(NoCallCtor())
 	{
 		using func_t = CombatAnimation*(CombatAnimation*, Actor * actor, BGSAction*);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43237, 0) };  // I do not know for AE
 		func(this, actor, action);
 	}
 
-	bool CombatAnimation::Execute(Actor* actor, CombatAnimation::ANIM anim)
+	bool CombatAnimation::Execute(Actor* actor, ANIM anim)
 	{
-		using func_t = bool(Actor*, CombatAnimation::ANIM);
+		using func_t = bool(Actor*, ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43245, 0) };  // I do not know for AE
 		return func(actor, anim);
 	}
 
-	bool CombatAnimation::Execute(Actor* actor, TESObjectREFR* target, CombatAnimation::ANIM anim)
+	bool CombatAnimation::Execute(Actor* actor, TESObjectREFR* target, ANIM anim)
 	{
-		using func_t = bool(Actor*, TESObjectREFR*, CombatAnimation::ANIM);
+		using func_t = bool(Actor*, TESObjectREFR*, ANIM);
 		REL::Relocation<func_t> func{ RELOCATION_ID(43246, 0) };  // I do not know for AE
 		return func(actor, target, anim);
 	}

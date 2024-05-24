@@ -26,10 +26,12 @@ namespace RE
 		virtual void GetTranslation(NiPoint3& a_translation) override;               // 05
 
 		// members
-		std::uint64_t   unk20;           // 20
-		TESCameraState* transitionFrom;  // 28
-		TESCameraState* transitionTo;    // 30
-		std::uint16_t   unk38;           // 38
+		std::uint64_t                       unk20;               // 20
+		RE::BSTSmartPointer<TESCameraState> transitionFrom;      // 28
+		RE::BSTSmartPointer<TESCameraState> transitionTo;        // 30
+		std::uint32_t                       interpolation_type;  // 38
+		bool                                update_from_state;   // 3C
+		bool                                update_to_state;     // 3D
 	};
 	static_assert(sizeof(PlayerCameraTransitionState) == 0x40);
 }

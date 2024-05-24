@@ -232,6 +232,7 @@ set(SOURCES
 	include/RE/B/BSFaceGenNiNode.h
 	include/RE/B/BSFadeNode.h
 	include/RE/B/BSFile.h
+	include/RE/B/BSFastNavmeshEdgeHandle.h
 	include/RE/B/BSFixedString.h
 	include/RE/B/BSFurnitureMarkerNode.h
 	include/RE/B/BSGameSound.h
@@ -430,6 +431,7 @@ set(SOURCES
 	include/RE/B/bhkShape.h
 	include/RE/B/bhkShapeCollection.h
 	include/RE/B/bhkShapePhantom.h
+	include/RE/B/bhkSimpleShapePhantom.h
 	include/RE/B/bhkThreadMemorySource.h
 	include/RE/B/bhkWorld.h
 	include/RE/B/bhkWorldObject.h
@@ -515,6 +517,14 @@ set(SOURCES
 	include/RE/C/CombatBlackboardKeyBase.h
 	include/RE/C/CombatBlackboardManager.h
 	include/RE/C/CombatController.h
+	include/RE/C/CombatCoverEdge.h
+	include/RE/C/CombatCoverLocation.h
+	include/RE/C/CombatCoverMap.h
+	include/RE/C/CombatCoverReservation.h
+	include/RE/C/CombatCoverSearch.h
+	include/RE/C/CombatCoverSearchData.h
+	include/RE/C/CombatCoverSegment.h
+	include/RE/C/CombatCoverUtilities.h
 	include/RE/C/CombatGroup.h
 	include/RE/C/CombatGroupDetectionListener.h
 	include/RE/C/CombatInventory.h
@@ -560,6 +570,7 @@ set(SOURCES
 	include/RE/C/CombatThreat.h
 	include/RE/C/CombatThreatMap.h
 	include/RE/C/CombatTrackTargetAimController.h
+	include/RE/C/CombatUtilities.h
 	include/RE/C/CommandEffect.h
 	include/RE/C/CommandSummonedEffect.h
 	include/RE/C/CommandTable.h
@@ -993,6 +1004,7 @@ set(SOURCES
 	include/RE/H/hkContactPoint.h
 	include/RE/H/hkContainerAllocators.h
 	include/RE/H/hkFinishLoadedObjectFlag.h
+	include/RE/H/hkMap.h
 	include/RE/H/hkMatrix3.h
 	include/RE/H/hkMemoryAllocator.h
 	include/RE/H/hkMoppBvTreeShapeBase.h
@@ -1034,6 +1046,7 @@ set(SOURCES
 	include/RE/H/hkbEvent.h
 	include/RE/H/hkbEventBase.h
 	include/RE/H/hkbGenerator.h
+	include/RE/H/hkbModifier.h
 	include/RE/H/hkbNode.h
 	include/RE/H/hkbProjectData.h
 	include/RE/H/hkbProjectStringData.h
@@ -1041,10 +1054,13 @@ set(SOURCES
 	include/RE/H/hkbRigidBodySetup.h
 	include/RE/H/hkbShapeSetup.h
 	include/RE/H/hkbStateMachine.h
+	include/RE/H/hkbTransitionEffect.h
 	include/RE/H/hkp3AxisSweep.h
 	include/RE/H/hkpAction.h
 	include/RE/H/hkpAgentNnTrack.h
+	include/RE/H/hkpAllCdBodyPairCollector.h
 	include/RE/H/hkpAllCdPointCollector.h
+	include/RE/H/hkpAllRayHitCollector.h
 	include/RE/H/hkpArrayAction.h
 	include/RE/H/hkpBoxShape.h
 	include/RE/H/hkpBroadPhase.h
@@ -1054,6 +1070,7 @@ set(SOURCES
 	include/RE/H/hkpCachingShapePhantom.h
 	include/RE/H/hkpCapsuleShape.h
 	include/RE/H/hkpCdBody.h
+	include/RE/H/hkpCdBodyPairCollector.h
 	include/RE/H/hkpCdPoint.h
 	include/RE/H/hkpCdPointCollector.h
 	include/RE/H/hkpCharacterContext.h
@@ -1062,6 +1079,7 @@ set(SOURCES
 	include/RE/H/hkpCharacterProxyListener.h
 	include/RE/H/hkpCharacterState.h
 	include/RE/H/hkpCharacterStateManager.h
+	include/RE/H/hkpClosestCdPointCollector.h
 	include/RE/H/hkpClosestRayHitCollector.h
 	include/RE/H/hkpCollidable.h
 	include/RE/H/hkpCollidableCollidableFilter.h
@@ -1081,7 +1099,9 @@ set(SOURCES
 	include/RE/H/hkpEaseConstraintsAction.h
 	include/RE/H/hkpEntity.h
 	include/RE/H/hkpEntityListener.h
+	include/RE/H/hkpFirstCdBodyPairCollector.h
 	include/RE/H/hkpFixedRigidMotion.h
+	include/RE/H/hkpFlagCdBodyPairCollector.h
 	include/RE/H/hkpKeyframedRigidMotion.h
 	include/RE/H/hkpLimitedHingeConstraintData.h
 	include/RE/H/hkpLinearCastCollisionInput.h
@@ -1104,6 +1124,7 @@ set(SOURCES
 	include/RE/H/hkpRayShapeCollectionFilter.h
 	include/RE/H/hkpRigidBody.h
 	include/RE/H/hkpRootCdPoint.h
+	include/RE/H/hkpRootCdBodyPair.h
 	include/RE/H/hkpShape.h
 	include/RE/H/hkpShapeBuffer.h
 	include/RE/H/hkpShapeCollection.h
@@ -1810,6 +1831,7 @@ set(SOURCES
 	src/RE/B/BSWindModifier.cpp
 	src/RE/B/BSXFlags.cpp
 	src/RE/B/BarterMenu.cpp
+	src/RE/B/bhkSimpleShapePhantom.cpp
 	src/RE/B/BipedAnim.cpp
 	src/RE/B/BookMenu.cpp
 	src/RE/B/BooksRead.cpp
@@ -1878,6 +1900,14 @@ set(SOURCES
 	src/RE/C/CombatBlackboardFlag.cpp
 	src/RE/C/CombatBlackboardManager.cpp
 	src/RE/C/CombatController.cpp
+	src/RE/C/CombatCoverEdge.cpp
+	src/RE/C/CombatCoverLocation.cpp
+	src/RE/C/CombatCoverMap.cpp
+	src/RE/C/CombatCoverReservation.cpp
+	src/RE/C/CombatCoverSearch.cpp
+	src/RE/C/CombatCoverSearchData.cpp
+	src/RE/C/CombatCoverSegment.cpp
+	src/RE/C/CombatCoverUtilities.cpp
 	src/RE/C/CombatGroup.cpp
 	src/RE/C/CombatInventory.cpp
 	src/RE/C/CombatMathUtilities.cpp
@@ -1897,6 +1927,7 @@ set(SOURCES
 	src/RE/C/CombatThreat.cpp
 	src/RE/C/CombatThreatMap.cpp
 	src/RE/C/CombatTrackTargetAimController.cpp
+	src/RE/C/CombatUtilities.cpp
 	src/RE/C/CommandTable.cpp
 	src/RE/C/ConditionalChildSelector.cpp
 	src/RE/C/Console.cpp
@@ -1972,6 +2003,8 @@ set(SOURCES
 	src/RE/H/hkReferencedObject.cpp
 	src/RE/H/hkStringPtr.cpp
 	src/RE/H/hkVector4.cpp
+	src/RE/H/hkbStateMachine.cpp
+	src/RE/H/hkbTransitionEffect.cpp
 	src/RE/H/hkpBroadPhase.cpp
 	src/RE/H/hkpCdBody.cpp
 	src/RE/H/hkpCharacterProxyListener.cpp
@@ -2098,6 +2131,7 @@ set(SOURCES
 	src/RE/T/TESAIForm.cpp
 	src/RE/T/TESAmmo.cpp
 	src/RE/T/TESCamera.cpp
+	src/RE/T/TESCameraState.cpp
 	src/RE/T/TESClimate.cpp
 	src/RE/T/TESCondition.cpp
 	src/RE/T/TESContainer.cpp

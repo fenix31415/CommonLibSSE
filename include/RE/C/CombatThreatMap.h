@@ -20,6 +20,7 @@ namespace RE
 
 	class CombatThreatMap
 	{
+	public:
 		void          AddThreat(Projectile* proj);
 		void          AddThreat(TESObjectREFR* refr, BGSExplosion* expl, float expl_time);
 		void          AddThreat(TESObjectREFR* refr, float range, float expl_time, float damage);

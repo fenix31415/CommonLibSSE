@@ -13,14 +13,26 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_BGSActionData;
 		inline static constexpr auto VTABLE = VTABLE_BGSActionData;
 
-		virtual ~BGSActionData() override;  // 00
+		BGSActionData() :
+			ActionInput(NoCallCtor())
+		{
+			using func_t = BGSActionData*(BGSActionData*);
+			REL::Relocation<func_t> func{ RELOCATION_ID(15916, 41558) };
+			func(this);
+		}
+
+		virtual ~BGSActionData() override {}  // 00
 
 		// add
-		virtual BGSActionData* Clone() const;  // 04
-		virtual bool           Process();      // 05 - { return false; }
+		virtual BGSActionData* Clone() const { return nullptr; }  // 04
+		virtual bool           Process() { return false; };       // 05
 
 		// members
 		uint32_t flags;  // 58
+
+	protected:
+		BGSActionData(NoCallCtor a) :
+			ActionInput(a) {}
 	};
 	static_assert(sizeof(BGSActionData) == 0x60);
 }

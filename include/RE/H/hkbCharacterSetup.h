@@ -21,10 +21,10 @@ namespace RE
 		inline static constexpr auto VTABLE = VTABLE_hkbCharacterSetup;
 
 		// members
-		hkArray<hkRefPtr<const hkaSkeletonMapper>> retargetingSkeletonMappers;        // 10
-		hkRefPtr<const hkaSkeleton>                animationSkeleton;                 // 20
-		hkRefPtr<const hkaSkeletonMapper>          ragdollToAnimationSkeletonMapper;  // 28
-		hkRefPtr<const hkaSkeletonMapper>          animationToRagdollSkeletonMapper;  // 30
+		hkArray<hkRefPtr<const hkaSkeletonMapper>> retargetingSkeletonMappers;        // 10 - Array of skeleton mappers for animation retargeting.
+		hkRefPtr<const hkaSkeleton>                animationSkeleton;                 // 20 - The animation skeleton. For the scaled character the reference pose inside this skeleton is scaled.
+		hkRefPtr<const hkaSkeletonMapper>          ragdollToAnimationSkeletonMapper;  // 28 - A mapper from the ragdoll skeleton to the animation skeleton.
+		hkRefPtr<const hkaSkeletonMapper>          animationToRagdollSkeletonMapper;  // 30 - A mapper from the animation skeleton to the ragdoll skeleton.
 		hkRefPtr<hkbAnimationBindingSet>           animationBindingSet;               // 38
 		hkRefPtr<hkbCharacterData>                 data;                              // 40
 		hkRefPtr<const hkaSkeleton>                unscaledAnimationSkeleton;         // 48

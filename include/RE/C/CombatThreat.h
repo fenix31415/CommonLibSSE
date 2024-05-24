@@ -28,7 +28,7 @@ namespace RE
 
 		bool CheckVelocityDirection(const NiPoint3& pos) const;
 		bool CheckCollision(const CombatMathUtilities::GenericShape& s, float time) const;
-		bool CreateCollisionShape(float time, CombatMathUtilities::GenericShape& ans) const;
+		bool CreateCollisionShape(float time, CombatMathUtilities::GenericShape* ans) const;
 		void Initialize(TESObjectREFR* refr, float radius, float damage, float expl_time);
 		bool Update();
 

@@ -31,7 +31,7 @@ namespace RE
 		bool                             capsLockOn;        // 368
 
 	protected:
-		BSWin32KeyboardDevice();
+		//BSWin32KeyboardDevice();
 	};
 	static_assert(offsetof(BSWin32KeyboardDevice, prevState) == 0x168);
 	static_assert(offsetof(BSWin32KeyboardDevice, curState) == 0x268);

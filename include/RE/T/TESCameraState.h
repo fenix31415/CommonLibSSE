@@ -18,17 +18,22 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_TESCameraState;
 		inline static constexpr auto VTABLE = VTABLE_TESCameraState;
 
-		virtual ~TESCameraState();  // 00
+		TESCameraState(TESCamera* a_camera, CameraState a_id) :
+			camera(a_camera), id(a_id)
+		{
+		}
+
+		virtual ~TESCameraState() = default;  // 00
 
 		// add
-		virtual void Begin();                                               // 01 - { return; }
-		virtual void End();                                                 // 02 - { return; }
-		virtual void Update(BSTSmartPointer<TESCameraState>& a_nextState);  // 03
-		virtual void GetRotation(NiQuaternion& a_rotation);                 // 04
-		virtual void GetTranslation(NiPoint3& a_translation);               // 05
-		virtual void SaveGame(BGSSaveFormBuffer* a_buf);                    // 06 - { return; }
-		virtual void LoadGame(BGSLoadFormBuffer* a_buf);                    // 07 - { return; }
-		virtual void Revert(BGSLoadFormBuffer* a_buf);                      // 08 - { return; }
+		virtual void Begin(){};                                                                        // 01
+		virtual void End(){};                                                                          // 02
+		virtual void Update(BSTSmartPointer<TESCameraState>& a_nextState) { a_nextState = nullptr; };  // 03
+		virtual void GetRotation(NiQuaternion& a_rotation);                                            // 04
+		virtual void GetTranslation(NiPoint3& a_translation) { a_translation = {}; };                  // 05
+		virtual void SaveGame(BGSSaveFormBuffer*){};                                                   // 06
+		virtual void LoadGame(BGSLoadFormBuffer*){};                                                   // 07
+		virtual void Revert(BGSLoadFormBuffer*){};                                                     // 08
 
 		// members
 		std::uint32_t pad0C;   // 0C

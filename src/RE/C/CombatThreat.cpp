@@ -15,7 +15,7 @@ namespace RE
 		return func(this, s, time);
 	}
 
-	bool CombatThreat::CreateCollisionShape(float time, CombatMathUtilities::GenericShape& ans) const
+	bool CombatThreat::CreateCollisionShape(float time, CombatMathUtilities::GenericShape* ans) const
 	{
 		using func_t = decltype(&CombatThreat::CreateCollisionShape);
 		REL::Relocation<func_t> func{ RELOCATION_ID(45958, 0) };  // I do not know for AE

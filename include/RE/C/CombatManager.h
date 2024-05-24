@@ -2,12 +2,13 @@
 
 #include "RE/A/AITimer.h"
 #include "RE/B/BSTHashMap.h"
-#include "RE/C/CombatThreatMap.h"
 #include "RE/N/NiTArray.h"
 
 namespace RE
 {
 	class CombatGroup;
+	class CombatTargetMap;
+	class CombatThreatMap;
 
 	class CombatManager
 	{
@@ -23,8 +24,8 @@ namespace RE
 		mutable BSReadWriteLock            lock;              // 18
 		BSTHashMap<ActorHandle, uint64_t>* localActors;       // 20
 		CombatThreatMap*                   combatThreatMap;   // 28
-		std::uint64_t                      unk30;             // 30
-		std::uint64_t                      unk38;             // 38
+		CombatCoverMap*                    combatCoverMap;    // 30
+		CombatTargetMap*                   combatTargetMap;   // 38
 		std::uint64_t                      unk40;             // 40
 		float                              unk48;             // 48
 		AITimer                            musicStopTimer;    // 4C

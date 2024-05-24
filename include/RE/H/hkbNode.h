@@ -6,6 +6,8 @@
 
 namespace RE
 {
+	class hkbEvent;
+
 	class hkbNode : public hkbBindable
 	{
 	public:
@@ -17,7 +19,7 @@ namespace RE
 		// add
 		virtual void Activate(const hkbContext& a_context);                  // 04 - { return; }
 		virtual void Update(const hkbContext& a_context, float a_timestep);  // 05 - { userData |= 1; }
-		virtual void Unk_06(void);                                           // 06 - { return; }
+		virtual void handleEvent(const hkbContext& ctx, hkbEvent& event);    // 06 - { return; }
 		virtual void Deactivate(const hkbContext& a_context);                // 07 - { return; }
 		virtual void Unk_08(void);                                           // 08 - { return 2; }
 		virtual void Unk_09(void);                                           // 09 - { return; }

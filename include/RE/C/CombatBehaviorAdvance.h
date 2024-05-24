@@ -1,14 +1,15 @@
 #pragma once
 
-#include "RE/C/CombatAimController.h"
 #include "RE/C/CombatBehavior.h"
-#include "RE/C/CombatPath.h"
-#include "RE/C/CombatTargetLocationSearch.h"
-#include "RE/C/CombatTargetLocationSearchResult.h"
 #include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {
+	class CombatAimController;
+	class CombatPath;
+	class CombatTargetLocationSearch;
+	class CombatTargetLocationSearchResult;
+
 	class CombatBehaviorAdvance : public CombatBehaviorAction
 	{
 	public:

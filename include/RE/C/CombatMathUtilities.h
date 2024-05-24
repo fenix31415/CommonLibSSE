@@ -52,6 +52,7 @@ namespace RE
 		class Sphere : public Shape
 		{
 		public:
+			Sphere();
 			Sphere(const NiPoint3& a_center, float a_radius);
 			Sphere(const Sphere& other) = default;
 			Sphere& operator=(const Sphere&) = default;
@@ -68,6 +69,7 @@ namespace RE
 		class Cone : public Shape
 		{
 		public:
+			Cone();
 			Cone(const NiPoint3& P1, const NiPoint3& P2, float a_radius, float a_cone);
 			Cone(const Cone& other) = default;
 			Cone& operator=(const Cone&) = default;
@@ -85,6 +87,7 @@ namespace RE
 		class Capsule : public Shape
 		{
 		public:
+			Capsule();
 			Capsule(const NiPoint3& P1, const NiPoint3& P2, float a_radius);
 			Capsule(const Capsule& other) = default;
 			Capsule& operator=(const Capsule&) = default;
@@ -115,6 +118,8 @@ namespace RE
 		class SweptShape : public Shape
 		{
 		public:
+			SweptShape() :
+				Shape(GetSweptType<Inner>()), inner(), translation() {}
 			SweptShape(const Inner& a_inner, const NiPoint3& a_translation) :
 				Shape(GetSweptType<Inner>()), inner(a_inner), translation(a_translation) {}
 			SweptShape(const SweptShape& other) = default;

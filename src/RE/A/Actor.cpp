@@ -328,9 +328,23 @@ namespace RE
 		return attackData->IsLeftAttack() ? proc->leftHand : proc->rightHand;
 	}
 
+	float Actor::GetAttackReach() const
+	{
+		using func_t = decltype(&Actor::GetAttackReach);
+		REL::Relocation<func_t> func{ RELOCATION_ID(37588, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	bhkCharacterController* Actor::GetCharController() const
 	{
 		return currentProcess ? currentProcess->GetCharController() : nullptr;
+	}
+
+	bool Actor::GetClipInfo(const BSScrapArray<BSFixedString>& events, int32_t activeGraph_ind, AnimationSystemUtils::ClipInfo& clipInfo)
+	{
+		using func_t = decltype(&Actor::GetClipInfo);
+		REL::Relocation<func_t> func{ RELOCATION_ID(31941, 0) };  // I do not know for AE
+		return func(this, events, activeGraph_ind, clipInfo);
 	}
 
 	uint32_t Actor::GetCollisionFilterInfo(uint32_t& a_outCollisionFilterInfo)
@@ -355,6 +369,13 @@ namespace RE
 		return GetCrimeFactionImpl();
 	}
 
+	const NiPointer<BGSAttackData>& Actor::GetCurrentAttackData() const
+	{
+		using func_t = decltype(&Actor::GetCurrentAttackData);
+		REL::Relocation<func_t> func{ RELOCATION_ID(37625, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	TESPackage* Actor::GetCurrentPackage()
 	{
 		if (currentProcess) {
@@ -369,6 +390,13 @@ namespace RE
 			return currentProcess->GetRunningPackage();
 		}
 		return nullptr;
+	}
+
+	bool Actor::GetCurrentPathingRequest(BSTSmartPointer<BSPathingRequest>& ans) const
+	{
+		using func_t = decltype(&Actor::GetCurrentPathingRequest);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36794, 0) };  // I do not know for AE
+		return func(this, ans);
 	}
 
 	TESShout* Actor::GetCurrentShout()
@@ -608,6 +636,13 @@ namespace RE
 		using func_t = decltype(&Actor::GetWarmthRating);
 		REL::Relocation<func_t> func{ RELOCATION_ID(25834, 26394) };
 		return func(this);
+	}
+
+	TESObjectWEAP* Actor::GetWeapon(bool left)
+	{
+		using func_t = decltype(&Actor::GetWeapon);
+		REL::Relocation<func_t> func{ RELOCATION_ID(37621, 0) };  // I do not know for AE
+		return func(this, left);
 	}
 
 	TESObjectARMO* Actor::GetWornArmor(BGSBipedObjectForm::BipedObjectSlot a_slot, bool a_noInit)
@@ -868,6 +903,13 @@ namespace RE
 		return func(this);
 	}
 
+	bool Actor::IsPathing() const
+	{
+		using func_t = decltype(&Actor::IsPathing);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36812, 0) };  // I do not know for AE
+		return func(this);
+	}
+
 	bool Actor::IsPlayerTeammate() const
 	{
 		return boolBits.all(BOOL_BITS::kPlayerTeammate);
@@ -1008,6 +1050,13 @@ namespace RE
 		using func_t = decltype(&Actor::SetLifeState);
 		REL::Relocation<func_t> func{ RELOCATION_ID(36604, 37612) };
 		return func(this, a_lifeState);
+	}
+
+	bool Actor::SetPathfindingGoal(const BSTSmartPointer<BSPathingRequest>& goal)
+	{
+		using func_t = decltype(&Actor::SetPathfindingGoal);
+		REL::Relocation<func_t> func{ RELOCATION_ID(36785, 0) };  // I do not know for AE
+		return func(this, goal);
 	}
 
 	bool Actor::SetSleepOutfit(BGSOutfit* a_outfit, bool a_update3D)

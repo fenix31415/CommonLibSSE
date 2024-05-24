@@ -10,11 +10,16 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_hkpCdPointCollector;
 		inline static constexpr auto VTABLE = VTABLE_hkpCdPointCollector;
 
-		virtual ~hkpCdPointCollector();  // 00
+		hkpCdPointCollector() {
+			stl::emplace_vtable(this);
+		}
+
+		virtual ~hkpCdPointCollector() = default;  // 00
 
 		// add
-		virtual void AddCdPoint(const hkpCdPoint& a_point) = 0;  // 01
-		virtual void Reset();                                    // 02 - { earlyOutDistance = 0x7F7FFFEE; }
+		virtual void addCdPoint(const hkpCdPoint& a_point) = 0;  // 01
+		// 02
+		virtual void reset() { earlyOutDistance = std::numeric_limits<float>::max(); }
 
 		// members
 		float         earlyOutDistance;  // 08
