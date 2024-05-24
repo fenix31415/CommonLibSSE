@@ -48,7 +48,7 @@ namespace RE
 
 		bool CheckThreatLOS(BSPathingLocation& loc, const BSTArray<NiPoint3>& threats)
 		{
-			using func_t = bool (BSPathingLocation&, const BSTArray<NiPoint3>&);
+			using func_t = bool(BSPathingLocation&, const BSTArray<NiPoint3>&);
 			REL::Relocation<func_t> func{ RELOCATION_ID(43413, 0) };  // I do not know for AE
 			return func(loc, threats);
 		}

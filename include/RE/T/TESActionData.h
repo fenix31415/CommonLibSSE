@@ -9,7 +9,7 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_TESActionData;
 		inline static constexpr auto VTABLE = VTABLE_TESActionData;
-		
+
 		using BGSActionData::BGSActionData;
 		virtual ~TESActionData() override {}  // 00
 
@@ -21,7 +21,6 @@ namespace RE
 		// override (BGSActionData)
 		BGSActionData* Clone() const override { return nullptr; }  // 04
 		bool           Process() override { return false; }        // 05
-
 	};
 	static_assert(sizeof(TESActionData) == 0x60);
 }

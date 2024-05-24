@@ -10,7 +10,8 @@ namespace RE
 		inline static constexpr auto RTTI = RTTI_hkpCdPointCollector;
 		inline static constexpr auto VTABLE = VTABLE_hkpCdPointCollector;
 
-		hkpCdPointCollector() {
+		hkpCdPointCollector()
+		{
 			stl::emplace_vtable(this);
 		}
 

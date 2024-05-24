@@ -2,14 +2,14 @@
 
 #include "RE/H/hkArray.h"
 #include "RE/H/hkRefPtr.h"
-#include "RE/H/hkStringPtr.h"
 #include "RE/H/hkReferencedObject.h"
+#include "RE/H/hkStringPtr.h"
 
 namespace RE
 {
 	class hkClass;
 	class hkRefVariant;
-	
+
 	class hkbVariableBindingSet : public hkReferencedObject
 	{
 	public:
@@ -42,7 +42,6 @@ namespace RE
 		};
 		static_assert(sizeof(Binding) == 0x28);
 
-		
 		/// Add a binding to the set.
 		///
 		/// The memberPath is made up of member names, separated by '/'.

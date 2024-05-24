@@ -13,10 +13,10 @@ namespace RE
 
 	class CombatCoverMap
 	{
-		bool FindCoverReservations(const CombatCoverEdge& edge, const CombatCoverSearchData& search_data, BSScrapArray<float>& ans) const;
+		bool                 FindCoverReservations(const CombatCoverEdge& edge, const CombatCoverSearchData& search_data, BSScrapArray<float>& ans) const;
 		CombatCoverLocation* ReserveCover(const CombatCoverEdge& edge, const CombatCoverSearchData& search_data, float pos);
-		bool ReserveCover(CombatCoverLocation* cover);
-		void UnreserveCover(CombatCoverLocation* cover);
+		bool                 ReserveCover(CombatCoverLocation* cover);
+		void                 UnreserveCover(CombatCoverLocation* cover);
 
 		// members
 		BSTHashMap<uint32_t, CombatCoverReservation*> targets;  // 00

@@ -231,8 +231,8 @@ set(SOURCES
 	include/RE/B/BSFaceGenModel.h
 	include/RE/B/BSFaceGenNiNode.h
 	include/RE/B/BSFadeNode.h
-	include/RE/B/BSFile.h
 	include/RE/B/BSFastNavmeshEdgeHandle.h
+	include/RE/B/BSFile.h
 	include/RE/B/BSFixedString.h
 	include/RE/B/BSFurnitureMarkerNode.h
 	include/RE/B/BSGameSound.h
@@ -1123,8 +1123,8 @@ set(SOURCES
 	include/RE/H/hkpRayHitCollector.h
 	include/RE/H/hkpRayShapeCollectionFilter.h
 	include/RE/H/hkpRigidBody.h
-	include/RE/H/hkpRootCdPoint.h
 	include/RE/H/hkpRootCdBodyPair.h
+	include/RE/H/hkpRootCdPoint.h
 	include/RE/H/hkpShape.h
 	include/RE/H/hkpShapeBuffer.h
 	include/RE/H/hkpShapeCollection.h
@@ -1831,12 +1831,12 @@ set(SOURCES
 	src/RE/B/BSWindModifier.cpp
 	src/RE/B/BSXFlags.cpp
 	src/RE/B/BarterMenu.cpp
-	src/RE/B/bhkSimpleShapePhantom.cpp
 	src/RE/B/BipedAnim.cpp
 	src/RE/B/BookMenu.cpp
 	src/RE/B/BooksRead.cpp
 	src/RE/B/bhkCharProxyController.cpp
 	src/RE/B/bhkRigidBody.cpp
+	src/RE/B/bhkSimpleShapePhantom.cpp
 	src/RE/C/Calendar.cpp
 	src/RE/C/ChestsLooted.cpp
 	src/RE/C/ChildSelectorBase.cpp

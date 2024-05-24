@@ -83,7 +83,7 @@ namespace RE
 		};
 		static_assert(sizeof(BSPathingActorAttributes) == 0x18);
 
-		virtual ~BSPathingRequest();                       // 00
+		virtual ~BSPathingRequest();  // 00
 
 		// add
 		virtual uint32_t GetType();                        // 01
@@ -91,7 +91,7 @@ namespace RE
 		virtual void     Write(void* buf);                 // 03
 		virtual void     Read(void* buf);                  // 04
 		virtual void     CheckValid();                     // 05
-		virtual void     PrintDebugText(void* a2);		   // 06
+		virtual void     PrintDebugText(void* a2);         // 06
 
 		// members
 		BSPathingStart                   start;                     // 10

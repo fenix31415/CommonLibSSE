@@ -15,7 +15,7 @@ namespace RE
 			coverEdge(edge), segments() {}
 
 		CombatCoverSegment*  FindClosestFreeSegment(float minWidth, float pos);
-		bool FindCoverReservations(const CombatCoverSearchData& search_data, BSScrapArray<float>& ans) const;
+		bool                 FindCoverReservations(const CombatCoverSearchData& search_data, BSScrapArray<float>& ans) const;
 		CombatCoverLocation* ReserveCover(const CombatCoverSearchData& search_data, float pos);
 		bool                 ReserveCover(CombatCoverLocation* loc);
 		void                 ReserveCoverSegment(CombatCoverLocation* loc, uint32_t ind, float width);

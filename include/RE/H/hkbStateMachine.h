@@ -13,7 +13,7 @@ namespace RE
 	struct hkMap64;
 	class hkbCondition;
 	class hkbStateChooser;
-	
+
 	class hkbStateListener : public hkReferencedObject
 	{
 	};
@@ -162,34 +162,34 @@ namespace RE
 		void     Activate(const hkbContext& a_context) override;                                                    // 04
 		void     Update(const hkbContext& a_context, float a_timestep) override;                                    // 05
 		//void     Unk_06(void) override;                                                                             // 06
-		void     Deactivate(const hkbContext& a_context) override;                                                  // 07
-		void     Unk_08(void) override;                                                                             // 08
-		void     Unk_09(void) override;                                                                             // 09
-		void     Unk_0A(void) override;                                                                             // 0A
-		void     Unk_0C(void) override;                                                                             // 0C
-		void     Unk_0D(void) override;                                                                             // 0D
-		void     Unk_0E(void) override;                                                                             // 0E
-		void     Unk_0F(void) override;                                                                             // 0F
-		void     Unk_10(void) override;                                                                             // 10
-		void     Unk_11(void) override;                                                                             // 11
-		void     Unk_12(void) override;                                                                             // 12
-		void     Unk_14(void) override;                                                                             // 14
-		void     Generate(const hkbContext& a_context) override;                                                    // 17
-		void     Unk_18(void) override;                                                                             // 18 - { return 1; }
-		void     UpdateSync(const hkbContext& a_context) override;                                                  // 19
-		void     Unk_1B(void) override;                                                                             // 1B - { echoNextUpdate = true; }
+		void Deactivate(const hkbContext& a_context) override;  // 07
+		void Unk_08(void) override;                             // 08
+		void Unk_09(void) override;                             // 09
+		void Unk_0A(void) override;                             // 0A
+		void Unk_0C(void) override;                             // 0C
+		void Unk_0D(void) override;                             // 0D
+		void Unk_0E(void) override;                             // 0E
+		void Unk_0F(void) override;                             // 0F
+		void Unk_10(void) override;                             // 10
+		void Unk_11(void) override;                             // 11
+		void Unk_12(void) override;                             // 12
+		void Unk_14(void) override;                             // 14
+		void Generate(const hkbContext& a_context) override;    // 17
+		void Unk_18(void) override;                             // 18 - { return 1; }
+		void UpdateSync(const hkbContext& a_context) override;  // 19
+		void Unk_1B(void) override;                             // 1B - { echoNextUpdate = true; }
 
 		/// Add a state given a state index, generator and name.
 		///
 		/// (not from the docs) If stateID is 0, adds new state to the start of the states array
 		void addState(int32_t stateId, class hkbGenerator* generator, char const* name = nullptr);
-		
+
 		/// Add a state given a generator and name. returns the ID of the created state
 		int32_t addState(RE::hkbGenerator* generator, const char* name = nullptr);
-		
+
 		/// add the transition
 		TransitionInfo* addTransitionInternal(int32_t eventId, int32_t toStateId, hkbTransitionEffect* transition, hkbCondition* condition, hkArray<TransitionInfo>& transitions);
-		
+
 		/// Get a state index given the state ID.
 		int32_t getStateIndex(int32_t stateID) const;
 
@@ -198,13 +198,13 @@ namespace RE
 
 		/// Get the StateInfo (const) for a state given the id.
 		const StateInfo& getStateInfoById(int32_t stateId) const;
-		
+
 		/// Get the StateInfo for a state given the index (in the range of 0 to getNumStates()-1).
 		StateInfo& getStateInfoByIndex(int32_t stateIndex);
-		
+
 		/// Get the StateInfo (const) for a state given the index (in the range of 0 to getNumStates()-1).
 		const StateInfo& getStateInfoByIndex(int32_t stateIndex) const;
-		
+
 		/// Return a state ID that has not been used yet (the smallest positive ID).
 		///
 		/// This method requires time linear in the number of states, so use it sparingly.

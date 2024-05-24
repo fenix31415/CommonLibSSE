@@ -35,7 +35,7 @@ namespace RE
 		}
 	};
 
-	template<typename Data>
+	template <typename Data>
 	class BSTInterpolatorData
 	{
 	public:

@@ -9,7 +9,7 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(43235, 0) };  // I do not know for AE
 		func(this, actor, anim);
 	}
-	
+
 	CombatAnimation::CombatAnimation(Actor* actor, TESObjectREFR* target, ANIM anim) :
 		TESActionData(NoCallCtor())
 	{
@@ -17,7 +17,7 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(43236, 0) };  // I do not know for AE
 		func(this, actor, target, anim);
 	}
-	
+
 	CombatAnimation::CombatAnimation(Actor* actor, BGSAction* action) :
 		TESActionData(NoCallCtor())
 	{
