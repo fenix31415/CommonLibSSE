@@ -167,7 +167,7 @@ namespace RE
 
 		bool CheckNavmeshLineOfSight(BSPathingLocation& from, const NiPoint3& to)
 		{
-			using func_t = bool (BSPathingLocation&, const NiPoint3&);
+			using func_t = bool(BSPathingLocation&, const NiPoint3&);
 			REL::Relocation<func_t> func{ RELOCATION_ID(46047, 0) };  // I do not know for AE
 			return func(from, to);
 		}
@@ -181,7 +181,7 @@ namespace RE
 
 		bool CheckPathingDistance(Actor* a, const NiPoint3& dst, float maxDist)
 		{
-			using func_t = bool (Actor*, const NiPoint3&, float);
+			using func_t = bool(Actor*, const NiPoint3&, float);
 			REL::Relocation<func_t> func{ RELOCATION_ID(46053, 0) };  // I do not know for AE
 			return func(a, dst, maxDist);
 		}

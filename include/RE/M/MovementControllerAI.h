@@ -40,7 +40,7 @@ namespace RE
 	class MovementArbiter : public BSIntrusiveRefCounted
 	{
 	public:
-		virtual ~MovementArbiter();                                                                               // 00
+		virtual ~MovementArbiter();  // 00
 
 		virtual const BSFixedString&              GetPipelineStage() const;                                       // 01
 		virtual const BSFixedString&              GetArbiterType() const;                                         // 02

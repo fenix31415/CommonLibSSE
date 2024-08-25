@@ -41,7 +41,7 @@ namespace RE
 		float ConvertHalfToFloat(uint16_t val);
 	}
 
-	template<typename Data>
+	template <typename Data>
 	class BSTInterpolatorData
 	{
 	public:

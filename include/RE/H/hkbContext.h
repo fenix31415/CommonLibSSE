@@ -20,11 +20,11 @@ namespace RE
 		hkaDefaultAnimationControlMapperData* sharedEventQueue;  // 20
 		//hkRefPtr<hkbGeneratorOutputListener>  generatorOutputListener;   // 28
 		hkbGeneratorOutputListener* generatorOutputListener;   // 28
-		bool                       eventTriggeredTransition;  // 30
-		std::uint8_t               pad31[7];                  // 31
-		hkRefVariant               world;                     // 38
-		hkbAttachmentManager*      attachmentManager;         // 40
-		hkRefVariant               animationCache;            // 48
+		bool                        eventTriggeredTransition;  // 30
+		std::uint8_t                pad31[7];                  // 31
+		hkRefVariant                world;                     // 38
+		hkbAttachmentManager*       attachmentManager;         // 40
+		hkRefVariant                animationCache;            // 48
 	};
 	static_assert(sizeof(hkbContext) == 0x50);
 }

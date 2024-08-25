@@ -4,7 +4,7 @@ namespace RE
 {
 	bhkSimpleShapePhantom* bhkSimpleShapePhantom::ctor(bhkSimpleShapePhantom* _this, const CtorParams& params)
 	{
-		using func_t = bhkSimpleShapePhantom* (bhkSimpleShapePhantom* _this, const CtorParams& params);
+		using func_t = bhkSimpleShapePhantom*(bhkSimpleShapePhantom * _this, const CtorParams& params);
 		REL::Relocation<func_t> func{ RELOCATION_ID(37690, 0) };  // I do not know for AE
 		return func(_this, params);
 	}

@@ -1,5 +1,5 @@
-#include "RE/H/hkMap.h"
 #include "RE/H/hkbStateMachine.h"
+#include "RE/H/hkMap.h"
 
 namespace RE
 {
