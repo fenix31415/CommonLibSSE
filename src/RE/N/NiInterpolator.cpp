@@ -34,7 +34,6 @@ namespace RE
 
 	const NiRTTI* NiInterpolator::GetRTTI() const
 	{
-		
 	}
 
 	void NiInterpolator::LoadBinary(NiStream& a_stream)

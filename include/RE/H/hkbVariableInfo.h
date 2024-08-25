@@ -98,8 +98,8 @@ namespace RE
 		};
 
 		// members
-		hkbRoleAttribute role; // 00
-		VariableType     type; // 04
+		hkbRoleAttribute role;  // 00
+		VariableType     type;  // 04
 	};
 	static_assert(sizeof(hkbVariableInfo) == 0x6);
 }

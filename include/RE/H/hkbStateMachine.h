@@ -194,7 +194,7 @@ namespace RE
 
 		/// Add a state given a generator and name. returns the ID of the created state
 		int32_t addState(hkbGenerator* generator, const char* name = nullptr);
-		
+
 		/// Add a transition and returns the newly created TransitionInfo.
 		/// Note that the returned TransitionInfo is only valid until you
 		/// call addTransition() again, because each call to addTransition()

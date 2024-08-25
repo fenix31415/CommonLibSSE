@@ -1,6 +1,7 @@
 #include "RE/B/BShkbUtils.h"
 
-namespace RE {
+namespace RE
+{
 	namespace BShkbUtils
 	{
 		bool GetActiveClips(hkbCharacter* hkbChar, float time, BSScrapArray<BSAnimationGraphManager::ClipData>& ans)

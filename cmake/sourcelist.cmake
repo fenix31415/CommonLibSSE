@@ -33,9 +33,9 @@ set(SOURCES
 	include/RE/A/AlchemyItem.h
 	include/RE/A/AlchemyMenu.h
 	include/RE/A/AnimationClipDataSingleton.h
-	include/RE/A/AnimationSetDataSingleton.h
 	include/RE/A/AnimationFileManagerSingleton.h
 	include/RE/A/AnimationObjects.h
+	include/RE/A/AnimationSetDataSingleton.h
 	include/RE/A/AnimationSystemUtils.h
 	include/RE/A/Archive.h
 	include/RE/A/ArmorRatingVisitor.h
@@ -245,7 +245,6 @@ set(SOURCES
 	include/RE/B/BSIMusicType.h
 	include/RE/B/BSIRagdollDriver.h
 	include/RE/B/BSIReverbType.h
-	include/RE/B/BSISoundCategory.h
 	include/RE/B/BSISoundCategory.h
 	include/RE/B/BSISoundDescriptor.h
 	include/RE/B/BSISoundOutputModel.h
@@ -2017,9 +2016,9 @@ set(SOURCES
 	src/RE/H/hkReferencedObject.cpp
 	src/RE/H/hkStringPtr.cpp
 	src/RE/H/hkVector4.cpp
+	src/RE/H/hkbBehaviorGraph.cpp
 	src/RE/H/hkbBlendingTransitionEffect.cpp
 	src/RE/H/hkbStateMachine.cpp
-	src/RE/H/hkbBehaviorGraph.cpp
 	src/RE/H/hkbTransitionEffect.cpp
 	src/RE/H/hkpBroadPhase.cpp
 	src/RE/H/hkpCdBody.cpp
