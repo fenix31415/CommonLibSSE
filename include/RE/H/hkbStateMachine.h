@@ -148,6 +148,14 @@ namespace RE
 
 			~TransitionInfoArray() override;  // 00
 
+			static TransitionInfoArray* Create()
+			{
+				auto ans = hk_malloc<TransitionInfoArray>();
+				std::memset(ans, 0, sizeof(TransitionInfoArray));
+				stl::emplace_vtable(ans);
+				return ans;
+			}
+
 			// members
 			hkArray<TransitionInfo> transitions;  // 10
 		};
@@ -185,8 +193,28 @@ namespace RE
 		void addState(int32_t stateId, class hkbGenerator* generator, char const* name = nullptr);
 		
 		/// Add a state given a generator and name. returns the ID of the created state
-		int32_t addState(RE::hkbGenerator* generator, const char* name = nullptr);
+		int32_t addState(hkbGenerator* generator, const char* name = nullptr);
 		
+		/// Add a transition and returns the newly created TransitionInfo.
+		/// Note that the returned TransitionInfo is only valid until you
+		/// call addTransition() again, because each call to addTransition()
+		/// may reallocate the internal array of TransitionInfos.
+		///
+		/// \param eventId The ID of the event that triggers the transition.
+		/// \param fromState The state from which this transition occurs.
+		/// \param toState The state to which this transition goes.
+		/// \param transition The transition to apply.
+		/// \param condition The condition that must be true for the transition to occur.
+		TransitionInfo* addTransition(int32_t eventId, int32_t fromStateId,
+			int32_t toStateId, hkbTransitionEffect* transition = nullptr, hkbCondition* condition = nullptr)
+		{
+			auto& from_state = getStateInfoById(fromStateId);
+			if (!from_state.transitions)
+				from_state.transitions = hkRefPtr(hkbStateMachine::TransitionInfoArray::Create());
+
+			return addTransitionInternal(eventId, toStateId, transition, condition, from_state.transitions->transitions);
+		}
+
 		/// add the transition
 		TransitionInfo* addTransitionInternal(int32_t eventId, int32_t toStateId, hkbTransitionEffect* transition, hkbCondition* condition, hkArray<TransitionInfo>& transitions);
 		

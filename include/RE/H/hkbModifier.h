@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RE/H/hkbNode.h"
+
 namespace RE
 {
 	class hkbModifier : public hkbNode

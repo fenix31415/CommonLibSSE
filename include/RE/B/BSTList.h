@@ -236,6 +236,7 @@ namespace RE
 			erase_after_impl(get_head(), nullptr);
 			if (static_cast<bool>(_listHead.item)) {
 				std::destroy_at(std::addressof(_listHead.item));
+				_listHead.item = 0;
 			}
 		}
 
@@ -282,9 +283,9 @@ namespace RE
 				alloc_copies(a_count, a_value));
 		}
 
-		inline iterator erase_after(const_iterator a_pos)
+		inline iterator erase_after(iterator a_pos)
 		{
-			if (a_pos == cend()) {
+			if (a_pos == end()) {
 				return end();
 			}
 
@@ -319,6 +320,7 @@ namespace RE
 			assert(!empty());
 
 			std::destroy_at(std::addressof(_listHead.item));
+			_listHead.item = 0;
 			auto node = _listHead.next;
 			if (node) {
 				_listHead.next = node->next;

@@ -13,11 +13,14 @@ namespace RE
 	class hkbVariableBindingSet : public hkReferencedObject
 	{
 	public:
+		inline static constexpr auto RTTI = RTTI_hkbVariableBindingSet;
+		inline static constexpr auto VTABLE = VTABLE_hkbVariableBindingSet;
+
 		struct Binding
 		{
 		public:
 			/// Which data we are binding to.
-			enum BindingType
+			enum class BindingType : uint8_t
 			{
 				/// Binding to a variable.
 				BINDING_TYPE_VARIABLE,
@@ -34,7 +37,7 @@ namespace RE
 			int32_t     rootVariableIndex;      // 18
 			int32_t     variableIndex;          // 1C
 			int8_t      bitIndex;               // 20
-			int8_t      bindingType;            // 21
+			BindingType bindingType;            // 21
 			int8_t      memberType;             // 22
 			int8_t      variableType;           // 23
 			int8_t      flags;                  // 24
@@ -50,10 +53,19 @@ namespace RE
 		/// For example, "children:2/blendWeight" would seek an array
 		/// member named "children", access the second member, and then
 		/// look for a member named "blendWeight" in that object.
-		void addBinding(const char* memberPath, int32_t variableIndex, Binding::BindingType bindingType = Binding::BINDING_TYPE_VARIABLE, int32_t bitIndex = -1)
+		void addBinding(const char* memberPath, int32_t variableIndex, Binding::BindingType bindingType = Binding::BindingType::BINDING_TYPE_VARIABLE, int32_t bitIndex = -1)
 		{
 			REL::Relocation<decltype(&hkbVariableBindingSet::addBinding)> func(RELOCATION_ID(58805, 0));  // I do not know for AE
 			return func(this, memberPath, variableIndex, bindingType, bitIndex);
+		}
+
+		static hkbVariableBindingSet* Create()
+		{
+			auto ans = hk_malloc<hkbVariableBindingSet>();
+			std::memset(ans, 0, sizeof(hkbVariableBindingSet));
+			stl::emplace_vtable(ans);
+			ans->indexOfBindingToEnable = -1;
+			return ans;
 		}
 
 		// members

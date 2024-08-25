@@ -44,7 +44,7 @@ namespace RE
 			kIgnoreReferencedBehaviour = 1 << 2
 		};
 
-		enum class CloneState
+		enum class CloneState : uint8_t
 		{
 			kDefault = 0,
 			kTemplate = 1,
@@ -53,12 +53,12 @@ namespace RE
 		};
 
 		// members
-		std::uint64_t                              userData;    // 30
-		hkStringPtr                                name;        // 38
-		std::uint16_t                              id;          // 40
-		stl::enumeration<CloneState, std::uint8_t> cloneState;  // 42
-		std::uint8_t                               pad43;       // 43
-		std::uint32_t                              pad44;       // 44
+		std::uint64_t userData;    // 30
+		hkStringPtr   name;        // 38
+		std::uint16_t id;          // 40
+		CloneState    cloneState;  // 42
+		std::uint8_t  pad43;       // 43
+		std::uint32_t pad44;       // 44
 	};
 	static_assert(sizeof(hkbNode) == 0x48);
 }

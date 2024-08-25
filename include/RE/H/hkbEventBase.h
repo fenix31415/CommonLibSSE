@@ -16,13 +16,13 @@ namespace RE
 	class hkbEventBase
 	{
 	public:
-		enum SystemEventIDs : std::uint32_t
+		enum SystemEventIDs_ : int32_t
 		{
-			kNull = static_cast<std::underlying_type_t<SystemEventIDs>>(-1)
+			kNull = static_cast<std::underlying_type_t<SystemEventIDs_>>(-1)
 		};
 
 		// members
-		SystemEventIDs            id;       // 00
+		int32_t                   id;       // 00
 		std::uint32_t             pad04;    // 04
 		hkRefPtr<hkbEventPayload> payload;  // 08
 	};

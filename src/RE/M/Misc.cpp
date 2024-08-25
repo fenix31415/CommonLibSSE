@@ -27,13 +27,6 @@ namespace RE
 		return func(a_handle, a_refrOut);
 	}
 
-	void CreateMessage(const char* a_message, IMessageBoxCallback* a_callback, std::uint32_t a_arg3, std::uint32_t a_arg4, std::uint32_t a_arg5, const char* a_buttonText, const char* a_secondaryButtonText)
-	{
-		using func_t = decltype(&CreateMessage);
-		REL::Relocation<func_t> func{ RELOCATION_ID(51420, 52269) };
-		return func(a_message, a_callback, a_arg3, a_arg4, a_arg5, a_buttonText, a_secondaryButtonText);
-	}
-
 	void CreateRefHandle(RefHandle& a_handleOut, TESObjectREFR* a_refTo)
 	{
 		using func_t = decltype(&CreateRefHandle);

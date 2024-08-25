@@ -6,7 +6,7 @@ namespace RE
 {
 	class IUIMessageData;
 
-	enum class UI_MESSAGE_TYPE
+	enum class UI_MESSAGE_TYPE : uint32_t
 	{
 		kUpdate = 0,
 		kShow = 1,
@@ -27,14 +27,14 @@ namespace RE
 	class UIMessage
 	{
 	public:
-		BSFixedString                                    menu;      // 00
-		stl::enumeration<UI_MESSAGE_TYPE, std::uint32_t> type;      // 08
-		std::uint32_t                                    pad0C;     // 0C
-		IUIMessageData*                                  data;      // 10
-		bool                                             isPooled;  // 18
-		std::uint8_t                                     pad19;     // 19
-		std::uint16_t                                    pad1A;     // 1A
-		std::uint32_t                                    pad1C;     // 1C
+		BSFixedString   menu;      // 00
+		UI_MESSAGE_TYPE type;      // 08
+		std::uint32_t   pad0C;     // 0C
+		IUIMessageData* data;      // 10
+		bool            isPooled;  // 18
+		std::uint8_t    pad19;     // 19
+		std::uint16_t   pad1A;     // 1A
+		std::uint32_t   pad1C;     // 1C
 	};
 	static_assert(sizeof(UIMessage) == 0x20);
 }

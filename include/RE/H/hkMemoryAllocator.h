@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RE/H/hkBaseTypes.h"
+#include "RE/H/hkContainerAllocators.h"
 
 namespace RE
 {

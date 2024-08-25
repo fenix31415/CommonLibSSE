@@ -35,13 +35,19 @@ namespace RE
 		}
 	};
 
+	namespace BSUtilities
+	{
+		uint16_t ConvertFloatToHalf(float val);
+		float ConvertHalfToFloat(uint16_t val);
+	}
+
 	template<typename Data>
 	class BSTInterpolatorData
 	{
 	public:
-		const float* times() const
+		const uint16_t* times() const
 		{
-			return reinterpret_cast<const float*>(&data.data()[size]);
+			return reinterpret_cast<const uint16_t*>(&data.data()[size]);
 		}
 
 		const Data* checkpoints() const
@@ -56,11 +62,11 @@ namespace RE
 
 		std::pair<float, Data> operator[](size_t ind) const
 		{
-			return { times()[ind], checkpoints()[ind] };
+			return { BSUtilities::ConvertHalfToFloat(times()[ind]), checkpoints()[ind] };
 		}
 
 		// members
-		StrangePointer<Data> data;  // 00 - data[0..size-1] contains points/quats, &data[size] contains times
+		StrangePointer<Data> data;  // 00 - data[0..size-1] contains points/quats, &data[size] contains times (uint16 format, i.e. half)
 		uint32_t             size;  // 08
 		uint32_t             padC;  // 0C
 	};

@@ -14,7 +14,7 @@ namespace RE
 	public:
 		inline static constexpr auto RTTI = RTTI_AttackAnimationArrayMap;
 
-		// hash key (hiword = right hand | loward = left hand)
+		// hash key (hiword = right hand | loword = left hand)
 		enum HashKey : std::uint32_t
 		{
 			kHandToHandMelee,

@@ -16,8 +16,10 @@ namespace RE
 		void ProcessButton(ButtonEvent* a_event, PlayerControlsData* a_data) override;  // 04
 
 		// members
-		std::uint64_t unk10;  // 10
-		std::uint64_t unk18;  // 18
+		bool          field_10;       // 10
+		bool          still_holding;  // 11
+		char          pad12[6];       // 12
+		BSFixedString event;          // 18
 	};
 	static_assert(sizeof(ShoutHandler) == 0x20);
 }

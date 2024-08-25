@@ -29,4 +29,47 @@ namespace RE
 		}
 	};
 	static_assert(sizeof(hkContainerHeapAllocator) == 0x1);
+
+	inline void* hk_malloc(std::size_t a_size)
+	{
+		return hkContainerHeapAllocator::GetSingleton()->BlockAlloc(static_cast<int32_t>(a_size));
+	}
+
+	template <class T>
+	inline T* hk_malloc(std::size_t a_size)
+	{
+		return static_cast<T*>(hk_malloc(a_size));
+	}
+
+	template <class T>
+	inline T* hk_malloc()
+	{
+		return hk_malloc<T>(sizeof(T));
+	}
+
+	inline void* hk_calloc(std::size_t a_num, std::size_t a_size)
+	{
+		const auto ret = hk_malloc(a_num * a_size);
+		if (ret) {
+			std::memset(ret, 0, a_num * a_size);
+		}
+		return ret;
+	}
+
+	template <class T>
+	inline T* hk_calloc(std::size_t a_num, std::size_t a_size)
+	{
+		return static_cast<T*>(hk_calloc(a_num, a_size));
+	}
+
+	template <class T>
+	inline T* hk_calloc(std::size_t a_num)
+	{
+		return hk_calloc<T>(a_num, sizeof(T));
+	}
+
+	inline void hk_free(void* a_ptr, int32_t numBytes)
+	{
+		return hkContainerHeapAllocator::GetSingleton()->BlockFree(a_ptr, numBytes);
+	}
 }

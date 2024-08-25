@@ -33,6 +33,7 @@ set(SOURCES
 	include/RE/A/AlchemyItem.h
 	include/RE/A/AlchemyMenu.h
 	include/RE/A/AnimationClipDataSingleton.h
+	include/RE/A/AnimationSetDataSingleton.h
 	include/RE/A/AnimationFileManagerSingleton.h
 	include/RE/A/AnimationObjects.h
 	include/RE/A/AnimationSystemUtils.h
@@ -245,6 +246,7 @@ set(SOURCES
 	include/RE/B/BSIRagdollDriver.h
 	include/RE/B/BSIReverbType.h
 	include/RE/B/BSISoundCategory.h
+	include/RE/B/BSISoundCategory.h
 	include/RE/B/BSISoundDescriptor.h
 	include/RE/B/BSISoundOutputModel.h
 	include/RE/B/BSImagespaceShader.h
@@ -255,6 +257,7 @@ set(SOURCES
 	include/RE/B/BSInputEventQueue.h
 	include/RE/B/BSInstanceTriShape.h
 	include/RE/B/BSIntrusiveRefCounted.h
+	include/RE/B/BSIsActiveModifier.h
 	include/RE/B/BSKeyboardDevice.h
 	include/RE/B/BSLensFlareRenderData.h
 	include/RE/B/BSLight.h
@@ -385,6 +388,8 @@ set(SOURCES
 	include/RE/B/BSXAudio2GameSound.h
 	include/RE/B/BSXFlags.h
 	include/RE/B/BShkbAnimationGraph.h
+	include/RE/B/BShkbUtils.h
+	include/RE/B/BSiStateTaggingGenerator.h
 	include/RE/B/BanishEffect.h
 	include/RE/B/BarrierProjectile.h
 	include/RE/B/BarterMenu.h
@@ -1035,7 +1040,10 @@ set(SOURCES
 	include/RE/H/hkbBehaviorGraph.h
 	include/RE/H/hkbBehaviorGraphData.h
 	include/RE/H/hkbBehaviorGraphStringData.h
+	include/RE/H/hkbBehaviorReferenceGenerator.h
 	include/RE/H/hkbBindable.h
+	include/RE/H/hkbBlenderGenerator.h
+	include/RE/H/hkbBlendingTransitionEffect.h
 	include/RE/H/hkbCharacter.h
 	include/RE/H/hkbCharacterControllerSetup.h
 	include/RE/H/hkbCharacterData.h
@@ -1045,8 +1053,10 @@ set(SOURCES
 	include/RE/H/hkbContext.h
 	include/RE/H/hkbEvent.h
 	include/RE/H/hkbEventBase.h
+	include/RE/H/hkbEventInfo.h
 	include/RE/H/hkbGenerator.h
 	include/RE/H/hkbModifier.h
+	include/RE/H/hkbModifierGenerator.h
 	include/RE/H/hkbNode.h
 	include/RE/H/hkbProjectData.h
 	include/RE/H/hkbProjectStringData.h
@@ -1055,6 +1065,8 @@ set(SOURCES
 	include/RE/H/hkbShapeSetup.h
 	include/RE/H/hkbStateMachine.h
 	include/RE/H/hkbTransitionEffect.h
+	include/RE/H/hkbVariableInfo.h
+	include/RE/H/hkbVariableValueSet.h
 	include/RE/H/hkp3AxisSweep.h
 	include/RE/H/hkpAction.h
 	include/RE/H/hkpAgentNnTrack.h
@@ -1760,6 +1772,7 @@ set(SOURCES
 	src/RE/A/ActorValueOwner.cpp
 	src/RE/A/AddCallbackVisitor.cpp
 	src/RE/A/AnimationClipDataSingleton.cpp
+	src/RE/A/AnimationSetDataSingleton.cpp
 	src/RE/A/AnimationSystemUtils.cpp
 	src/RE/A/ArmorRatingVisitor.cpp
 	src/RE/A/ArmorRatingVisitorBase.cpp
@@ -1830,6 +1843,7 @@ set(SOURCES
 	src/RE/B/BSWin32VirtualKeyboardDevice.cpp
 	src/RE/B/BSWindModifier.cpp
 	src/RE/B/BSXFlags.cpp
+	src/RE/B/BShkbUtils.cpp
 	src/RE/B/BarterMenu.cpp
 	src/RE/B/bhkSimpleShapePhantom.cpp
 	src/RE/B/BipedAnim.cpp
@@ -2003,7 +2017,9 @@ set(SOURCES
 	src/RE/H/hkReferencedObject.cpp
 	src/RE/H/hkStringPtr.cpp
 	src/RE/H/hkVector4.cpp
+	src/RE/H/hkbBlendingTransitionEffect.cpp
 	src/RE/H/hkbStateMachine.cpp
+	src/RE/H/hkbBehaviorGraph.cpp
 	src/RE/H/hkbTransitionEffect.cpp
 	src/RE/H/hkpBroadPhase.cpp
 	src/RE/H/hkpCdBody.cpp

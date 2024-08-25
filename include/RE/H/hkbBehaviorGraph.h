@@ -102,6 +102,9 @@ namespace RE
 		void     Unk_18(void) override;                                                                             // 18 - { return 1; }
 		void     UpdateSync(const hkbContext& a_context) override;                                                  // 19
 
+		hkbNode* getNodeClone(hkbNode* nodeTemplate) const;
+		hkbNode* getNodeTemplate(hkbNode* nodeClone) const;
+
 		// members
 		stl::enumeration<VariableMode, std::uint8_t> variableMode;                     // 048 - How do deal with variables when the behavior is inactive
 		std::uint8_t                                 pad49;                            // 049
@@ -123,8 +126,8 @@ namespace RE
 		hkRefPtr<hkbSymbolIdMap>                     variableIDMap;                    // 0C8 - A mapper between internal variable IDs and external variable IDs.
 		hkRefPtr<hkbSymbolIdMap>                     characterPropertyIDMap;           // 0D0 - A mapper between internal character property IDs and those in the character (external).
 		hkbVariableValueSet*                         variableValueSet;                 // 0D8 - The current value of the behavior variables.
-		hkRefVariant                                 nodeTemplateToCloneMap;           // 0E0 - A map from template nodes to cloned nodes.
-		hkRefVariant                                 nodeCloneToTemplateMap;           // 0E8
+		hkMap64*                                     nodeTemplateToCloneMap;           // 0E0 - A map from template nodes to cloned nodes.
+		hkMap64*                                     nodeCloneToTemplateMap;           // 0E8
 		hkRefVariant                                 stateListenerTemplateToCloneMap;  // 0F0 - A map from template state listeners to clones.
 		hkRefVariant                                 nodePartitionInfo;                // 0F8
 		std::int32_t                                 numIntermediateOutputs;           // 100 - The number of intermediate outputs needed to process the partitioned graph.

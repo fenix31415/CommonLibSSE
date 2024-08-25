@@ -20,7 +20,7 @@ namespace RE
 		enum class KeyType
 		{
 			kNoInterp,
-			kLink,
+			kLin,
 			kBez,
 			kTCB,
 			kEuler,
