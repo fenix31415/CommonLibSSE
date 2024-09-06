@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RE/H/hkbGenerator.h"
 #include "RE/H/hkStringPtr.h"
+#include "RE/H/hkbGenerator.h"
 
 namespace RE
 {

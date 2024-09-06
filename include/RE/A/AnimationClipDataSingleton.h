@@ -38,7 +38,7 @@ namespace RE
 	namespace BSUtilities
 	{
 		uint16_t ConvertFloatToHalf(float val);
-		float ConvertHalfToFloat(uint16_t val);
+		float    ConvertHalfToFloat(uint16_t val);
 	}
 
 	template <typename Data>
