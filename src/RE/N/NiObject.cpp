@@ -1,5 +1,6 @@
 #include "RE/N/NiObject.h"
 
+#include "RE/N/NiCloningProcess.h"
 #include "RE/N/NiRTTI.h"
 #include "RE/N/NiStream.h"
 
@@ -28,10 +29,31 @@ namespace RE
 		return func(this, a_cloning);
 	}
 
+	NiObject* NiObject::Clone()
+	{
+		using func_t = decltype(&NiObject::Clone);
+		REL::Relocation<func_t> func{ RELOCATION_ID(68835, 0) };
+		return func(this);
+	}
+
+	void NiObject::CopyMembers(NiObject* dst, NiCloningProcess& proc)
+	{
+		proc.cloneMap.insert({ this, dst });
+	}
+
 	void NiObject::CreateDeepCopy(NiPointer<NiObject>& a_object)
 	{
 		using func_t = decltype(&NiObject::CreateDeepCopy);
 		REL::Relocation<func_t> func{ RELOCATION_ID(68839, 70191) };
 		return func(this, a_object);
+	}
+
+	NiObject* NiObject::CreateSharedClone(NiCloningProcess& proc)
+	{
+		if (auto found = proc.cloneMap.find(this); found != proc.cloneMap.end()) {
+			return found->second;
+		} else {
+			return CreateClone(proc);
+		}
 	}
 }

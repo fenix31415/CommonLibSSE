@@ -20,7 +20,7 @@ namespace RE
 
 		// members
 		void*         unk30;  // 30 - smart ptr
-		std::uint8_t  unk38;  // 38
+		bool          fading;  // 38
 		std::uint8_t  unk39;  // 39
 		std::uint16_t pad3A;  // 3A
 		std::uint32_t pad3C;  // 3C

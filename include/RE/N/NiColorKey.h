@@ -21,4 +21,8 @@ namespace RE
 		NiColorA _color;  // 04
 	};
 	static_assert(sizeof(NiColorKey) == 0x14);
+
+	class NiLinColorKey : public NiColorKey
+	{};
+	static_assert(sizeof(NiLinColorKey) == 0x14);
 }

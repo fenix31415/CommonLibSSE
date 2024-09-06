@@ -213,6 +213,7 @@ set(SOURCES
 	include/RE/B/BSAudioManagerThread.h
 	include/RE/B/BSBatchRenderer.h
 	include/RE/B/BSBitField.h
+	include/RE/B/BSBlendTreadTransfInterpolator.h
 	include/RE/B/BSBloodSplatterShaderProperty.h
 	include/RE/B/BSBound.h
 	include/RE/B/BSContainer.h
@@ -318,6 +319,7 @@ set(SOURCES
 	include/RE/B/BSResourceEntryDB.h
 	include/RE/B/BSResourceNiBinaryStream.h
 	include/RE/B/BSResponse.h
+	include/RE/B/BSRotAccumTransfInterpolator.h
 	include/RE/B/BSSaveDataSystemUtility.h
 	include/RE/B/BSScaleformManager.h
 	include/RE/B/BSScaleformTranslator.h
@@ -369,6 +371,7 @@ set(SOURCES
 	include/RE/B/BSThread.h
 	include/RE/B/BSThreadEvent.h
 	include/RE/B/BSTimer.h
+	include/RE/B/BSTreadTransfInterpolator.h
 	include/RE/B/BSTreeManager.h
 	include/RE/B/BSTriShape.h
 	include/RE/B/BSUIMessageData.h
@@ -1336,8 +1339,30 @@ set(SOURCES
 	include/RE/N/NiAllocator.h
 	include/RE/N/NiAlphaProperty.h
 	include/RE/N/NiAnimationKey.h
+	include/RE/N/NiBSplineBasisData.h
+	include/RE/N/NiBSplineColorInterpolator.h
+	include/RE/N/NiBSplineCompColorInterpolator.h
+	include/RE/N/NiBSplineCompFloatInterpolator.h
+	include/RE/N/NiBSplineCompPoint3Interpolator.h
+	include/RE/N/NiBSplineCompTransformInterpolator.h
+	include/RE/N/NiBSplineData.h
+	include/RE/N/NiBSplineFloatInterpolator.h
+	include/RE/N/NiBSplineInterpolator.h
+	include/RE/N/NiBSplinePoint3Interpolator.h
+	include/RE/N/NiBSplineTransformInterpolator.h
 	include/RE/N/NiBinaryStream.h
+	include/RE/N/NiBlendAccumTransformInterpolator.h
+	include/RE/N/NiBlendBoolInterpolator.h
+	include/RE/N/NiBlendColorInterpolator.h
+	include/RE/N/NiBlendFloatInterpolator.h
+	include/RE/N/NiBlendInterpolator.h
+	include/RE/N/NiBlendPoint3Interpolator.h
+	include/RE/N/NiBlendQuaternionInterpolator.h
+	include/RE/N/NiBlendTransformInterpolator.h
 	include/RE/N/NiBoneMatrixSetterI.h
+	include/RE/N/NiBoolData.h
+	include/RE/N/NiBoolInterpolator.h
+	include/RE/N/NiBoolTimelineInterpolator.h
 	include/RE/N/NiBooleanExtraData.h
 	include/RE/N/NiBound.h
 	include/RE/N/NiCamera.h
@@ -1350,6 +1375,7 @@ set(SOURCES
 	include/RE/N/NiControllerManager.h
 	include/RE/N/NiControllerSequence.h
 	include/RE/N/NiCullingProcess.h
+	include/RE/N/NiEulerRotKey.h
 	include/RE/N/NiExtraData.h
 	include/RE/N/NiFile.h
 	include/RE/N/NiFloatData.h
@@ -1363,9 +1389,11 @@ set(SOURCES
 	include/RE/N/NiIntegerExtraData.h
 	include/RE/N/NiIntegersExtraData.h
 	include/RE/N/NiInterpController.h
+	include/RE/N/NiInterpScalar.h
 	include/RE/N/NiInterpolator.h
 	include/RE/N/NiKeyBasedInterpolator.h
 	include/RE/N/NiLight.h
+	include/RE/N/NiLookAtInterpolator.h
 	include/RE/N/NiMath.h
 	include/RE/N/NiMatrix3.h
 	include/RE/N/NiMemManager.h
@@ -1381,16 +1409,25 @@ set(SOURCES
 	include/RE/N/NiParticleSystem.h
 	include/RE/N/NiParticles.h
 	include/RE/N/NiParticlesData.h
+	include/RE/N/NiPathInterpolator.h
 	include/RE/N/NiPlane.h
 	include/RE/N/NiPoint2.h
 	include/RE/N/NiPoint3.h
+	include/RE/N/NiPoint3Interpolator.h
 	include/RE/N/NiPointLight.h
+	include/RE/N/NiPosKey.h
+	include/RE/N/NiPosData.h
 	include/RE/N/NiProperty.h
+	include/RE/N/NiQuatTransform.h
 	include/RE/N/NiQuaternion.h
+	include/RE/N/NiQuaternionInterpolator.h
 	include/RE/N/NiRTTI.h
 	include/RE/N/NiRect.h
 	include/RE/N/NiRefObject.h
+	include/RE/N/NiRotData.h
+	include/RE/N/NiRotKey.h
 	include/RE/N/NiShadeProperty.h
+	include/RE/N/NiSingleInterpController.h
 	include/RE/N/NiSkinData.h
 	include/RE/N/NiSkinInstance.h
 	include/RE/N/NiSkinPartition.h
@@ -1416,6 +1453,9 @@ set(SOURCES
 	include/RE/N/NiTexture.h
 	include/RE/N/NiTimeController.h
 	include/RE/N/NiTransform.h
+	include/RE/N/NiTransformController.h
+	include/RE/N/NiTransformData.h
+	include/RE/N/NiTransformInterpolator.h
 	include/RE/N/NightEyeEffect.h
 	include/RE/N/NonActorMagicCaster.h
 	include/RE/N/NonActorMagicTarget.h
@@ -1497,6 +1537,7 @@ set(SOURCES
 	include/RE/S/ScriptEffect.h
 	include/RE/S/ScriptEventSourceHolder.h
 	include/RE/S/ScriptFunction.h
+	include/RE/S/ScriptedMusicState.h
 	include/RE/S/ScriptedRefEffect.h
 	include/RE/S/ScrollItem.h
 	include/RE/S/SendPlayerToJailFunctor.h
@@ -2084,6 +2125,7 @@ set(SOURCES
 	src/RE/N/NiColorKey.cpp
 	src/RE/N/NiControllerManager.cpp
 	src/RE/N/NiControllerSequence.cpp
+	src/RE/N/NiEulerRotKey.cpp
 	src/RE/N/NiExtraData.cpp
 	src/RE/N/NiFloatData.cpp
 	src/RE/N/NiFloatExtraData.cpp
@@ -2091,7 +2133,10 @@ set(SOURCES
 	src/RE/N/NiFloatsExtraData.cpp
 	src/RE/N/NiIntegerExtraData.cpp
 	src/RE/N/NiIntegersExtraData.cpp
+	src/RE/N/NiInterpController.cpp
+	src/RE/N/NiInterpScalar.cpp
 	src/RE/N/NiInterpolator.cpp
+	src/RE/N/NiKeyBasedInterpolator.cpp
 	src/RE/N/NiMath.cpp
 	src/RE/N/NiMatrix3.cpp
 	src/RE/N/NiMemManager.cpp
@@ -2100,7 +2145,12 @@ set(SOURCES
 	src/RE/N/NiObjectNET.cpp
 	src/RE/N/NiPoint2.cpp
 	src/RE/N/NiPoint3.cpp
+	src/RE/N/NiPosKey.cpp
+	src/RE/N/NiPosData.cpp
+	src/RE/N/NiQuaternion.cpp
 	src/RE/N/NiRefObject.cpp
+	src/RE/N/NiRotKey.cpp
+	src/RE/N/NiSingleInterpController.cpp
 	src/RE/N/NiSkinInstance.cpp
 	src/RE/N/NiStringsExtraData.cpp
 	src/RE/N/NiSystem.cpp
@@ -2108,6 +2158,9 @@ set(SOURCES
 	src/RE/N/NiTexture.cpp
 	src/RE/N/NiTimeController.cpp
 	src/RE/N/NiTransform.cpp
+	src/RE/N/NiTransformController.cpp
+	src/RE/N/NiTransformData.cpp
+	src/RE/N/NiTransformInterpolator.cpp
 	src/RE/O/Object.cpp
 	src/RE/O/ObjectTypeInfo.cpp
 	src/RE/O/ObjectiveState.cpp
@@ -2130,6 +2183,7 @@ set(SOURCES
 	src/RE/S/ScrapHeap.cpp
 	src/RE/S/Script.cpp
 	src/RE/S/ScriptEventSourceHolder.cpp
+	src/RE/S/ScriptedMusicState.cpp
 	src/RE/S/Setting.cpp
 	src/RE/S/ShoutAttack.cpp
 	src/RE/S/SkillIncrease.cpp

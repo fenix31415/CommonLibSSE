@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RE/B/BSContainer.h"
+
 namespace RE
 {
 	template <class T>
@@ -88,9 +90,27 @@ namespace RE
 		bool PopInternal(T* a_obj) override;   // 06
 
 	public:
-		char          queueBuffer[sizeof(T) * SIZE];  // 10
-		std::uint32_t numEntries;                     // ??
-		std::uint32_t pushIdx;                        // ??
-		std::uint32_t popIdx;                         // ??
+		void forEach(std::function<BSContainer::ForEachResult(T& obj)> f)
+		{
+			uint32_t j = numEntries;
+			uint32_t i = popIdx;
+			if (j) {
+				while (1) {
+					--j;
+					if (f(queueBuffer[i]) == BSContainer::ForEachResult::kStop) {
+						return;
+					}
+					i = (i + 1) % 0x64;
+					if (!j)
+						return;
+				}
+			}
+		}
+
+		// members
+		T             queueBuffer[SIZE];  // 10
+		std::uint32_t numEntries;         // ??
+		std::uint32_t pushIdx;            // ??
+		std::uint32_t popIdx;             // ??
 	};
 }

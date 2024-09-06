@@ -42,6 +42,11 @@ namespace RE
 		return QCameraEquals(CameraState::kThirdPerson);
 	}
 
+	void PlayerCamera::SetAllowAutoVanityMode(bool val)
+	{
+		allowAutoVanityMode = val && !*REL::Relocation<bool*>(RELOCATION_ID(509849, 0).address() + 8);
+	}
+
 	bool PlayerCamera::QCameraEquals(CameraState a_cameraState) const
 	{
 		return currentState && currentState == cameraStates[a_cameraState];

@@ -1,7 +1,27 @@
 #include "RE/N/NiTimeController.h"
 
+#include "RE/N/NiCloningProcess.h"
+#include "RE/N/NiObjectNET.h"
+
 namespace RE
 {
+	NiTimeController::NiTimeController() :
+		NiObject(),
+		flags(),
+		frequency(1),
+		phase(0),
+		loKeyTime(std::numeric_limits<float>::max()),
+		hiKeyTime(-std::numeric_limits<float>::max()),
+		startTime(-std::numeric_limits<float>::max()),
+		lastTime(-std::numeric_limits<float>::max()),
+		weightedLastTime(0),
+		scaledTime(-std::numeric_limits<float>::max()),
+		target(nullptr),
+		next(nullptr)
+	{
+		flags.set(Flag::kCycleType_Clamp, Flag::kActive, Flag::kComputeScaledTime);
+	}
+
 	const NiRTTI* NiTimeController::GetRTTI() const
 	{
 		REL::Relocation<const NiRTTI*> rtti{ NiTimeController::Ni_RTTI };
@@ -24,9 +44,12 @@ namespace RE
 
 	bool NiTimeController::RegisterStreamables(NiStream& a_stream)
 	{
-		using func_t = decltype(&NiTimeController::RegisterStreamables);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69435, 70812) };
-		return func(this, a_stream);
+		if (NiObject::RegisterStreamables(a_stream)) {
+			if (next)
+				next->RegisterStreamables(a_stream);
+			return true;
+		}
+		return false;
 	}
 
 	void NiTimeController::SaveBinary(NiStream& a_stream)
@@ -38,30 +61,38 @@ namespace RE
 
 	bool NiTimeController::IsEqual(NiObject* a_object)
 	{
-		using func_t = decltype(&NiTimeController::IsEqual);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69437, 70814) };
-		return func(this, a_object);
+		auto b = static_cast<NiTimeController*>(a_object);
+
+		return NiObject::IsEqual(b) &&
+		       flags.underlying() == b->flags.underlying() &&
+		       frequency == b->frequency &&
+		       phase == b->phase &&
+		       loKeyTime == b->loKeyTime &&
+		       hiKeyTime == b->hiKeyTime &&
+		       (target && b->target || !target && !b->target);
 	}
 
 	void NiTimeController::ProcessClone(NiCloningProcess& a_cloning)
 	{
-		using func_t = decltype(&NiTimeController::ProcessClone);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69449, 70826) };
-		return func(this, a_cloning);
+		NiObject::ProcessClone(a_cloning);
+		if (next)
+			return next->ProcessClone(a_cloning);
 	}
 
 	void NiTimeController::Start(float a_time)
 	{
-		using func_t = decltype(&NiTimeController::Start);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69440, 70817) };
-		return func(this, a_time);
+		flags.set(Flag::kActive);
+		lastTime = -std::numeric_limits<float>::max();
+		if (flags.all(Flag::kAnimType_AppInit))
+			startTime = a_time;
 	}
 
 	void NiTimeController::Stop()
 	{
-		using func_t = decltype(&NiTimeController::Stop);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69441, 70818) };
-		return func(this);
+		lastTime = -std::numeric_limits<float>::max();
+		flags.reset(Flag::kActive);
+		if (flags.all(Flag::kAnimType_AppInit))
+			startTime = -std::numeric_limits<float>::max();
 	}
 
 	void NiTimeController::SetTarget(NiObjectNET* a_target)
@@ -85,17 +116,46 @@ namespace RE
 		return func(a_target);
 	}
 
-	NiTimeController* NiTimeController::ctor()
+	void NiTimeController::CopyMembers(NiTimeController* dst, NiCloningProcess& proc)
 	{
-		using func_t = decltype(&NiTimeController::ctor);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69438, 70815) };
-		return func(this);
+		NiObject::CopyMembers(dst, proc);
+
+		dst->flags = flags;
+		dst->frequency = frequency;
+		dst->phase = phase;
+		dst->loKeyTime = loKeyTime;
+		dst->hiKeyTime = hiKeyTime;
+		dst->startTime = startTime;
+		dst->lastTime = lastTime;
+		dst->weightedLastTime = weightedLastTime;
+
+		if (target) {
+			if (auto found = proc.cloneMap.find(target); found != proc.cloneMap.end() && target->GetRTTI() == found->second->GetRTTI()) {
+				dst->target = static_cast<NiObjectNET*>(found->second);
+			} else {
+				dst->target = nullptr;
+			}
+		}
+
+		if (next) {
+			dst->next = NiTimeControllerPtr(static_cast<NiTimeController*>(next->CreateClone(proc)));
+		}
 	}
 
-	void NiTimeController::dtor()
+	bool NiTimeController::DontDoUpdate(float time)
 	{
-		using func_t = decltype(&NiTimeController::dtor);
-		REL::Relocation<func_t> func{ RELOCATION_ID(69439, 70816) };
-		return func(this);
+		if (flags.all(Flag::kActive) && (time != lastTime || (flags.all(Flag::kForceUpdate)))) {
+			if (!flags.all(Flag::kComputeScaledTime)) {
+				flags.reset(Flag::kForceUpdate);
+				return false;
+			}
+
+			if (float new_scaledTime = ComputeScaledTime(time); new_scaledTime != scaledTime || flags.all(Flag::kForceUpdate)) {
+				scaledTime = new_scaledTime;
+				flags.reset(Flag::kForceUpdate);
+				return false;
+			}
+		}
+		return true;
 	}
 }

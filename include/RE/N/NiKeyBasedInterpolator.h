@@ -14,25 +14,31 @@ namespace RE
 		using KeyType = NiAnimationKey::KeyType;
 		using KeyContent = NiAnimationKey::KeyContent;
 
-		~NiKeyBasedInterpolator() override;  // 00
+		NiKeyBasedInterpolator() = default;
+		~NiKeyBasedInterpolator() override = default;  // 00
 
 		// override (NiInterpolator)
 		const NiRTTI* GetRTTI() const override;                                         // 02
-		void          LoadBinary(NiStream& a_stream) override;                          // 18 - { NiInterpolator::LoadBinary(a_stream); }
-		void          LinkObject(NiStream& a_stream) override;                          // 19 - { NiInterpolator::LinkObject(a_stream); }
-		bool          RegisterStreamables(NiStream& a_stream) override;                 // 1A - { return NiInterpolator::RegisterStreamables(a_stream); }
-		void          SaveBinary(NiStream& a_stream) override;                          // 1B - { NiInterpolator::SaveBinary(a_stream); }
-		bool          IsEqual(NiObject* a_object) override;                             // 1C - { return NiInterpolator::IsEqual(a_stream); }
+		void          LoadBinary(NiStream& a_stream) override;                          // 18
+		void          LinkObject(NiStream& a_stream) override;                          // 19
+		bool          RegisterStreamables(NiStream& a_stream) override;                 // 1A
+		void          SaveBinary(NiStream& a_stream) override;                          // 1B
+		bool          IsEqual(NiObject* a_object) override;                             // 1C
 		void          GetActiveTimeRange(float& a_start, float& a_end) const override;  // 32
 
 		// add
-		[[nodiscard]] virtual std::uint16_t GetKeyChannelCount() const = 0;                      // 39
-		[[nodiscard]] virtual std::uint32_t GetKeyCount(std::uint16_t a_channel) const = 0;      // 3A
-		[[nodiscard]] virtual KeyType       GetKeyType(std::uint16_t a_channel) const = 0;       // 3C
-		[[nodiscard]] virtual KeyContent    GetKeyContent(std::uint16_t a_channel) const = 0;    // 3B
-		[[nodiscard]] virtual void*         GetKeyArray(std::uint16_t a_channel) const = 0;      // 3D
-		[[nodiscard]] virtual std::uint8_t  GetKeyStride(std::uint16_t a_channel) const = 0;     // 3E
-		[[nodiscard]] virtual bool          GetChannelPosed(std::uint16_t a_channel) const = 0;  // 3F
+		[[nodiscard]] virtual uint16_t        GetKeyChannelCount() const = 0;                 // 39
+		[[nodiscard]] virtual uint32_t        GetKeyCount(uint16_t a_channel) const = 0;      // 3A
+		[[nodiscard]] virtual KeyType         GetKeyType(uint16_t a_channel) const = 0;       // 3C
+		[[nodiscard]] virtual KeyContent      GetKeyContent(uint16_t a_channel) const = 0;    // 3B
+		[[nodiscard]] virtual NiAnimationKey* GetKeyArray(uint16_t a_channel) const = 0;      // 3D
+		[[nodiscard]] virtual uint8_t         GetKeyStride(uint16_t a_channel) const = 0;     // 3E
+		[[nodiscard]] virtual bool            GetChannelPosed(uint16_t a_channel) const = 0;  // 3F
+
+		void            CopyMembers(NiKeyBasedInterpolator* dst, NiCloningProcess& proc);
+		NiAnimationKey* GetAnim(uint32_t& KeyCount, KeyType& KeyType, uint8_t& KeyStride, uint16_t channel);
+		NiAnimationKey* GetKeyAt(uint32_t ind, uint16_t channel) const;
+		// void FillDerivedValues(uint16 channel);   used NiAnimationKey::ms_fillderived
 	};
 	static_assert(sizeof(NiKeyBasedInterpolator) == 0x18);
 }

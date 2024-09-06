@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RE/B/BSFixedString.h"
 #include "RE/N/NiTimeController.h"
 
 namespace RE
@@ -9,19 +10,24 @@ namespace RE
 
 	class NiInterpController : public NiTimeController
 	{
+	protected:
+		inline static constexpr uint16_t INVALID_INDEX = 0xFFFF;
+		inline static constexpr float    INVALID_TIME = -std::numeric_limits<float>::max();
+
 	public:
 		inline static constexpr auto RTTI = RTTI_NiInterpController;
 		inline static constexpr auto Ni_RTTI = NiRTTI_NiInterpController;
 
-		~NiInterpController() override;  // 00
+		NiInterpController();
+		~NiInterpController() override = default;  // 00
 
-		// override (NiTimeController)
+		// override (NiObject)
 		const NiRTTI* GetRTTI() const override;                          // 02
-		void          LoadBinary(NiStream& a_stream) override;           // 18 - { NiTimeController::LoadBinary(a_stream); }
-		void          LinkObject(NiStream& a_stream) override;           // 19 - { NiTimeController::LinkObject(a_stream); }
-		bool          RegisterStreamables(NiStream& a_stream) override;  // 1A - { return NiTimeController::RegisterStreamables(a_stream); }
-		void          SaveBinary(NiStream& a_stream) override;           // 1B - { NiTimeController::SaveBinary(a_stream); }
-		bool          IsEqual(NiObject* a_object) override;              // 1C - { NiTimeController::IsEqual(a_object); }
+		void          LoadBinary(NiStream& a_stream) override;           // 18
+		void          LinkObject(NiStream& a_stream) override;           // 19
+		bool          RegisterStreamables(NiStream& a_stream) override;  // 1A
+		void          SaveBinary(NiStream& a_stream) override;           // 1B
+		bool          IsEqual(NiObject* a_object) override;              // 1C
 
 		// add
 		[[nodiscard]] virtual std::uint16_t        GetInterpolatorCount() const = 0;                                                                                                                                                                  // 2F
@@ -31,12 +37,14 @@ namespace RE
 		[[nodiscard]] virtual NiInterpolator*      GetInterpolator(std::uint16_t a_index = 0) const = 0;                                                                                                                                              // 33
 		virtual void                               SetInterpolator(NiInterpolator* a_interpolator, std::uint16_t a_index = 0) = 0;                                                                                                                    // 34
 		virtual void                               ResetTimeExtrema();                                                                                                                                                                                // 35
-		virtual const char*                        GetCtlrID();                                                                                                                                                                                       // 36 - { return 0; }
+		virtual const char*                        GetCtlrID();                                                                                                                                                                                       // 36
 		virtual NiInterpolator*                    CreatePoseInterpolator(std::uint16_t a_index) = 0;                                                                                                                                                 // 37
 		virtual void                               SynchronizePoseInterpolator(NiInterpolator* a_interp, std::uint16_t a_index = 0) = 0;                                                                                                              // 38
 		[[nodiscard]] virtual NiBlendInterpolator* CreateBlendInterpolator(std::uint16_t a_index = 0, bool a_managerControlled = false, bool a_accumulateAnimations = false, float a_weightThreshold = 0.0, std::uint8_t a_arraySize = 2) const = 0;  // 39
 		virtual void                               GuaranteeTimeRange(float a_startTime, float a_endTime) = 0;                                                                                                                                        // 3A
 		virtual bool                               InterpolatorIsCorrectType(NiInterpolator* a_interpolator, std::uint16_t a_index) const = 0;                                                                                                        // 3B
+	
+		void CopyMembers(NiInterpController* dst, NiCloningProcess& proc);
 	};
 	static_assert(sizeof(NiInterpController) == 0x48);
 }

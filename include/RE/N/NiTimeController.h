@@ -25,7 +25,7 @@ namespace RE
 			kTotal
 		};
 
-		enum class Flag
+		enum class Flag : uint16_t
 		{
 			kAnimType_AppTime = 0 << 0,
 			kAnimType_AppInit = 1 << 0,
@@ -43,8 +43,8 @@ namespace RE
 			kForceUpdate = 1 << 7
 		};
 
-		inline NiTimeController() { ctor(); }
-		~NiTimeController() override { dtor(); }  // 00
+		NiTimeController();
+		~NiTimeController() override = default;  // 00
 
 		// override (NiObject)
 		const NiRTTI* GetRTTI() const override;                            // 02
@@ -69,26 +69,24 @@ namespace RE
 
 		static void StartAnimations(NiObjectNET* a_target);
 
+		void                                      CopyMembers(NiTimeController* dst, NiCloningProcess& proc);
+		bool                                      DontDoUpdate(float time);
 		[[nodiscard]] constexpr NiTimeController* GetNext() const noexcept { return next.get(); }
 
 		// members
-		stl::enumeration<Flag, std::uint16_t> flags;             // 10
-		std::uint16_t                         pad12;             // 12
-		float                                 frequency;         // 14
-		float                                 phase;             // 18
-		float                                 loKeyTime;         // 1C
-		float                                 hiKeyTime;         // 20
-		float                                 startTime;         // 24
-		float                                 lastTime;          // 28
-		float                                 weightedLastTime;  // 2C
-		float                                 scaledTime;        // 30
-		std::uint32_t                         pad34;             // 34
-		NiObjectNET*                          target;            // 38
-		NiPointer<NiTimeController>           next;              // 40 - singly-linked list
-
-	private:
-		NiTimeController* ctor();
-		void              dtor();
+		stl::enumeration<Flag, uint16_t> flags;             // 10
+		uint16_t                         pad12;             // 12
+		float                            frequency;         // 14
+		float                            phase;             // 18
+		float                            loKeyTime;         // 1C
+		float                            hiKeyTime;         // 20
+		float                            startTime;         // 24
+		float                            lastTime;          // 28
+		float                            weightedLastTime;  // 2C
+		float                            scaledTime;        // 30
+		uint32_t                         pad34;             // 34
+		NiObjectNET*                     target;            // 38
+		NiPointer<NiTimeController>      next;              // 40 - singly-linked list
 	};
 	static_assert(sizeof(NiTimeController) == 0x48);
 }
