@@ -1414,8 +1414,8 @@ set(SOURCES
 	include/RE/N/NiPoint3.h
 	include/RE/N/NiPoint3Interpolator.h
 	include/RE/N/NiPointLight.h
-	include/RE/N/NiPosKey.h
 	include/RE/N/NiPosData.h
+	include/RE/N/NiPosKey.h
 	include/RE/N/NiProperty.h
 	include/RE/N/NiQuatTransform.h
 	include/RE/N/NiQuaternion.h
@@ -2144,8 +2144,8 @@ set(SOURCES
 	src/RE/N/NiObjectNET.cpp
 	src/RE/N/NiPoint2.cpp
 	src/RE/N/NiPoint3.cpp
-	src/RE/N/NiPosKey.cpp
 	src/RE/N/NiPosData.cpp
+	src/RE/N/NiPosKey.cpp
 	src/RE/N/NiQuaternion.cpp
 	src/RE/N/NiRefObject.cpp
 	src/RE/N/NiRotKey.cpp

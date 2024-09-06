@@ -20,7 +20,7 @@ namespace RE
 		NiSingleInterpController::CopyMembers(ans, a_cloning);
 		return ans;
 	}
-		
+
 	void NiTransformController::LoadBinary(NiStream& a_stream)
 	{
 		NiSingleInterpController::LoadBinary(a_stream);

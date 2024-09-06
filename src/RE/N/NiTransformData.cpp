@@ -1,9 +1,9 @@
 #include "RE/N/NiTransformData.h"
 
+#include "RE/N/NiEulerRotKey.h"
 #include "RE/N/NiFloatKey.h"
 #include "RE/N/NiPosKey.h"
 #include "RE/N/NiRotKey.h"
-#include "RE/N/NiEulerRotKey.h"
 
 namespace RE
 {
@@ -59,11 +59,11 @@ namespace RE
 	{
 		auto b = static_cast<NiTransformData*>(a_object);
 		bool ans = NiObject::IsEqual(b) &&
-			numKeysRot == b->numKeysRot && typeRot == b->typeRot &&
-			numKeysPos == b->numKeysPos && typePos == b->typePos &&
-			numKeysScale == b->numKeysScale && typeScale == b->typeScale &&
-			keySizeRot == b->keySizeRot && keySizePos == b->keySizePos && keySizeScale == b->keySizeScale;
-		
+		           numKeysRot == b->numKeysRot && typeRot == b->typeRot &&
+		           numKeysPos == b->numKeysPos && typePos == b->typePos &&
+		           numKeysScale == b->numKeysScale && typeScale == b->typeScale &&
+		           keySizeRot == b->keySizeRot && keySizePos == b->keySizePos && keySizeScale == b->keySizeScale;
+
 		if (!ans)
 			return false;
 

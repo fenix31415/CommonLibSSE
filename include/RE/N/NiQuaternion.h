@@ -24,7 +24,8 @@ namespace RE
 			return (x == a_rhs.x && y == a_rhs.y && z == a_rhs.z && w == a_rhs.w);
 		}
 
-		void Correct(const NiQuaternion& to) {
+		void Correct(const NiQuaternion& to)
+		{
 			if (Dot(to) < 0.0f)
 				Neg();
 		}
@@ -39,8 +40,8 @@ namespace RE
 			y = -y;
 			z = -z;
 		}
-		void SetEulerAnglesXYZ(float X, float Y, float Z);
-		void SetRotation(const RE::NiMatrix3& M);
+		void           SetEulerAnglesXYZ(float X, float Y, float Z);
+		void           SetRotation(const RE::NiMatrix3& M);
 		constexpr void ToRotation(RE::NiMatrix3& ans) const
 		{
 			float _2x = x * 2.0f;

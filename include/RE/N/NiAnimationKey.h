@@ -33,13 +33,13 @@ namespace RE
 		NiAnimationKey(float a_time);
 		~NiAnimationKey();
 
-		static bool            Equal(const NiAnimationKey& a, const NiAnimationKey& b);
+		static bool Equal(const NiAnimationKey& a, const NiAnimationKey& b);
 		static NiAnimationKey* (*GetArrayFunction(KeyContent content, KeyType type))(uint32_t size);
-		static void            (*GetDeleteFunction(KeyContent content, KeyType type))(NiAnimationKey*);
-		static bool            (*GetEqualFunction(KeyContent content, KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
-		static void            (*GetFillDerivedFunction(KeyContent content, KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
-		static uint8_t         GetKeySize(KeyContent content, KeyType type);
-		static void            GuaranteeKeyAtStartAndEnd(KeyContent content, KeyType type, NiAnimationKey*& keys, uint32_t& numKeys, float start, float end);
+		static void (*GetDeleteFunction(KeyContent content, KeyType type))(NiAnimationKey*);
+		static bool (*GetEqualFunction(KeyContent content, KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
+		static void (*GetFillDerivedFunction(KeyContent content, KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
+		static uint8_t GetKeySize(KeyContent content, KeyType type);
+		static void    GuaranteeKeyAtStartAndEnd(KeyContent content, KeyType type, NiAnimationKey*& keys, uint32_t& numKeys, float start, float end);
 
 		[[nodiscard]] float           GetTime() const;
 		void                          SetTime(float a_time);

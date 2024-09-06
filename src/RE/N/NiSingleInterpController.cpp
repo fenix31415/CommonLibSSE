@@ -44,8 +44,8 @@ namespace RE
 	{
 		auto b = static_cast<NiSingleInterpController*>(a_object);
 		return NiInterpController::IsEqual(b) &&
-			(interpolator && b->interpolator && interpolator->IsEqual(b->interpolator.get()) ||
-				!interpolator && !b->interpolator);
+		       (interpolator && b->interpolator && interpolator->IsEqual(b->interpolator.get()) ||
+				   !interpolator && !b->interpolator);
 	}
 
 	void NiSingleInterpController::ProcessClone(NiCloningProcess& a_cloning)

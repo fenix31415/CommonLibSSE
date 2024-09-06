@@ -8,14 +8,14 @@ namespace RE
 	class NiPosKey : public NiAnimationKey
 	{
 	public:
-		static void            CleanKeys(NiPosKey* keys, KeyType type);
-		static bool            Equal(const NiPosKey& a, const NiPosKey& b);
+		static void CleanKeys(NiPosKey* keys, KeyType type);
+		static bool Equal(const NiPosKey& a, const NiPosKey& b);
 		static NiAnimationKey* (*GetArrayFunction(KeyType type))(uint32_t size);
-		static NiPoint3        GenInterp(float time, NiPosKey* keys, KeyType type, uint32_t numKeys, uint32_t& curInd, uint8_t keySize);
-		static void            (*GetDeleteFunction(KeyType type))(NiAnimationKey*);
-		static bool            (*GetEqualFunction(KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
-		static void            (*GetFillDerivedFunction(KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
-		static uint8_t         GetKeySize(KeyType type);
+		static NiPoint3 GenInterp(float time, NiPosKey* keys, KeyType type, uint32_t numKeys, uint32_t& curInd, uint8_t keySize);
+		static void (*GetDeleteFunction(KeyType type))(NiAnimationKey*);
+		static bool (*GetEqualFunction(KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
+		static void (*GetFillDerivedFunction(KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
+		static uint8_t GetKeySize(KeyType type);
 
 		// members
 		NiPoint3 val;  // 04

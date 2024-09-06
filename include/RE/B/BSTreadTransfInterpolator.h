@@ -3,8 +3,8 @@
 #include "RE/B/BSFixedString.h"
 #include "RE/N/NiFloatData.h"
 #include "RE/N/NiKeyBasedInterpolator.h"
-#include "RE/N/NiSmartPointer.h"
 #include "RE/N/NiQuatTransform.h"
+#include "RE/N/NiSmartPointer.h"
 
 namespace RE
 {

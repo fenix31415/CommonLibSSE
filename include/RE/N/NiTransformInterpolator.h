@@ -1,8 +1,8 @@
 #pragma once
 
 #include "RE/N/NiKeyBasedInterpolator.h"
-#include "RE/N/NiTransformData.h"
 #include "RE/N/NiQuatTransform.h"
+#include "RE/N/NiTransformData.h"
 
 namespace RE
 {

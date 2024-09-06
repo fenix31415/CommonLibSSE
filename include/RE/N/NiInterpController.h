@@ -43,7 +43,7 @@ namespace RE
 		[[nodiscard]] virtual NiBlendInterpolator* CreateBlendInterpolator(std::uint16_t a_index = 0, bool a_managerControlled = false, bool a_accumulateAnimations = false, float a_weightThreshold = 0.0, std::uint8_t a_arraySize = 2) const = 0;  // 39
 		virtual void                               GuaranteeTimeRange(float a_startTime, float a_endTime) = 0;                                                                                                                                        // 3A
 		virtual bool                               InterpolatorIsCorrectType(NiInterpolator* a_interpolator, std::uint16_t a_index) const = 0;                                                                                                        // 3B
-	
+
 		void CopyMembers(NiInterpController* dst, NiCloningProcess& proc);
 	};
 	static_assert(sizeof(NiInterpController) == 0x48);

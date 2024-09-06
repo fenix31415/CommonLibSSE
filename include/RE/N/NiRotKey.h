@@ -9,13 +9,13 @@ namespace RE
 	class NiRotKey : public NiAnimationKey
 	{
 	public:
-		static bool            Equal(const NiRotKey& a, const NiRotKey& b);
-		static NiQuaternion    GenInterp(float time, NiRotKey* keys, KeyType type, uint32_t numKeys, uint32_t& curInd, uint8_t keySize);
+		static bool         Equal(const NiRotKey& a, const NiRotKey& b);
+		static NiQuaternion GenInterp(float time, NiRotKey* keys, KeyType type, uint32_t numKeys, uint32_t& curInd, uint8_t keySize);
 		static NiAnimationKey* (*GetArrayFunction(KeyType type))(uint32_t size);
-		static void            (*GetDeleteFunction(KeyType type))(NiAnimationKey*);
-		static bool            (*GetEqualFunction(KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
-		static void            (*GetFillDerivedFunction(KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
-		static uint8_t         GetKeySize(KeyType type);
+		static void (*GetDeleteFunction(KeyType type))(NiAnimationKey*);
+		static bool (*GetEqualFunction(KeyType type))(const NiAnimationKey& a, const NiAnimationKey& b);
+		static void (*GetFillDerivedFunction(KeyType type))(NiAnimationKey*, uint32_t numKeys, uint8_t keySize);
+		static uint8_t GetKeySize(KeyType type);
 
 		// members
 		NiQuaternion val;  // 04
