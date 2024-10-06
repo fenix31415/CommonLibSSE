@@ -59,30 +59,31 @@ namespace RE
 			kMaintainValuesWhenInactive = 1,
 		};
 
+		/// Stores the relationships between state machines and which behavior graph contains each state machine.
 		struct StateMachineInfo
 		{
 			// members
-			hkbStateMachine*  statemachine;  // 00
-			uint64_t          field08;       // 08
-			uint64_t          field10;       // 10
-			hkMap64*          map;           // 18
-			hkArray<int32_t>* array;         // 20
-			uint32_t          field28;       // 28
-			uint32_t          field2C;       // 2C
+			hkbStateMachine*  stateMachineTemplate;          // 00 - A pointer to a node which is a state machine.
+			uint64_t          field08;                       // 08
+			uint64_t          field10;                       // 10
+			hkMap64*          eventToGlobalTransitionMap;    // 18 - A map from events to global transition. The index of the transition in hkbStateMachine::m_wildcardTransitions is stored.
+			hkArray<int32_t>* childStateMachineInfoIndices;  // 20 - The child state machine info indices
+			uint32_t          field28;                       // 28
+			uint32_t          field2C;                       // 2C
 		};
 		static_assert(sizeof(StateMachineInfo) == 0x30);
 
 		struct GlobalTransitionData : public hkReferencedObject
 		{
 			// members
-			StateMachineInfo* statemachine_infos;  // 10
-			uint64_t          field18;             //18
-			uint64_t          field20;             // 20
-			uint64_t          field28;             // 28
-			hkMap64           map1;                // 30
-			hkMap64           map2;                // 40
-			uint64_t          field50;             // 50
-			uint64_t          field58;             // 58
+			StateMachineInfo* stateMachineInfos;               // 10 - All the state machines in the entire behavior graph.
+			uint64_t          field18;                         // 18
+			uint64_t          field20;                         // 20
+			uint64_t          field28;                         // 28
+			hkMap64           stateMachineTemplateToIndexMap;  // 30 - A map from state machines to indices in the m_stateMachineInfos
+			hkMap64           eventToStateMachineInfoIndices;  // 40 - A map from event IDs to arrays of indices into the m_stateMachineInfos. This map tells us which state machines have global wildcard transitions defined for each event ID.
+			uint64_t          field50;                         // 50
+			uint64_t          field58;                         // 58
 		};
 		static_assert(sizeof(GlobalTransitionData) == 0x60);
 

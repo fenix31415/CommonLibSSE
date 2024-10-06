@@ -4,6 +4,7 @@
 #include "RE/B/BSIntrusiveRefCounted.h"
 #include "RE/B/BSTArray.h"
 #include "RE/B/BSTHashMap.h"
+#include "RE/B/BSUtilities.h"
 #include "RE/H/hkQuaternion.h"
 #include "RE/N/NiPoint3.h"
 #include "RE/N/NiSmartPointer.h"
@@ -34,12 +35,6 @@ namespace RE
 			return reinterpret_cast<const T*>(reinterpret_cast<std::uintptr_t>(ptr) & ~kManaged);
 		}
 	};
-
-	namespace BSUtilities
-	{
-		uint16_t ConvertFloatToHalf(float val);
-		float    ConvertHalfToFloat(uint16_t val);
-	}
 
 	template <typename Data>
 	class BSTInterpolatorData

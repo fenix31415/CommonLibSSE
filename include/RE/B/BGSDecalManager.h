@@ -20,6 +20,13 @@ namespace RE
 			return *singleton;
 		}
 
+		void AddDecal(DECAL_CREATION_DATA& data, bool a3, BGSDecalGroup* group)
+		{
+			using func_t = decltype(&BGSDecalManager::AddDecal);
+			static REL::Relocation<func_t> func{ RELOCATION_ID(15029, 0) };
+			return func(this, data, a3, group);
+		}
+
 		// members
 		std::uint32_t                        unk00;                       // 00
 		std::uint32_t                        decalCountCurrentFrame;      // 04

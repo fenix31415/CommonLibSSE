@@ -20,18 +20,4 @@ namespace RE
 		REL::Relocation<func_t> func{ RELOCATION_ID(31803, 0) };  // I do not know for AE
 		return func(this, event_name, time);
 	}
-
-	uint16_t BSUtilities::ConvertFloatToHalf(float val)
-	{
-		using func_t = decltype(BSUtilities::ConvertFloatToHalf);
-		REL::Relocation<func_t> func{ RELOCATION_ID(74491, 0) };  // I do not know for AE
-		return func(val);
-	}
-
-	float BSUtilities::ConvertHalfToFloat(uint16_t val)
-	{
-		using func_t = decltype(BSUtilities::ConvertHalfToFloat);
-		REL::Relocation<func_t> func{ RELOCATION_ID(74492, 0) };  // I do not know for AE
-		return func(val);
-	}
 }

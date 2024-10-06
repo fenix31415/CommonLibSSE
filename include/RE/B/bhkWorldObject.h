@@ -1,6 +1,8 @@
 #pragma once
 
 #include "RE/B/bhkSerializable.h"
+#include "RE/H/hkpProperty.h"
+#include "RE/H/hkpWorldObject.h"
 
 namespace RE
 {
@@ -25,6 +27,8 @@ namespace RE
 
 		// add
 		virtual void Unk_32(void);  // 32 - { return Unk_29(); }
+
+		hkpPropertyValue GetProperty(uint32_t key) const { return static_cast<hkpWorldObject*>(referencedObject.get())->GetProperty(key); }
 
 		// members
 		hkpWorld* world;  // 20

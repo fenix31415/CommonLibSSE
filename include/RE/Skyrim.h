@@ -377,6 +377,7 @@
 #include "RE/B/BSTriShape.h"
 #include "RE/B/BSUIMessageData.h"
 #include "RE/B/BSUIScaleformData.h"
+#include "RE/B/BSUtilities.h"
 #include "RE/B/BSValueNode.h"
 #include "RE/B/BSVirtualKeyboardDevice.h"
 #include "RE/B/BSVisit.h"

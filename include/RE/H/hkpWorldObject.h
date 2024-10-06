@@ -58,6 +58,7 @@ namespace RE
 
 		const hkpCollidable* GetCollidable() const;
 		hkpCollidable*       GetCollidableRW();
+		hkpPropertyValue     GetProperty(uint32_t key) const;
 		const hkpShape*      GetShape() const;
 		TESObjectREFR*       GetUserData() const;
 

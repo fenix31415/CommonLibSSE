@@ -13,6 +13,7 @@ namespace RE
 			kAlphaTesting = 1 << 2,
 			kNoSubtextures = 1 << 3
 		};
+		using Flags = stl::enumeration<Flag, uint8_t>;
 
 		// members
 		float         decalMinWidth;   // 00
@@ -23,7 +24,7 @@ namespace RE
 		float         shininess;       // 14
 		float         parallaxScale;   // 18
 		std::int8_t   parallaxPasses;  // 1C
-		Flag          flags;           // 1D
+		Flags         flags;           // 1D
 		std::uint16_t pad1E;           // 1E
 		Color         color;           // 20
 	};

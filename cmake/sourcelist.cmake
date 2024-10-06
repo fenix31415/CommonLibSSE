@@ -375,6 +375,7 @@ set(SOURCES
 	include/RE/B/BSTriShape.h
 	include/RE/B/BSUIMessageData.h
 	include/RE/B/BSUIScaleformData.h
+	include/RE/B/BSUtilities.h
 	include/RE/B/BSValueNode.h
 	include/RE/B/BSVirtualKeyboardDevice.h
 	include/RE/B/BSVisit.h
@@ -1874,6 +1875,7 @@ set(SOURCES
 	src/RE/B/BSSystemFileStorage.cpp
 	src/RE/B/BSTArray.cpp
 	src/RE/B/BSTCreateFactoryManager.cpp
+	src/RE/B/BSUtilities.cpp
 	src/RE/B/BSVirtualKeyboardDevice.cpp
 	src/RE/B/BSVisit.cpp
 	src/RE/B/BSWin32GamepadDevice.cpp

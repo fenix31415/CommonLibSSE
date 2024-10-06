@@ -3,6 +3,7 @@
 #include "RE/H/hkArray.h"
 #include "RE/H/hkRefPtr.h"
 #include "RE/H/hkReferencedObject.h"
+#include "RE/H/hkbBehaviorGraph.h"
 #include "RE/H/hkbBindable.h"
 #include "RE/H/hkbEvent.h"
 #include "RE/H/hkbGenerator.h"
@@ -217,6 +218,15 @@ namespace RE
 
 		/// add the transition
 		TransitionInfo* addTransitionInternal(int32_t eventId, int32_t toStateId, hkbTransitionEffect* transition, hkbCondition* condition, hkArray<TransitionInfo>& transitions);
+
+		uint16_t getCurrentStateIndex() const;
+
+		hkbStateMachine* getNestedStateMachineClone(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex);
+
+		hkbBehaviorGraph::StateMachineInfo* getNestedStateMachineInfo(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex);
+
+		/// get the nested state machine template given the nested state machine index
+		hkbStateMachine* getNestedStateMachineTemplate(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex);
 
 		/// Get a state index given the state ID.
 		int32_t getStateIndex(int32_t stateID) const;

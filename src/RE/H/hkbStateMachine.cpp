@@ -27,6 +27,46 @@ namespace RE
 		return func(this, eventId, toStateId, transition, condition, transitions);
 	}
 
+	uint16_t hkbStateMachine::getCurrentStateIndex() const
+	{
+		return currentStateIndexAndEntered >> 1;
+	}
+
+	hkbStateMachine* hkbStateMachine::getNestedStateMachineClone(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex)
+	{
+		if (auto nodeTemplate = getNestedStateMachineTemplate(behaviorGraph, stateIndex)) {
+			return static_cast<hkbStateMachine*>(behaviorGraph.getNodeClone(nodeTemplate));
+		} else {
+			return nullptr;
+		}
+	}
+
+	hkbBehaviorGraph::StateMachineInfo* hkbStateMachine::getNestedStateMachineInfo(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex)
+	{
+		if (auto global_transition_data = behaviorGraph.globalTransitionData.get()) {
+			auto     this_template = behaviorGraph.getNodeTemplate(this);
+			uint64_t statemachine_info_ind = global_transition_data->stateMachineTemplateToIndexMap.getWithDefault(reinterpret_cast<uint64_t>(this_template), -1);
+			if (statemachine_info_ind >= 0) {
+				if (auto childStateMachineInfoIndices = global_transition_data->stateMachineInfos[statemachine_info_ind].childStateMachineInfoIndices) {
+					if (auto statemachine_infos_ind = (*childStateMachineInfoIndices)[stateIndex]; statemachine_infos_ind != -1) {
+						return &global_transition_data->stateMachineInfos[statemachine_infos_ind];
+					}
+				}
+			}
+		}
+
+		return nullptr;
+	}
+
+	hkbStateMachine* hkbStateMachine::getNestedStateMachineTemplate(const hkbBehaviorGraph& behaviorGraph, int32_t stateIndex)
+	{
+		if (auto info = getNestedStateMachineInfo(behaviorGraph, stateIndex)) {
+			return info->stateMachineTemplate;
+		} else {
+			return nullptr;
+		}
+	}
+
 	int32_t hkbStateMachine::getStateIndex(int32_t stateID) const
 	{
 		if (stateID)

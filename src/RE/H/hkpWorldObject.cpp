@@ -14,6 +14,19 @@ namespace RE
 		return &collidable;
 	}
 
+	hkpPropertyValue hkpWorldObject::GetProperty(uint32_t key) const
+	{
+		if (key == 0)
+			key = 1;
+
+		for (const auto& prop : properties) {
+			if (prop.key == key)
+				return prop.value;
+		}
+
+		return hkpPropertyValue{ 0 };
+	}
+
 	const hkpShape* hkpWorldObject::GetShape() const
 	{
 		const auto hkpCollidable = GetCollidable();
