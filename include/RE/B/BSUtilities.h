@@ -8,8 +8,8 @@ namespace RE
 
 	namespace BSUtilities
 	{
-		uint16_t ConvertFloatToHalf(float val);
-		float    ConvertHalfToFloat(uint16_t val);
+		uint16_t    ConvertFloatToHalf(float val);
+		float       ConvertHalfToFloat(uint16_t val);
 		NiAVObject* GetObjectByName(NiAVObject* root, const BSFixedString& name, bool skip_Flattened_node = true);
 	}
 }
