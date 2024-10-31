@@ -262,8 +262,8 @@ set(SOURCES
 	include/RE/B/BSInputDeviceManager.h
 	include/RE/B/BSInputEventQueue.h
 	include/RE/B/BSInstanceTriShape.h
-	include/RE/B/BSIntrusiveRefCounted.h
 	include/RE/B/BSInterpValueModifier.h
+	include/RE/B/BSIntrusiveRefCounted.h
 	include/RE/B/BSIsActiveModifier.h
 	include/RE/B/BSKeyboardDevice.h
 	include/RE/B/BSLensFlareRenderData.h

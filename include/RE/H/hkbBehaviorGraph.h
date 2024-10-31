@@ -92,7 +92,7 @@ namespace RE
 		{
 			return *REL::Relocation<hkClass*>(REL::ID(521003));
 		}
-		
+
 		~hkbBehaviorGraph() override;  // 00
 
 		// override (hkbNode)

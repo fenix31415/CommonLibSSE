@@ -298,8 +298,8 @@ namespace RE
 		// if the startIndex is -1 or the start index of an expression is the same as the end index of an expression
 		// then the expression is invalid.
 		hkArray<int32_t> expressionToRpnIndex;
-		uint8_t              numExpressions;  // 30 - number of expressions
-		char                 pad31[7];        // 31
+		uint8_t          numExpressions;  // 30 - number of expressions
+		char             pad31[7];        // 31
 	};
 	static_assert(sizeof(hkbCompiledExpressionSet) == 0x38);
 }
