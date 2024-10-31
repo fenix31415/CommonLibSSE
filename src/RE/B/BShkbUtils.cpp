@@ -18,7 +18,7 @@ namespace RE
 			return func(cfg, hkbChar, functor);
 		}
 
-		GraphTraverser* GraphTraverser::ctor(GraphTraverser* _this, int flags, hkbNode* root)
+		GraphTraverser* GraphTraverser::ctor(GraphTraverser* _this, GET_CHILDREN_FLAGS flags, hkbNode* root)
 		{
 			using func_t = decltype(&GraphTraverser::ctor);
 			REL::Relocation<func_t> func{ RELOCATION_ID(62942, 0) };  // I do not know for AE

@@ -5,6 +5,7 @@
 #include "RE/H/hkReferencedObject.h"
 #include "RE/H/hkbBehaviorGraph.h"
 #include "RE/H/hkbBindable.h"
+#include "RE/H/hkbCondition.h"
 #include "RE/H/hkbEvent.h"
 #include "RE/H/hkbGenerator.h"
 #include "RE/H/hkbTransitionEffect.h"
@@ -12,7 +13,6 @@
 namespace RE
 {
 	struct hkMap64;
-	class hkbCondition;
 	class hkbStateChooser;
 
 	class hkbStateListener : public hkReferencedObject
@@ -89,9 +89,26 @@ namespace RE
 		};
 		static_assert(sizeof(StateInfo) == 0x78);
 
-		struct Interval
+		/// A time interval bounded by events or hkReals.
+		///
+		/// If you specify the interval using fixed times (hkReals), then the times correspond to
+		/// the amount of local state machine time that has passed since the state was entered.
+		/// If you specify the interval using events, then the interval begins whenever the
+		/// m_enterEventId event is received and ends whenever the m_exitEventId is
+		/// received.
+		///
+		/// An interval is bounded on both ends either by events or fixed times.  You can't use
+		/// an event on one end and a fixed time on the other.
+		///
+		/// When using either interval specification, you should try to ensure that the interval
+		/// is at least one frame long.  Otherwise, the interval may open and close again in one
+		/// frame, and its effects may not be processed.
+		///
+		/// If either m_enterEventId or m_exitEventId are not EVENT_ID_NULL, then they define the interval.
+		/// Otherwise (if both are EVENT_ID_NULL), the m_enterTime and m_exitTime will define the interval.
+		struct TimeInterval
 		{
-			Interval() :
+			TimeInterval() :
 				enterEventId(-1), exitEventId(-1), enterTime(0), exitTime(0) {}
 
 			// members
@@ -100,7 +117,7 @@ namespace RE
 			float   enterTime;     // 08
 			float   exitTime;      // 0C
 		};
-		static_assert(sizeof(Interval) == 0x10);
+		static_assert(sizeof(TimeInterval) == 0x10);
 
 		struct TransitionInfo
 		{
@@ -128,10 +145,24 @@ namespace RE
 			TransitionInfo(hkbTransitionEffect* a_transition, int32_t a_eventId, uint32_t a_toStateId);
 
 			// members
-			Interval                      triggerInterval;    // 00
-			Interval                      initiateInterval;   // 10
+
+			/// 00 - The interval in which the event must be received for the transition to occur.
+			///
+			/// This is only used if (m_flags & FLAG_USE_TRIGGER_INTERVAL) is true.
+			/// You should make sure that the interval is longer than your timestep
+			/// (eg, 1/30 sec), or else the interval may be missed.
+			TimeInterval triggerInterval;
+
+			/// 10 - The interval in which the transition may begin.
+			///
+			/// This is only used if (m_flags & FLAG_USE_BEGIN_INTERVAL) is true.
+			/// If the transition is activated outside of this interval, the transition
+			/// will be delayed until the interval begins.
+			/// You should make sure that the interval is longer than your timestep
+			/// (eg, 1/30 sec), or else the interval may be missed.
+			TimeInterval                  initiateInterval;
 			hkRefPtr<hkbTransitionEffect> transition;         // 20
-			void*                         condition;          // 28 -- hkRefPtr
+			hkRefPtr<hkbCondition>        condition;          // 28
 			int32_t                       eventId;            // 30
 			int32_t                       toStateId;          // 34
 			int32_t                       fromNestedStateId;  // 38
@@ -163,30 +194,6 @@ namespace RE
 		static_assert(sizeof(TransitionInfoArray) == 0x20);
 
 		~hkbStateMachine() override;  // 00
-
-		// override (hkbGenerator)
-		hkClass* GetClassType() const override;                                                                     // 01
-		void     CalcContentStatistics(hkStatisticsCollector* a_collector, const hkClass* a_class) const override;  // 02
-		void     Unk_03(void) override;                                                                             // 03
-		void     Activate(const hkbContext& a_context) override;                                                    // 04
-		void     Update(const hkbContext& a_context, float a_timestep) override;                                    // 05
-		//void     Unk_06(void) override;                                                                             // 06
-		void Deactivate(const hkbContext& a_context) override;  // 07
-		void Unk_08(void) override;                             // 08
-		void Unk_09(void) override;                             // 09
-		void Unk_0A(void) override;                             // 0A
-		void Unk_0C(void) override;                             // 0C
-		void Unk_0D(void) override;                             // 0D
-		void Unk_0E(void) override;                             // 0E
-		void Unk_0F(void) override;                             // 0F
-		void Unk_10(void) override;                             // 10
-		void Unk_11(void) override;                             // 11
-		void Unk_12(void) override;                             // 12
-		void Unk_14(void) override;                             // 14
-		void Generate(const hkbContext& a_context) override;    // 17
-		void Unk_18(void) override;                             // 18 - { return 1; }
-		void UpdateSync(const hkbContext& a_context) override;  // 19
-		void Unk_1B(void) override;                             // 1B - { echoNextUpdate = true; }
 
 		/// Add a state given a state index, generator and name.
 		///

@@ -9,6 +9,7 @@ namespace RE
 {
 	class hkClass;
 	class hkRefVariant;
+	class hkbBindableCollector;
 
 	class hkbVariableBindingSet : public hkReferencedObject
 	{
@@ -84,7 +85,7 @@ namespace RE
 		~hkbBindable() override;  // 00
 
 		// add
-		virtual void Unk_03(void);  // 03
+		virtual void collectBindables(hkbBindableCollector& collector);  // 03
 
 		// members
 		hkRefPtr<hkbVariableBindingSet> variableBindingSet;  // 10

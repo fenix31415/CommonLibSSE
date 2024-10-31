@@ -11,6 +11,7 @@ namespace RE
 	class hkbStateMachine;
 	class hkbVariableValueSet;
 
+	/// Information about a node in a behavior graph.
 	struct hkbNodeInfo
 	{
 		void*    unk00;         //00
@@ -87,21 +88,28 @@ namespace RE
 		};
 		static_assert(sizeof(GlobalTransitionData) == 0x60);
 
+		static const hkClass& staticClass()
+		{
+			return *REL::Relocation<hkClass*>(REL::ID(521003));
+		}
+		
 		~hkbBehaviorGraph() override;  // 00
 
-		// override (hkbGenerator)
+		// override (hkbNode)
 		hkClass* GetClassType() const override;                                                                     // 01
 		void     CalcContentStatistics(hkStatisticsCollector* a_collector, const hkClass* a_class) const override;  // 02
 		void     Activate(const hkbContext& a_context) override;                                                    // 04
 		void     Update(const hkbContext& a_context, float a_timestep) override;                                    // 05
 		void     handleEvent(const hkbContext& ctx, hkbEvent& event) override;                                      // 06
 		void     Deactivate(const hkbContext& a_context) override;                                                  // 07
-		void     Unk_09(void) override;                                                                             // 09
-		void     Unk_0C(void) override;                                                                             // 0C
-		void     Unk_16(void) override;                                                                             // 16 - { return 1; }
-		void     Generate(const hkbContext& a_context) override;                                                    // 17
-		void     Unk_18(void) override;                                                                             // 18 - { return 1; }
-		void     UpdateSync(const hkbContext& a_context) override;                                                  // 19
+		void     getChildren(GET_CHILDREN_FLAGS flags, ChildrenInfo& ans) override;                                 // 09
+		void     cloneNode() override;                                                                              // 0C
+		bool     isGraph() const override;                                                                          // 16 - { return 1; }
+
+		// override (hkbGenerator)
+		void generate(const hkbContext& a_context) const override;              // 17
+		bool canRecycleOutput() const override;                                 // 18 - { return 1; }
+		void updateSync(const hkbContext& a_context, void* nodeInfo) override;  // 19
 
 		hkbNode* getNodeClone(hkbNode* nodeTemplate) const;
 		hkbNode* getNodeTemplate(hkbNode* nodeClone) const;

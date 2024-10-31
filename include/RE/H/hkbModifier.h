@@ -4,13 +4,21 @@
 
 namespace RE
 {
+	class hkClass;
+
 	class hkbModifier : public hkbNode
 	{
 	public:
 		// TODO: add vfuncts
 
+		static const hkClass& staticClass()
+		{
+			return *REL::Relocation<hkClass*>(REL::ID(521711));
+		}
+
 		// members
-		uint64_t field48;  // 48
+		bool enable;    // 48
+		char pad49[7];  // 49
 	};
 	static_assert(sizeof(hkbModifier) == 0x50);
 }

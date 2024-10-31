@@ -59,15 +59,6 @@ namespace RE
 
 		~hkbClipGenerator() override;  // 00
 
-		// override (hkbNode)
-		void Activate(const hkbContext& a_context) override;                  // 04
-		void Update(const hkbContext& a_context, float a_timestep) override;  // 05
-		void Deactivate(const hkbContext& a_context) override;                // 07
-
-		// override (hkbGenerator)
-		void Generate(const hkbContext& a_context) override;    // 17
-		void UpdateSync(const hkbContext& a_context) override;  // 19
-
 		// Add a trigger to the clip.
 		void addTrigger(float atLocalTime, const hkbEventBase& event, bool relativeToEndOfClip = false, bool acyclic = false, bool isAnnotation = false)
 		{

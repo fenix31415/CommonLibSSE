@@ -2,18 +2,20 @@
 
 #include "RE/B/BSAnimationGraphManager.h"
 #include "RE/B/BSTArray.h"
+#include "RE/H/hkbNode.h"
 
 namespace RE
 {
+	class BGSGamebryoSequenceGenerator;
 	class BSSynchronizedClipGenerator;
 	class hkbBehaviorGraph;
-	class hkbBlenderGenerator;
 	class hkbCharacter;
 	class hkbClipGenerator;
 	class hkbContext;
 	class hkbGenerator;
 	class hkbModifier;
 	class hkbNode;
+	class hkbPoseMatchingGenerator;
 	class hkbStateMachine;
 
 	namespace BShkbUtils
@@ -21,26 +23,26 @@ namespace RE
 		struct GraphInspectionConfiguration
 		{
 			// members
-			float    mb_time;         // 00
-			bool     generators;      // 04
-			bool     state_machines;  // 05
-			bool     field6;          // 06
-			bool     field7;          // 07
-			bool     mb_modifiers;    // 08
-			bool     field9;          // 09
-			bool     fieldA;          // 0A
-			bool     fieldB;          // 0B
-			uint32_t fieldC;          // 0C
+			float    time;                            // 00
+			bool     clips;                           // 04 - Clip SynchronizedClip GamebryoSequence
+			bool     state_machines;                  // 05
+			bool     allow_behavior_and_states;       // 06
+			bool     allow_inactive;                  // 07
+			bool     modifiers;                       // 08
+			bool     not_copy_variables;              // 09
+			bool     inactive_manualselector_childs;  // 0A
+			bool     should_echo;                     // 0B - set echo = 1 for hkbBlenderGenerator (before return)
+			uint32_t pad0C;                           // 0C
 		};
 		static_assert(sizeof(GraphInspectionConfiguration) == 0x10);
 
 		struct RecursionParameters
 		{
 			// members
-			float    field_0;    // 00
-			float    pos_scale;  // 04
-			uint16_t field_8;    // 08
-			uint16_t field_A;    // 0A
+			float    weight2;        // 00
+			float    weight1;        // 04
+			uint16_t inactive_mask;  // 08
+			uint16_t field_A;        // 0A
 		};
 		static_assert(sizeof(RecursionParameters) == 0xC);
 
@@ -58,12 +60,12 @@ namespace RE
 		{
 		public:
 			virtual ~GraphInspectionFunctor() {}
-			virtual bool call_blenderGen(const hkbContext&, hkbBlenderGenerator&, RecursionParameters&) { return true; }
+			virtual bool call_posematchingGen(const hkbContext&, hkbPoseMatchingGenerator&, RecursionParameters&) { return true; }
 			virtual bool call_syncGen(const hkbContext&, BSSynchronizedClipGenerator&, RecursionParameters&)
 			{
 				return true;
 			}
-			virtual bool call_someGen(const hkbContext&, hkbGenerator&, RecursionParameters&) { return true; }
+			virtual bool call_someGen(const hkbContext&, BGSGamebryoSequenceGenerator&, RecursionParameters&) { return true; }
 			virtual bool call_modifier(const hkbContext&, hkbModifier&, RecursionParameters&) { return true; }
 			virtual bool call_clipGen(const hkbContext&, float, hkbClipGenerator&, RecursionParameters&)
 			{
@@ -79,10 +81,19 @@ namespace RE
 
 		class GraphTraverser
 		{
-			static GraphTraverser* ctor(GraphTraverser* _this, int flags, hkbNode* root);
+			static GraphTraverser* ctor(GraphTraverser* _this, GET_CHILDREN_FLAGS flags, hkbNode* root);
 
 		public:
-			GraphTraverser(int flags, RE::hkbNode* root) { ctor(this, flags, root); }
+			struct Data
+			{
+				// members
+				Data*    next_in_queue;      // 00 - intrusive pointer
+				Data*    next_in_hashtable;  // 08 - intrusive pointer
+				hkbNode* data;               // 10
+			};
+			static_assert(sizeof(Data) == 0x18);
+
+			GraphTraverser(GET_CHILDREN_FLAGS flags, RE::hkbNode* root) { ctor(this, flags, root); }
 
 			GraphTraverser(const GraphTraverser&) = delete;
 			GraphTraverser& operator=(const GraphTraverser&) = delete;
@@ -92,9 +103,12 @@ namespace RE
 			hkbNode* Next();
 
 			// members
-			char arena[0x40];     // 00
-			char buffer[0x8];     // 40
-			char field_48[0x18];  // 48
+			char               arena[0x40];  // 00 - BSTObjectArena<Data>
+			char               buffer[0x8];  // 40 - AutoScrapBuffer
+			Data*              queue;        // 48
+			Data**             queue_end;    // 50
+			GET_CHILDREN_FLAGS flags;        // 58
+			uint32_t           pad5C;        // 5C
 		};
 		static_assert(sizeof(GraphTraverser) == 0x60);
 
